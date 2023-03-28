@@ -15,3 +15,10 @@
     groups: "{{ item.groups }}"
     append: true
   loop: "{{ users }}"
+
+- name: Configure GNOME dconf
+  become_user: tommy
+  community.general.dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  loop: "{{ dconf_settings }}"

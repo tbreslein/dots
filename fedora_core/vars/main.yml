@@ -10,8 +10,46 @@ dnf_packages:
   - nodejs
   - udisks2
   - thunderbird
+  - gnome-tweaks
+  - gnome-extensions-app
+  - python-psutil
 
 users:
   - name: tommy
     full_name: Tommy Breslein
     groups: tommy,wheel
+
+dconf_settings:
+  - key: "/org/gnome/desktop/input-sources/sources"
+    value: "[('xbk','us'), ('xkb', 'de')]"
+  - key: "/org/gnome/desktop/calendar/show-weekdate"
+    value: "true"
+  - key: "/org/gnome/desktop/interface/clock-show-weekday"
+    value: "true"
+  - key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
+  - key: "/org/gnome/desktop/interface/show-battery-percentage"
+    value: "true"
+  - key: "/org/gnome/desktop/notifications/show-in-lock-screen"
+    value: "false"
+  - key: "/org/gnome/desktop/peripherals/touchpad/click-method"
+    value: "'fingers'"
+  - key: "/org/gnome/desktop/sound/allow-volume-above-100-percent"
+    value: "true"
+  - key: "/org/gnome/desktop/sound/event-sounds"
+    value: "false"
+  - key: "/org/gnome/login-screen/enable-fingerprint-authentication"
+    value: "true"
+  - key: "/org/gnome/login-screen/enable-password-authentication"
+    value: "true"
+  - key: "/org/gnome/login-screen/enable-smartcard-authentication"
+    value: "false"
+  - key: "/org/gnome/settings-daemon/plugins/color/night-light-enabled"
+    value: "true"
+  - key: "/org/gnome/shell/app-switcher/current-workspace-only"
+    value: "false"
+  - key: "/org/gnome/system/location/enabled"
+    value: "false"
+  - key: "/org/gnome/tweaks/show-extensions-notice"
+    value: "false"
+
