@@ -1,0 +1,17 @@
+---
+dnf_packages:
+  - neovim
+  - vim
+  - htop
+  - rsync
+  - zsh
+  - alacritty
+  - g++
+  - nodejs
+  - udisks2
+  - thunderbird
+
+users:
+  - name: tommy
+    full_name: Tommy Breslein
+    groups: tommy,wheel

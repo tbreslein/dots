@@ -1,0 +1,17 @@
+---
+- name: Install dnf packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ dnf_packages }}"
+
+- name: Create users
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    comment: "{{ item.full_name }}"
+    create_home: true
+    shell: /bin/zsh
+    state: present
+    groups: "{{ item.groups }}"
+    append: true
+  loop: "{{ users }}"

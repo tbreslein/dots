@@ -1,0 +1,13 @@
+---
+# packages that I have already installed:
+# - alacritty
+# - vim
+# - neovim
+# - g++
+# - thunderbird
+# - nodejs
+# - udisks2
+
+- hosts: localhost
+  roles:
+    - fedora_core
