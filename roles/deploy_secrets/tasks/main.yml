@@ -1,0 +1,27 @@
+---
+- name: Ensure .ssh dir
+  become_user: tommy
+  ansible.builtin.file:
+    dest: "~/.ssh"
+    mode: 0700
+    owner: tommy
+    state: directory
+  register: sshdir
+      
+- name: Install ssh private key
+  become_user: tommy
+  copy:
+    content: "{{ ssh_private_key }}"
+    dest: "~/.ssh/id_rsa"
+    mode: 0600
+    owner: tommy
+  when: sshdir is changed
+
+- name: Install ssh public key
+  become_user: tommy
+  copy:
+    content: "{{ ssh_pub_key }}"
+    dest: "~/.ssh/id_rsa.pub"
+    mode: 0600
+    owner: tommy
+  when: sshdir is changed
