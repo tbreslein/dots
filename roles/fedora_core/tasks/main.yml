@@ -1,4 +1,19 @@
 ---
+- name: Add additional repositories
+  ansible.builtin.yum_repository:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    baseurl: "{{ item.baseurl }}"
+    enabled: "{{ item.enabled }}"
+    gpgcakey: "{{ item.gpgcakey }}"
+  loop: "{{ yum_repos }}"
+
+- name: Update dnf cache
+  ansible.builtin.dnf:
+    name: vim
+    update_cache: true
+    state: present
+
 - name: Install dnf packages
   ansible.builtin.package:
     name: "{{ item }}"
@@ -21,11 +36,3 @@
   ansible.builtin.shell:
     cmd: "stow -d $HOME/dots/config -t ~/ {{ item }}"
   loop: "{{ common_stows }}"
-
-- name: Audron specific dotfiles
-  become_user: tommy
-  ansible.builtin.shell:
-    cmd: "stow -d $HOME/dots/config -t ~/ {{ item }}"
-  loop: "{{ audron_stows }}"
-  when: this_host == "audron"
-

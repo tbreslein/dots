@@ -1,0 +1,25 @@
+---
+- name: Install fprintd packages
+  ansible.builtin.package:
+    name:
+      - fprintd
+      - fprintd-pam
+    state: present
+
+- name: Setup fprintd service file
+  ansible.builtin.blockinfile:
+    path: /usr/lib/systemd/system/fprintd.service
+    block: |
+      [Install]
+      WantedBy=multi-user.target
+
+- name: Restart fprind.service
+  ansible.builtin.service:
+    name: fprintd
+    enabled: true
+    state: restarted
+
+- name: Inform about next steps
+  ansible.builtin.debug:
+    msg: Run the remaining steps in the Fedora37 Framework guide regarding fprintd if you have not yet!
+

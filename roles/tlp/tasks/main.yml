@@ -1,0 +1,11 @@
+---
+- name: Install tlp
+  ansible.builtin.package:
+    name: tlp
+    state: present
+
+- name: Start and enable tlp service
+  ansible.builtin.service:
+    name: tlp
+    state: started
+    enabled: yes

@@ -17,12 +17,21 @@ dnf_packages:
 
   # gui
   - thunderbird
+  - brave-browser
 
-  # desktop
+  # desktop/system
   - gnome-tweaks
   - gnome-extensions-app
   - sway
   - waybar
+  - dnf-plugins-core
+
+yum_repos:
+  - name: brave-browser
+    description: Brave Browser
+    baseurl: https://brave-browser-rpm-release.s3.brave.com/$basearch
+    enabled: true
+    gpgcakey: https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 
 common_stows:
   - alacritty
@@ -31,9 +40,6 @@ common_stows:
   - sway
   - waybar
   - zsh
-
-audron_stows:
-  - zellij_audron
     
 users:
   - name: tommy
