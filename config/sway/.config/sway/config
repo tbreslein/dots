@@ -23,7 +23,7 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/default.png fill
+output * bg /home/tommy/Downloads/wp4870590.jpg fill
 #
 # Example configuration:
 #
@@ -217,5 +217,7 @@ bindsym $mod+r mode "resize"
 bar {
     swaybar_command waybar
 }
+
+default_border pixel 2
 
 include /etc/sway/config.d/*
