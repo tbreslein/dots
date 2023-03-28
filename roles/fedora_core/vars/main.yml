@@ -23,6 +23,7 @@ dnf_packages:
   - gnome-tweaks
   - gnome-extensions-app
   - sway
+  - wofi
   - waybar
   - dnf-plugins-core
 
