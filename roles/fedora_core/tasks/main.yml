@@ -16,9 +16,16 @@
     append: true
   loop: "{{ users }}"
 
-- name: Configure GNOME dconf
+- name: Stow dotfiles
   become_user: tommy
-  community.general.dconf:
-    key: "{{ item.key }}"
-    value: "{{ item.value }}"
-  loop: "{{ dconf_settings }}"
+  ansible.builtin.shell:
+    cmd: "stow -d $HOME/dots/config -t ~/ {{ item }}"
+  loop: "{{ common_stows }}"
+
+- name: Audron specific dotfiles
+  become_user: tommy
+  ansible.builtin.shell:
+    cmd: "stow -d $HOME/dots/config -t ~/ {{ item }}"
+  loop: "{{ audron_stows }}"
+  when: this_host == "audron"
+

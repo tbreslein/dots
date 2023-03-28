@@ -1,0 +1,41 @@
+---
+dnf_packages:
+  # terminal
+  - alacritty
+  - neovim
+  - vim
+  - htop
+  - rsync
+  - zsh
+  - udisks2
+  - stow
+  - ripgrep
+
+  # coding
+  - g++
+  - nodejs
+
+  # gui
+  - thunderbird
+
+  # desktop
+  - gnome-tweaks
+  - gnome-extensions-app
+  - sway
+  - waybar
+
+common_stows:
+  - alacritty
+  - bash
+  - nvim
+  - sway
+  - waybar
+  - zsh
+
+audron_stows:
+  - zellij_audron
+    
+users:
+  - name: tommy
+    full_name: Tommy Breslein
+    groups: tommy,wheel

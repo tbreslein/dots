@@ -9,5 +9,7 @@
 # - udisks2
 
 - hosts: localhost
+  vars:
+    this_host: "audron"
   roles:
     - fedora_core
