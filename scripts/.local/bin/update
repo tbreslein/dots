@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+sudo dnf update
+npm update -g
+rustup self update
+rustup update
+nvim --headless -c 'autocmd User MasonUpdateAllComplete quitall' -c 'MasonUpdateAll'
+nvim -c 'lua require("lazy").sync()'
