@@ -48,6 +48,11 @@
     cmd: "stow -d $HOME/dots/config -t ~/ {{ item }}"
   loop: "{{ common_stows }}"
 
+- name: Stow scripts
+  become_user: tommy
+  ansible.builtin.shell:
+    cmd: "stow -d $HOME/dots -t ~/ scripts"
+
 - name: Setup .npm_global
   ansible.builtin.file:
     dest: "~/.npm_global"
@@ -64,13 +69,13 @@
 
 - name: Check if cargo is installed
   become_user: tommy
-  shell: command -v cargo
-  register: cargo_exists
+  stat: path=~/.cargo/bin/cargo
+  register: cargo_bin
   ignore_errors: true
 
 - name: Download rustup installer
   become_user: tommy
-  when: cargo_exists is failed
+  when: not cargo_bin.stat.exists
   get_url:
     url: https://sh.rustup.rs
     dest: /tmp/sh.rustup.rs
@@ -79,5 +84,12 @@
 
 - name: Install rust/cargo
   become_user: tommy
-  when: cargo_exists is failed
-  shell: /tmp/sh.rustupr.rs -y
+  when: not cargo_bin.stat.exists
+  shell: /tmp/sh.rustup.rs -y
+
+- name: Install rustup components
+  become_user: tommy
+  when: not cargo_bin.stat.exists
+  shell: |
+    rustup default stable
+    rustup toolchain install nightly
