@@ -183,6 +183,7 @@ require("lazy").setup({
 
     -- languages
     "NoahTheDuke/vim-just",
+    "elkowar/yuck.vim",
     "simrat39/rust-tools.nvim",
     {
         "simrat39/rust-tools.nvim",
