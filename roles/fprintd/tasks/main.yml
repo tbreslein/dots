@@ -22,4 +22,3 @@
 - name: Inform about next steps
   ansible.builtin.debug:
     msg: Run the remaining steps in the Fedora37 Framework guide regarding fprintd if you have not yet!
-

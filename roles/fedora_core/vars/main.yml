@@ -59,7 +59,7 @@ common_stows:
   - sway
   - waybar
   - zsh
-    
+
 users:
   - name: tommy
     full_name: Tommy Breslein

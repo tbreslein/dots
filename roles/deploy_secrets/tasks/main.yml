@@ -7,7 +7,7 @@
     owner: tommy
     state: directory
   register: sshdir
-      
+
 - name: Install ssh private key
   become_user: tommy
   copy:
