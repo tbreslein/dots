@@ -219,6 +219,6 @@ bar {
     swaybar_command waybar
 }
 
-default_border pixel 2
+default_border pixel 1
 
 include /etc/sway/config.d/*
