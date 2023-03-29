@@ -1,27 +1,14 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
 window:
-  # Window padding (changes require restart)
-  #
-  # Blank space added around the window in pixels. This padding is scaled
-  # by DPI and the specified value is always added at both opposing sides.
-  #padding:
-  #  x: 0
-  #  y: 0
-
   # Spread additional padding evenly around the terminal content.
-  #dynamic_padding: false
-
-  # Background opacity
-  #
-  # Window opacity as a floating point number from `0.0` to `1.0`.
-  # The value `0.0` is completely transparent and `1.0` is opaque.
-  opacity: 0.9
+  dynamic_padding: true
+  opacity: 0.92
 
 font:
   normal:
     family: Hack Nerd Font
-  #size: 11.0
+  size: 8.5
 
   # Thin stroke font rendering (macOS only)
   #
@@ -30,7 +17,7 @@ font:
   #use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: true
 
 # TokyoNight Alacritty Colors
 colors:
