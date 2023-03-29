@@ -18,9 +18,9 @@ window:
   # The value `0.0` is completely transparent and `1.0` is opaque.
   opacity: 0.9
 
-#font:
-  #normal:
-    #family: monospace
+font:
+  normal:
+    family: Hack Nerd Font
   #size: 11.0
 
   # Thin stroke font rendering (macOS only)

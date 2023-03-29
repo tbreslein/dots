@@ -1,5 +1,10 @@
 ---
-- name: Add additional repositories
+- name: Install dnf plugins
+  ansible.builtin.dnf:
+    name: dnf-plugins-core
+    state: present
+      
+- name: Add additional yum repositories
   ansible.builtin.yum_repository:
     name: "{{ item.name }}"
     description: "{{ item.description }}"
@@ -7,6 +12,12 @@
     enabled: "{{ item.enabled }}"
     gpgcakey: "{{ item.gpgcakey }}"
   loop: "{{ yum_repos }}"
+
+- name: Add copr repositories
+  community.general.copr:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  loop: "{{ copr_repos }}"
 
 - name: Update dnf cache
   ansible.builtin.dnf:

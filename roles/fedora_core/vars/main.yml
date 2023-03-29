@@ -14,6 +14,7 @@ dnf_packages:
   # coding
   - g++
   - nodejs
+  - lazygit
 
   # gui
   - thunderbird
@@ -25,7 +26,7 @@ dnf_packages:
   - sway
   - wofi
   - waybar
-  - dnf-plugins-core
+  - hack-fonts
 
 yum_repos:
   - name: brave-browser
@@ -33,6 +34,12 @@ yum_repos:
     baseurl: https://brave-browser-rpm-release.s3.brave.com/$basearch
     enabled: true
     gpgcakey: https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+
+copr_repos:
+  - name: zawertun/hack-fonts
+    state: enabled
+  - name: atim/lazygit
+    state: enabled
 
 common_stows:
   - alacritty
