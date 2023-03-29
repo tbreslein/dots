@@ -3,7 +3,7 @@
   ansible.builtin.dnf:
     name: dnf-plugins-core
     state: present
-      
+
 - name: Add additional yum repositories
   ansible.builtin.yum_repository:
     name: "{{ item.name }}"
@@ -53,7 +53,6 @@
     dest: "~/.npm_global"
     owner: tommy
     state: directory
-      #register: sshdir
 
 - name: Install global npm packages
   become_user: tommy
@@ -62,3 +61,23 @@
     global: true
     state: present
   loop: "{{ npm_packages }}"
+
+- name: Check if cargo is installed
+  become_user: tommy
+  shell: command -v cargo
+  register: cargo_exists
+  ignore_errors: true
+
+- name: Download rustup installer
+  become_user: tommy
+  when: cargo_exists is failed
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/sh.rustup.rs
+    mode: 0755
+    force: true
+
+- name: Install rust/cargo
+  become_user: tommy
+  when: cargo_exists is failed
+  shell: /tmp/sh.rustupr.rs -y
