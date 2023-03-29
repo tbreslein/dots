@@ -11,4 +11,6 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+. "$HOME/.cargo/env"
+export PATH=~/.local/bin:$PATH
 export PATH=~/.npm_global/bin:$PATH
