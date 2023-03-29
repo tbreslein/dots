@@ -218,7 +218,14 @@ bindsym $mod+r mode "resize"
 bar {
     swaybar_command waybar
 }
-
 default_border pixel 1
+
+# get portals working
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+ exec_always nm-applet --indicator
+ exec_always megasync
 
 include /etc/sway/config.d/*

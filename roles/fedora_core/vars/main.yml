@@ -19,6 +19,7 @@ dnf_packages:
   - neofetch
   - bat
   - zoxide
+  - grim
 
   # coding
   - g++
@@ -26,16 +27,20 @@ dnf_packages:
   - nodejs
 
   # gui
-  - thunderbird
   - brave-browser
+  - thunderbird
 
   # desktop/system
   - gnome-tweaks
   - gnome-extensions-app
+  - hack-fonts
+  - network-manager-applet
+  - NetworkManager-fortisslvpn
   - sway
   - wofi
   - waybar
-  - hack-fonts
+  - xdg-desktop-portal
+  - xdg-desktop-portal-wlr
 
 npm_packages:
   - prettier
