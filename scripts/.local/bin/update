@@ -1,8 +1,14 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-sudo dnf update
-npm update -g
-rustup self update
-rustup update
-nvim --headless -c 'autocmd User MasonUpdateAllComplete quitall' -c 'MasonUpdateAll'
+. "$HOME/.config/zsh/.zshrc"
+
+for _plug in ${ZAP_INSTALLED_PLUGINS[@]}; do
+    _pull "$ZAP_PLUGIN_DIR/$_plug"
+done
+sudo dnf update && \
+zap clean && \
+npm update -g && \
+rustup self update && \
+rustup update && \
+nvim --headless -c 'autocmd User MasonUpdateAllComplete quitall' -c 'MasonUpdateAll' && \
 nvim -c 'lua require("lazy").sync()'

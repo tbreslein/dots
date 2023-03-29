@@ -1,0 +1,24 @@
+format = """$directory\\[ $git_branch$git_commit$git_state$git_metrics$git_status\\] $nix_shell$line_break$character"""
+right_format = """$time"""
+
+[[battery.display]]
+threshold = 30
+
+[character]
+success_symbol = "[λ](bold yellow) "
+vicmd_symbol = "[V](bold green) "
+
+[directory]
+fish_style_pwd_dir_length = 1
+truncate_to_repo = false
+style = "bold blue"
+
+[git_branch]
+format = "[$branch(:$remote_branch)]($style) "
+
+[nix_shell]
+format = "[$symbol]($style)"
+
+[time]
+disabled = false
+format = "[$time]($style)"

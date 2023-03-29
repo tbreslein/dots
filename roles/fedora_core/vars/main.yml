@@ -18,6 +18,7 @@ dnf_packages:
   - bottom
   - neofetch
   - bat
+  - zoxide
 
   # coding
   - g++
@@ -49,11 +50,13 @@ yum_repos:
 copr_repos:
   - name: zawertun/hack-fonts
     state: enabled
+  - name: atim/bottom
+    state: enabled
   - name: atim/lazygit
     state: enabled
   - name: atim/starship
     state: enabled
-  - name: atim/bottom
+  - name: atim/zoxide
     state: enabled
 
 common_stows:
@@ -61,6 +64,7 @@ common_stows:
   - bash
   - npm
   - nvim
+  - starship
   - sway
   - waybar
   - zsh
