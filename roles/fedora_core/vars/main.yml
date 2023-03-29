@@ -15,6 +15,9 @@ dnf_packages:
   - exa
   - starship
   - lazygit
+  - bottom
+  - neofetch
+  - bat
 
   # coding
   - g++
@@ -49,6 +52,8 @@ copr_repos:
   - name: atim/lazygit
     state: enabled
   - name: atim/starship
+    state: enabled
+  - name: atim/bottom
     state: enabled
 
 common_stows:
