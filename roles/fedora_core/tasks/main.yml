@@ -47,3 +47,18 @@
   ansible.builtin.shell:
     cmd: "stow -d $HOME/dots/config -t ~/ {{ item }}"
   loop: "{{ common_stows }}"
+
+- name: Setup .npm_global
+  ansible.builtin.file:
+    dest: "~/.npm_global"
+    owner: tommy
+    state: directory
+      #register: sshdir
+
+- name: Install global npm packages
+  become_user: tommy
+  community.general.npm:
+    name: "{{ item }}"
+    global: true
+    state: present
+  loop: "{{ npm_packages }}"

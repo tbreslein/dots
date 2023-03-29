@@ -10,11 +10,16 @@ dnf_packages:
   - udisks2
   - stow
   - ripgrep
+  - fzf
+  - fd-find
+  - exa
+  - starship
+  - lazygit
 
   # coding
   - g++
+  - llvm
   - nodejs
-  - lazygit
 
   # gui
   - thunderbird
@@ -28,6 +33,9 @@ dnf_packages:
   - waybar
   - hack-fonts
 
+npm_packages:
+  - prettier
+
 yum_repos:
   - name: brave-browser
     description: Brave Browser
@@ -40,10 +48,13 @@ copr_repos:
     state: enabled
   - name: atim/lazygit
     state: enabled
+  - name: atim/starship
+    state: enabled
 
 common_stows:
   - alacritty
   - bash
+  - npm
   - nvim
   - sway
   - waybar
