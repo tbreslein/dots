@@ -2,11 +2,8 @@
 
 . "$HOME/.config/zsh/.zshrc"
 
-for _plug in ${ZAP_INSTALLED_PLUGINS[@]}; do
-    _pull "$ZAP_PLUGIN_DIR/$_plug"
-done
+zap update
 sudo dnf update && \
-zap clean && \
 npm update -g && \
 rustup self update && \
 rustup update && \

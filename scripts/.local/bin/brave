@@ -1,0 +1,2 @@
+#!/usr/bin/sh
+brave-browser --ozone-platform-hint=auto

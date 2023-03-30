@@ -45,6 +45,13 @@ dnf_packages:
 npm_packages:
   - prettier
 
+flatpak_packages:
+  - us.zoom.Zoom
+
+flatpak_repos:
+  - name: flathub
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
 yum_repos:
   - name: brave-browser
     description: Brave Browser
