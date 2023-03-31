@@ -225,7 +225,8 @@ exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec hash dbus-update-activation-environment 2>/dev/null && \
      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
- exec_always nm-applet --indicator
- exec_always megasync
+exec_always nm-applet --indicator
+exec dunst &
+exec_always sleep 30 && megasync &
 
 include /etc/sway/config.d/*
