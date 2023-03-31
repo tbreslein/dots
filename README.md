@@ -15,8 +15,6 @@ sudo ansible-playbook "$(cat /etc/hostname).yml"
 
 ## TODO
 
-- wlsunset
-- kanshi
 - playerctl & volume control keybinds
 - screenlock
 - my repos

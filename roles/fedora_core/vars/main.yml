@@ -43,11 +43,13 @@ dnf_packages:
   - gnome-tweaks
   - gnome-extensions-app
   - hack-fonts
+  - kanshi
   - network-manager-applet
   - NetworkManager-fortisslvpn
   - swappy
   - waybar
   - wdisplays
+  - wlsunset
   - wofi
   - xdg-desktop-portal
   - xdg-desktop-portal-wlr

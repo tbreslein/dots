@@ -1,0 +1,8 @@
+profile solo {
+    output eDP-1 mode 2256x1504 position 0,0
+}
+
+profile work {
+    output eDP-1 mode 2256x1504@59.999 position 0,160 scale 2.0
+    output "Dell Inc. DELL U2711 G606T18503LL" mode 1920x1080@60.000 position 1128,0 scale 1.0
+}
