@@ -40,7 +40,7 @@ require("lazy").setup({
         "folke/tokyonight.nvim",
         config = function()
             require("tokyonight").setup({
-                style = "moon",
+                style = "storm",
                 transparent = true,
             })
             vim.o.termguicolors = true
