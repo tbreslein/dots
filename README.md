@@ -15,7 +15,6 @@ sudo ansible-playbook "$(cat /etc/hostname).yml"
 
 ## TODO
 
-- config dunst
 - wlsunset
 - kanshi
 - screenshots
