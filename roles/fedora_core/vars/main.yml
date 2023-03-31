@@ -19,7 +19,6 @@ dnf_packages:
   - neofetch
   - bat
   - zoxide
-  - grim
 
   # coding
   - g++
@@ -40,13 +39,13 @@ dnf_packages:
 
   # desktop/system
   - dunst
-  - gnome-tweaks
-  - gnome-extensions-app
   - hack-fonts
   - kanshi
   - network-manager-applet
   - NetworkManager-fortisslvpn
   - swaylock
+  - grim
+  - slurp
   - swappy
   - waybar
   - wdisplays
@@ -86,8 +85,6 @@ copr_repos:
   - name: atim/zoxide
     state: enabled
   - name: kasion/Hyprland-git
-    state: enabled
-  - name: eddsalkield/swaylock-effects
     state: enabled
 
 common_stows:
