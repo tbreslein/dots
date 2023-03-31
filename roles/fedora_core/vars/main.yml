@@ -45,13 +45,14 @@ dnf_packages:
   - hack-fonts
   - network-manager-applet
   - NetworkManager-fortisslvpn
-  - sway
-  - hyprland
+  - swappy
   - waybar
   - wdisplays
   - wofi
   - xdg-desktop-portal
   - xdg-desktop-portal-wlr
+  - sway
+  - hyprland
 
 npm_packages:
   - prettier
@@ -93,6 +94,7 @@ common_stows:
   - nvim
   - starship
   - sway
+  - swappy
   - waybar
   - zsh
 
