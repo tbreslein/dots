@@ -46,7 +46,7 @@ dnf_packages:
   - kanshi
   - network-manager-applet
   - NetworkManager-fortisslvpn
-  - swaylock-effects
+  - swaylock
   - swappy
   - waybar
   - wdisplays
