@@ -23,8 +23,16 @@ dnf_packages:
 
   # coding
   - g++
+  - cmake
   - llvm
   - nodejs
+
+  # deps
+  - libgit2-devel
+  - libcurl-devel
+  - libssh2-devel
+  - openssl-devel
+  - pkg-config
 
   # gui
   - brave-browser
@@ -39,8 +47,9 @@ dnf_packages:
   - NetworkManager-fortisslvpn
   - sway
   - hyprland
-  - wofi
   - waybar
+  - wdisplays
+  - wofi
   - xdg-desktop-portal
   - xdg-desktop-portal-wlr
 
@@ -78,6 +87,7 @@ copr_repos:
 common_stows:
   - alacritty
   - bash
+  - hypr
   - npm
   - nvim
   - starship
