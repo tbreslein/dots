@@ -38,6 +38,7 @@ dnf_packages:
   - network-manager-applet
   - NetworkManager-fortisslvpn
   - sway
+  - hyprland
   - wofi
   - waybar
   - xdg-desktop-portal
@@ -70,6 +71,8 @@ copr_repos:
   - name: atim/starship
     state: enabled
   - name: atim/zoxide
+    state: enabled
+  - name: kasion/Hyprland-git
     state: enabled
 
 common_stows:
