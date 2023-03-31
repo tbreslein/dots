@@ -1,7 +1,6 @@
 ---
 - hosts: localhost
   roles:
-    - deploy_secrets
     - fedora_core
     - fedora_audron
     - fprintd
