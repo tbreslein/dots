@@ -16,7 +16,7 @@ sudo ansible-playbook "$(cat /etc/hostname).yml"
 ## TODO
 
 - playerctl & volume control keybinds
-- screenlock
+- screenlock: TEST IT!
 - my repos
 - LSPs, linters, etc.
 - sway keybinds
