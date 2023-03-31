@@ -46,6 +46,7 @@ dnf_packages:
   - kanshi
   - network-manager-applet
   - NetworkManager-fortisslvpn
+  - swaylock-effects
   - swappy
   - waybar
   - wdisplays
@@ -85,6 +86,8 @@ copr_repos:
   - name: atim/zoxide
     state: enabled
   - name: kasion/Hyprland-git
+    state: enabled
+  - name: eddsalkield/swaylock-effects
     state: enabled
 
 common_stows:

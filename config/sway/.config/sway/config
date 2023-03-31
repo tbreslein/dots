@@ -22,6 +22,7 @@ set $term alacritty
 set $menu wofi -G -S run,drun
 
 set $screenshot grim -g "$(slurp)" - | swappy -f -
+set $screenlock swaylock --screenshots --grace 5 --fade-in 1 --effect-blur 5x2
 
 ### Output configuration
 #
@@ -164,6 +165,8 @@ output * bg /home/tommy/Downloads/wp4870590.jpg fill
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
+
+    bindsym $mod+Control+l exec $screenlock
 #
 # Scratchpad:
 #
@@ -228,6 +231,12 @@ default_border pixel 1
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec hash dbus-update-activation-environment 2>/dev/null && \
      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+exec swayidle -w \
+    timeout 300 '$screenlock' \
+    timeout 600 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep '$screenlock'
 
 exec_always kanshi
 exec_always nm-applet --indicator
