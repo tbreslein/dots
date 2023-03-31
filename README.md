@@ -12,3 +12,17 @@ sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfre
 sudo dnf install megasync
 sudo ansible-playbook "$(cat /etc/hostname).yml"
 ```
+
+## TODO
+
+- config dunst
+- wlsunset
+- kanshi
+- screenshots
+- playerctl & volume control keybinds
+- screenlock
+- my repos
+- LSPs, linters, etc.
+- sway keybinds
+- fprintd
+- eww
