@@ -87,6 +87,7 @@ copr_repos:
 common_stows:
   - alacritty
   - bash
+  - dunst
   - hypr
   - npm
   - nvim
