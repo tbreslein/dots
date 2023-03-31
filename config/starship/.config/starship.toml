@@ -5,8 +5,8 @@ right_format = """$time"""
 threshold = 30
 
 [character]
-success_symbol = "[λ](bold yellow) "
-vicmd_symbol = "[V](bold green) "
+success_symbol = "[λ](bold yellow)"
+vicmd_symbol = "[V](bold green)"
 
 [directory]
 fish_style_pwd_dir_length = 1
