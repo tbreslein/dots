@@ -17,7 +17,7 @@
   ansible.builtin.service:
     name: fprintd
     enabled: true
-    state: restarted
+    state: started
 
 - name: Inform about next steps
   ansible.builtin.debug:
