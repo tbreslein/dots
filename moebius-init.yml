@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  roles:
+    - deploy_secrets
+
+- import_playbook: moebius.yml
