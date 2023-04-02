@@ -36,6 +36,7 @@ dnf_packages:
   # gui
   - brave-browser
   - thunderbird
+  - vlc
 
   # desktop/system
   - dunst
