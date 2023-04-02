@@ -26,7 +26,7 @@ set $screenshot grim -g "$(slurp)" - | swappy -f -
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /home/tommy/Downloads/wp4870590.jpg fill
+# output * bg /home/tommy/Downloads/wp4870590.jpg fill
 #
 # Example configuration:
 #
