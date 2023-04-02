@@ -1,4 +1,16 @@
 ---
+- name: Configure dnf
+  ansible.builtin.blockinfile:
+    path: /etc/dnf/dnf.conf
+    block: |
+      fastestmirror=True
+      max_parallel_downloads=10
+
+- name: Enable fstrim.service
+  ansible.builtin.service:
+    name: fstrim.service
+    state: started
+
 - name: Install dnf plugins
   ansible.builtin.dnf:
     name: dnf-plugins-core
