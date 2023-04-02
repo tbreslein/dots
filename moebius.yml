@@ -3,5 +3,3 @@
   roles:
     - fedora_core
     - fedora_moebius
-    - fprintd
-    - tlp
