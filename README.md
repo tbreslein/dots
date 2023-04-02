@@ -6,6 +6,7 @@ To deploy:
 
 - make sure these options are set to the btrfs partitions in fstab:
   - ssd,noatime,discard=async,compress=zstd:1
+  - reload daemon files with: `sudo systemctl daemon-reload`
 - clone this repo
 - activate RPM Fusion, and install something from those repos so that the RPM fusion gpg keys can be accepted (in this example: megasync).
   Then install `ansible`, and run the playbook.
