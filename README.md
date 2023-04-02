@@ -24,7 +24,7 @@ sudo ansible-playbook "$(cat /etc/hostname).yml"
 - playerctl & volume control keybinds
 - my repos
 - LSPs, linters, etc.
-- sway keybinds
+- hyprland config
 - fprintd
 - eww
 - DVORAK
