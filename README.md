@@ -17,7 +17,7 @@ sudo dnf update
 sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf install megasync
-sudo ansible-playbook "$(cat /etc/hostname).yml"
+sudo ansible-playbook "$(cat /etc/hostname)-init.yml --ask-vault-pass"
 ```
 
 ## TODO
