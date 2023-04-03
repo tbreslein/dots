@@ -75,7 +75,6 @@ dnf_packages:
   - pkg-config
 
   # gui
-  - brave-browser
   - thunderbird
   - vlc
 
