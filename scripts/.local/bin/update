@@ -2,6 +2,10 @@
 
 . "$HOME/.config/zsh/.zshrc"
 
+pushd "$HOME/dots"
+git pull || exit 1
+popd
+
 zap update
 sudo dnf update && \
 npm update -g && \
