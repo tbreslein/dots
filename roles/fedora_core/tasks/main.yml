@@ -159,3 +159,48 @@
   shell: |
     rustup default stable
     rustup toolchain install nightly
+
+- name: Ensure caps2esc git repo
+  become_user: tommy
+  ansible.builtin.git:
+    repo: https://gitlab.com/interception/linux/plugins/caps2esc.git
+    dest: /home/tommy/Downloads/caps2esc
+
+- name: Build caps2esc
+  ansible.builtin.shell: |
+    cmake -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build
+    make install -C build
+  args:
+    chdir: /home/tommy/Downloads/caps2esc
+
+- name: Add caps2esc udevmon job
+  ansible.builtin.copy:
+    content: |
+      - JOB: intercept -g $DEVNODE | caps2esc | uinput -d $DEVNODE
+        DEVICE:
+          EVENTS:
+            EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
+    dest: /etc/caps2esc.yaml
+  register: caps2esc_udevmon
+
+- name: Add caps2esc.service
+  ansible.builtin.copy:
+    content: |
+      [Unit]
+      Description=caps2esc
+
+      [Service]
+      ExecStart=/usr/bin/nice -n -20 /usr/bin/udevmon -c /etc/caps2esc.yaml
+
+      [Install]
+      WantedBy=multi-user.target
+    dest: /etc/systemd/system/caps2esc.service
+  register: caps2esc_service
+
+- name: Restart udevmon for caps2esc
+  ansible.builtin.systemd:
+    name: udevmon
+    state: restarted
+    daemon_reload: true
+  when: caps2esc_udevmon.changed or caps2esc_service.changed

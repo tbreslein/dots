@@ -82,6 +82,7 @@ dnf_packages:
   - dunst
   - hack-fonts
   - kanshi
+  - interception-tools
   - light
   - network-manager-applet
   - NetworkManager-fortisslvpn
@@ -125,6 +126,8 @@ copr_repos:
   - name: atim/starship
     state: enabled
   - name: atim/zoxide
+    state: enabled
+  - name: fszymanski/interception-tools
     state: enabled
   - name: kasion/Hyprland-git
     state: enabled
