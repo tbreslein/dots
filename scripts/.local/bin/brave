@@ -1,2 +1,2 @@
 #!/usr/bin/sh
-brave-browser --ozone-platform-hint=auto
+brave-browser --enable-features=UseOzonePlatform --ozone-platform-hint=wayland
