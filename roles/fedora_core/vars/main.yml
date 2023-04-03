@@ -1,4 +1,45 @@
 ---
+git_repos:
+  - repo: git@github.com:tbreslein/dots.git
+    dest: /home/tommy/dots
+    user_name: tbreslein
+    user_email: tommy_breslein@protonmail.com
+
+  - repo: git@github.com:tbreslein/corries.git
+    dest: /home/tommy/coding/corries
+    user_name: tbreslein
+    user_email: tommy_breslein@protonmail.com
+
+  - repo: git@github.com:tbreslein/capturedlambda.git
+    dest: /home/tommy/coding/capturedlambda
+    user_name: tbreslein
+    user_email: tommy_breslein@protonmail.com
+
+  - repo: git@github.com:tbreslein/rp-dvorak.git
+    dest: /home/tommy/coding/rp-dvorak
+    user_name: tbreslein
+    user_email: tommy_breslein@protonmail.com
+
+  - repo: git@github.com:tbreslein/Adv360-Pro-ZMK.git
+    dest: /home/tommy/coding/Adv360-Pro-ZMK
+    user_name: tbreslein
+    user_email: tommy_breslein@protonmail.com
+
+  - repo: git@gitlab.physik.uni-kiel.de:breslein/hedispp.git
+    dest: /home/tommy/coding/hedispp
+    user_name: "T. Breslein"
+    user_email: tbreslein@astrophysik.uni-kiel.de
+
+  - repo: git@gitlab.physik.uni-kiel.de:ag_duschl/fosite.git
+    dest: /home/tommy/coding/fosite
+    user_name: "T. Breslein"
+    user_email: tbreslein@astrophysik.uni-kiel.de
+
+  - repo: git@cau-git.rz.uni-kiel.de:astrophysik/ag-duschl/hedis_c.git
+    dest: /home/tommy/coding/hedis_c
+    user_name: "Tommy Breslein"
+    user_email: tbreslein@astrophysik.uni-kiel.de
+
 dnf_packages:
   # terminal
   - alacritty
