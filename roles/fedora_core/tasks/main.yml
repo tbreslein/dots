@@ -30,131 +30,132 @@
     name: core.editor
     value: nvim
     scope: global
-# - name: Configure dnf
-#   ansible.builtin.blockinfile:
-#     path: /etc/dnf/dnf.conf
-#     block: |
-#       fastestmirror=True
-#       max_parallel_downloads=10
-#
-# - name: Enable fstrim.service
-#   ansible.builtin.service:
-#     name: fstrim.service
-#     state: started
-#
-# - name: Install dnf plugins
-#   ansible.builtin.dnf:
-#     name: dnf-plugins-core
-#     state: present
-#
-# - name: Add additional yum repositories
-#   ansible.builtin.yum_repository:
-#     name: "{{ item.name }}"
-#     description: "{{ item.description }}"
-#     baseurl: "{{ item.baseurl }}"
-#     enabled: "{{ item.enabled }}"
-#     gpgcakey: "{{ item.gpgcakey }}"
-#   loop: "{{ yum_repos }}"
-#
-# - name: Add copr repositories
-#   community.general.copr:
-#     name: "{{ item.name }}"
-#     state: "{{ item.state }}"
-#   loop: "{{ copr_repos }}"
-#
-# - name: Add RPM Fusion nonfree
-#   ansible.builtin.dnf:
-#     name: "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_distribution_major_version}}.noarch.rpm"
-#     state: present
-#
-# - name: Add Flatpak repos
-#   become_user: tommy
-#   community.general.flatpak_remote:
-#     name: "{{ item.name }}"
-#     state: present
-#     flatpakrepo_url: "{{ item.flatpakrepo_url }}"
-#     method: user
-#   loop: "{{ flatpak_repos }}"
-#
-# - name: Update dnf cache
-#   ansible.builtin.dnf:
-#     name: vim
-#     update_cache: true
-#     state: present
-#
-# - name: Install dnf packages
-#   ansible.builtin.package:
-#     name: "{{ item }}"
-#     state: present
-#   loop: "{{ dnf_packages }}"
-#
-# - name: Install Flatpak packages
-#   become_user: tommy
-#   community.general.flatpak:
-#     name: "{{ item }}"
-#     state: present
-#     method: user
-#   loop: "{{ flatpak_packages }}"
-#
-# - name: Create users
-#   ansible.builtin.user:
-#     name: "{{ item.name }}"
-#     comment: "{{ item.full_name }}"
-#     create_home: true
-#     shell: /bin/zsh
-#     state: present
-#     groups: "{{ item.groups }}"
-#     append: true
-#   loop: "{{ users }}"
-#
-# - name: Stow dotfiles
-#   become_user: tommy
-#   ansible.builtin.shell:
-#     cmd: "stow -d $HOME/dots/config -t ~/ {{ item }}"
-#   loop: "{{ common_stows }}"
-#
-# - name: Stow scripts
-#   become_user: tommy
-#   ansible.builtin.shell:
-#     cmd: "stow -d $HOME/dots -t ~/ scripts"
-#
-# - name: Setup .npm_global
-#   ansible.builtin.file:
-#     dest: "~/.npm_global"
-#     owner: tommy
-#     state: directory
-#
-# - name: Install global npm packages
-#   become_user: tommy
-#   community.general.npm:
-#     name: "{{ item }}"
-#     global: true
-#     state: present
-#   loop: "{{ npm_packages }}"
-#
-# - name: Check if cargo is installed
-#   become_user: tommy
-#   stat: path=~/.cargo/bin/cargo
-#   register: cargo_bin
-#   ignore_errors: true
-#
-# - name: Download rustup installer
-#   become_user: tommy
-#   when: not cargo_bin.stat.exists
-#   get_url:
-#     url: https://sh.rustup.rs
-#     dest: /tmp/sh.rustup.rs
-#     mode: 0755
-#     force: true
-#
-# - name: Install rust/cargo
-#   become_user: tommy
-#   when: not cargo_bin.stat.exists
-#   shell: /tmp/sh.rustup.rs -y
-#
-# - name: Install rustup components
-#   become_user: tommy
-#   when: not cargo_bin.stat.exists
-#   shell: |
-#     rustup default stable
-#     rustup toolchain install nightly
+
+- name: Configure dnf
+  ansible.builtin.blockinfile:
+    path: /etc/dnf/dnf.conf
+    block: |
+      fastestmirror=True
+      max_parallel_downloads=10
+
+- name: Enable fstrim.service
+  ansible.builtin.service:
+    name: fstrim.service
+    state: started
+
+- name: Install dnf plugins
+  ansible.builtin.dnf:
+    name: dnf-plugins-core
+    state: present
+
+- name: Add additional yum repositories
+  ansible.builtin.yum_repository:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    baseurl: "{{ item.baseurl }}"
+    enabled: "{{ item.enabled }}"
+    gpgcakey: "{{ item.gpgcakey }}"
+  loop: "{{ yum_repos }}"
+
+- name: Add copr repositories
+  community.general.copr:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  loop: "{{ copr_repos }}"
+
+- name: Add RPM Fusion nonfree
+  ansible.builtin.dnf:
+    name: "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_distribution_major_version}}.noarch.rpm"
+    state: present
+
+- name: Add Flatpak repos
+  become_user: tommy
+  community.general.flatpak_remote:
+    name: "{{ item.name }}"
+    state: present
+    flatpakrepo_url: "{{ item.flatpakrepo_url }}"
+    method: user
+  loop: "{{ flatpak_repos }}"
+
+- name: Update dnf cache
+  ansible.builtin.dnf:
+    name: vim
+    update_cache: true
+    state: present
+
+- name: Install dnf packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ dnf_packages }}"
+
+- name: Install Flatpak packages
+  become_user: tommy
+  community.general.flatpak:
+    name: "{{ item }}"
+    state: present
+    method: user
+  loop: "{{ flatpak_packages }}"
+
+- name: Create users
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    comment: "{{ item.full_name }}"
+    create_home: true
+    shell: /bin/zsh
+    state: present
+    groups: "{{ item.groups }}"
+    append: true
+  loop: "{{ users }}"
+
+- name: Stow dotfiles
+  become_user: tommy
+  ansible.builtin.shell:
+    cmd: "stow -d $HOME/dots/config -t ~/ {{ item }}"
+  loop: "{{ common_stows }}"
+
+- name: Stow scripts
+  become_user: tommy
+  ansible.builtin.shell:
+    cmd: "stow -d $HOME/dots -t ~/ scripts"
+
+- name: Setup .npm_global
+  ansible.builtin.file:
+    dest: "~/.npm_global"
+    owner: tommy
+    state: directory
+
+- name: Install global npm packages
+  become_user: tommy
+  community.general.npm:
+    name: "{{ item }}"
+    global: true
+    state: present
+  loop: "{{ npm_packages }}"
+
+- name: Check if cargo is installed
+  become_user: tommy
+  stat: path=~/.cargo/bin/cargo
+  register: cargo_bin
+  ignore_errors: true
+
+- name: Download rustup installer
+  become_user: tommy
+  when: not cargo_bin.stat.exists
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/sh.rustup.rs
+    mode: 0755
+    force: true
+
+- name: Install rust/cargo
+  become_user: tommy
+  when: not cargo_bin.stat.exists
+  shell: /tmp/sh.rustup.rs -y
+
+- name: Install rustup components
+  become_user: tommy
+  when: not cargo_bin.stat.exists
+  shell: |
+    rustup default stable
+    rustup toolchain install nightly
