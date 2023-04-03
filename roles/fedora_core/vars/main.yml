@@ -15,11 +15,6 @@ git_repos:
     user_name: tbreslein
     user_email: tommy_breslein@protonmail.com
 
-  - repo: git@github.com:tbreslein/rp-dvorak.git
-    dest: /home/tommy/coding/rp-dvorak
-    user_name: tbreslein
-    user_email: tommy_breslein@protonmail.com
-
   - repo: git@github.com:tbreslein/Adv360-Pro-ZMK.git
     dest: /home/tommy/coding/Adv360-Pro-ZMK
     user_name: tbreslein
