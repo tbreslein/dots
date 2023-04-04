@@ -1,0 +1,36 @@
+---
+arch_packages:
+  # desktop
+  - dunst
+  - kanshi
+  - light
+  - playerctl
+  - swaylock
+  - wdisplays
+  - wl-clipboard
+  - wlr-randr
+  - wlsunset
+  - wofi
+  - xdg-desktop-portal
+  - xdg-desktop-portal-wlr
+
+  # screenshots
+  - grim
+  - slurp
+  - swappy
+
+  # gui
+  - discord
+  - telegram-desktop
+  - thunderbird
+  - vlc
+
+aur_packages:
+  - brave-bin
+  - eww-wayland
+  - hyprland
+  - hyprpaper-git
+  - megasync-bin
+  - waybar-hyprland-git
+  - xdg-desktop-portal-hyprland-git
+  - zoom

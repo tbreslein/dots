@@ -1,5 +1,7 @@
 # dots
 
+## Fedora
+
 My dotfiles using ansible and stow, where the ansible bits are used by my Fedora workstations, `audron` and `moebius`.
 
 To deploy:
@@ -26,11 +28,35 @@ rustup default stable
 rustup toolchain install nightly
 ```
 
+## Arch
+
+### Base install
+
+### First boot
+
+```bash
+useradd -m -G wheel aur_builder
+passwd aur_builder
+vim /etc/sudoers.d/11-install-aur_builder
+# insert: aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman
+
+su aur_builder
+sudo pacman -S --needed base-devel
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepgk -si
+exit
+
+sudo pacman -S --needed ansible
+ansible-galaxy collection install -r requirements.yml
+
+sudo ansible-playbook "$(cat /etc/hostname)"-init.yml --ask-vault-pass
+```
+
 ## TODO
 
-- playerctl & volume control keybinds
+- hyprland config:
+  - binds for playerctl, light, and wpctl
 - LSPs, linters, etc.
-- hyprland config
 - fprintd
 - eww
-- DVORAK

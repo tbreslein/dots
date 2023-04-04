@@ -1,0 +1,16 @@
+---
+arch_packages:
+  - gcc
+  - clang
+  - cmake
+  - ninja
+  - gcc-fortran
+  - rustup
+  - nodejs
+  - vim
+
+aur_packages:
+  - neovim-nightly
+
+npm_packages:
+  - prettier

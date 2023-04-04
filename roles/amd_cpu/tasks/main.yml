@@ -1,0 +1,6 @@
+---
+- name: Install Arch repo packages
+  ansible.builtin.pacman:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ arch_packages }}"

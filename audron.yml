@@ -1,7 +1,10 @@
 ---
 - hosts: localhost
   roles:
-    - fedora_core
-    - fedora_audron
-    - fprintd
+    - stow_audron
+    - intel_cpu
     - tlp
+    - fprintd
+    - caps2esc
+
+- import_playbook: common.yml

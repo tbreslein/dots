@@ -1,0 +1,14 @@
+---
+arch_packages:
+  - stow
+
+common_stows:
+  - alacritty
+  - dunst
+  - hypr
+  - npm
+  - nvim
+  - starship
+  - swappy
+  - waybar
+  - zsh

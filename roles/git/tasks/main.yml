@@ -1,0 +1,33 @@
+---
+- name: Ensure git repos
+  become_user: tommy
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+  loop: "{{ git_repos }}"
+
+- name: Configure git repos | email
+  become_user: tommy
+  community.general.git_config:
+    repo: "{{ item.dest }}"
+    name: user.name
+    value: "{{ item.user_name }}"
+    scope: local
+  loop: "{{ git_repos }}"
+
+- name: Configure git repos | email
+  become_user: tommy
+  community.general.git_config:
+    repo: "{{ item.dest }}"
+    name: user.email
+    value: "{{ item.user_email }}"
+    scope: local
+  loop: "{{ git_repos }}"
+
+- name: Configure global git
+  become_user: tommy
+  community.general.git_config:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
+  loop: "{{ git_global_config }}"

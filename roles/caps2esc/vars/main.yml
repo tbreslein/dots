@@ -1,0 +1,4 @@
+---
+arch_packages:
+  - interception-tools
+  - interception-caps2esc

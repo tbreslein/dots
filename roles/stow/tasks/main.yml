@@ -1,0 +1,29 @@
+---
+- name: Enable fstrim.service
+  ansible.builtin.service:
+    name: fstrim.service
+    state: started
+
+- name: Stow dotfiles
+  become_user: tommy
+  ansible.builtin.shell:
+    cmd: "stow -d $HOME/dots/config -t ~/ {{ item }}"
+  loop: "{{ common_stows }}"
+
+- name: Stow scripts
+  become_user: tommy
+  ansible.builtin.shell:
+    cmd: "stow -d $HOME/dots -t ~/ scripts"
+
+- name: Install Arch repo packages
+  ansible.builtin.pacman:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ arch_packages }}"
+
+- name: Install AUR packages
+  become: true
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+  loop: "{{ aur_packages }}"

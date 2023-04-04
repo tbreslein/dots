@@ -1,0 +1,6 @@
+---
+- name: Audron specific dotfiles
+  become_user: tommy
+  ansible.builtin.shell:
+    cmd: "stow -d $HOME/dots/config -t ~/ {{ item }}"
+  loop: "{{ audron_stows }}"

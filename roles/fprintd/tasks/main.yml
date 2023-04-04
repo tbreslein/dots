@@ -3,7 +3,6 @@
   ansible.builtin.package:
     name:
       - fprintd
-      - fprintd-pam
     state: present
 
 - name: Setup fprintd service file
@@ -12,12 +11,14 @@
     block: |
       [Install]
       WantedBy=multi-user.target
+  register: fprintd_service_file
 
 - name: Restart fprind.service
   ansible.builtin.service:
     name: fprintd
     enabled: true
     state: started
+  when: fprintd_service_file is changed
 
 - name: Inform about next steps
   ansible.builtin.debug:
