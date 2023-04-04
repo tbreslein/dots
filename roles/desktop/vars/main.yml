@@ -12,7 +12,7 @@ arch_packages:
   - wlsunset
   - wofi
   - xdg-desktop-portal
-  - xdg-desktop-portal-wlr
+  # - xdg-desktop-portal-wlr
   - xorg-xwayland
 
   # screenshots
