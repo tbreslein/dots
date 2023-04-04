@@ -13,6 +13,7 @@ arch_packages:
   - wofi
   - xdg-desktop-portal
   - xdg-desktop-portal-wlr
+  - xorg-xwayland
 
   # screenshots
   - grim
@@ -26,11 +27,13 @@ arch_packages:
   - vlc
 
 aur_packages:
+  # - sddm-git
+  # - archlinux-themes-sddm
   - brave-bin
+  - megasync-bin
+  - zoom
   - eww-wayland
   - hyprland
   - hyprpaper-git
-  - megasync-bin
   - waybar-hyprland-git
   - xdg-desktop-portal-hyprland-git
-  - zoom
