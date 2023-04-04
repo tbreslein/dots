@@ -204,3 +204,8 @@
     state: restarted
     daemon_reload: true
   when: caps2esc_udevmon.changed or caps2esc_service.changed
+
+- name: Copy RP-Dvorak to X11 symbols
+  ansible.builtin.copy:
+    src: /home/tommy/coding/rp-dvorak/
+    dest: /usr/share/X11/xkb/symbols/real-prog-dvorak
