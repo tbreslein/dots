@@ -13,6 +13,7 @@ arch_packages:
   - ripgrep
   - rsync
   - stow
+  - tectonic
   - udisks2
   - vim
   - zoxide

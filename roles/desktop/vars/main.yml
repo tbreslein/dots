@@ -1,6 +1,8 @@
 ---
 arch_packages:
   # desktop
+  - hyprland
+  - hyprpaper
   - dunst
   - kanshi
   - light
@@ -36,6 +38,11 @@ arch_packages:
   - telegram-desktop
   - thunderbird
   - vlc
+  - zathura
+  - zathura-cb
+  - zathura-djvu
+  - zathura-mupdf
+  - zathura-ps
 
 aur_packages:
   # - sddm-git
@@ -44,8 +51,6 @@ aur_packages:
   - megasync-bin
   - zoom
   - eww-wayland
-  - hyprland
-  - hyprpaper-git
   - swaylock-effects
   - waybar-hyprland-git
   - xdg-desktop-portal-hyprland-git
