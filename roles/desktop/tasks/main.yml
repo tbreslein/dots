@@ -11,3 +11,15 @@
   kewlfft.aur.aur:
     name: "{{ item }}"
   loop: "{{ aur_packages }}"
+
+- name: Write electron-flags.conf
+  become_user: tommy
+  ansible.builtin.copy:
+    content: "{{ electron-flags }}"
+    dest: /home/tommy/.config/electron-flags.conf
+
+- name: Write electron13-flags.conf
+  become_user: tommy
+  ansible.builtin.copy:
+    content: "{{ electron13-flags }}"
+    dest: /home/tommy/.config/electron13-flags.conf

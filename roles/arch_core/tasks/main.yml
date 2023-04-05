@@ -10,10 +10,14 @@
     cmd: "stow -d $HOME/dots/config -t ~/ {{ item }}"
   loop: "{{ common_stows }}"
 
-- name: Stow scripts
-  become_user: tommy
-  ansible.builtin.shell:
-    cmd: "stow -d $HOME/dots -t ~/ scripts"
+- name: Link scripts
+  ansible.builtin.file:
+    src: "/home/tommy/dots/scripts/{{ item }}"
+    dest: "/home/tommy/.local/bin/{{ item }}"
+    state: link
+    owner: tommy
+    state: link
+  loop: "{{ scripts }}"
 
 - name: Install Arch repo packages
   ansible.builtin.pacman:

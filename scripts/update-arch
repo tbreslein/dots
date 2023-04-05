@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+. "$HOME/.config/zsh/.zshrc"
+
+pushd "$HOME/dots"
+git pull || exit 1
+popd
+
+zap update
+{ sudo -i -u aur_builder paru } && \
+npm update -g && \
+rustup update && \
+nvim --headless -c 'autocmd User MasonUpdateAllComplete quitall' -c 'MasonUpdateAll' && \
+nvim -c 'lua require("lazy").sync()'

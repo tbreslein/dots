@@ -5,6 +5,8 @@ arch_packages:
   - kanshi
   - light
   - playerctl
+  - polkit-kde-agent
+  - swayidle
   - swaylock
   - wdisplays
   - wl-clipboard
@@ -15,6 +17,14 @@ arch_packages:
   # - xdg-desktop-portal-wlr
   - xorg-xwayland
 
+  # appearance
+  - qt5ct
+  - qt6ct
+  - qt5-wayland
+  - qt6-wayland
+  - lxappearance
+  - nwg-look
+
   # screenshots
   - grim
   - slurp
@@ -22,6 +32,7 @@ arch_packages:
 
   # gui
   - discord
+  - imv
   - telegram-desktop
   - thunderbird
   - vlc
@@ -37,3 +48,14 @@ aur_packages:
   - hyprpaper-git
   - waybar-hyprland-git
   - xdg-desktop-portal-hyprland-git
+  - tofi
+  - wlogout
+
+electon_flags: |
+  --ozone-platform-hint=auto
+  --enable-webrtc-pipewire-capturer
+  --gtk-version=4
+
+electon13_flags: |
+  --enable-features=UseOzonePlatform
+  --ozone-platform=wayland

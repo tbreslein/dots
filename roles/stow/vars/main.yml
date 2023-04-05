@@ -12,3 +12,7 @@ common_stows:
   - swappy
   - waybar
   - zsh
+
+scripts:
+  - update-arch
+  - waybrave
