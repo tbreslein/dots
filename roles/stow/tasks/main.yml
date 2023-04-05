@@ -23,7 +23,7 @@
 
 - name: Install AUR packages
   become: true
-  become_user: aur_builder
+  become_user: kain
   kewlfft.aur.aur:
     name: "{{ item }}"
   loop: "{{ aur_packages }}"

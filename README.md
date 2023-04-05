@@ -90,15 +90,15 @@ grub-mkconfig -o /boot/grub/grub.cfg # last time I had to boot into Arch once be
 ### First boot
 
 ```bash
-useradd -m -G wheel tommy
+useradd -m -G tommy -s/bin/zsh
 passwd tommy
 
-useradd -m -G wheel aur_builder
-passwd aur_builder
-vim /etc/sudoers.d/11-install-aur_builder
-# insert: aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman
+useradd -m -G wheel kain
+passwd kain
+vim /etc/sudoers.d/11-install-kain
+# insert: kain ALL=(ALL) NOPASSWD: /usr/bin/pacman
 
-su aur_builder
+su kain
 sudo pacman -S --needed base-devel
 git clone https://aur.archlinux.org/paru.git
 cd paru
