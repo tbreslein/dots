@@ -90,7 +90,7 @@ grub-mkconfig -o /boot/grub/grub.cfg # last time I had to boot into Arch once be
 ### First boot
 
 ```bash
-useradd -m -G tommy -s/bin/zsh
+useradd -m -s/bin/zsh tommy
 passwd tommy
 
 useradd -m -G wheel kain
@@ -99,13 +99,16 @@ vim /etc/sudoers.d/11-install-kain
 # insert: kain ALL=(ALL) NOPASSWD: /usr/bin/pacman
 
 su kain
-sudo pacman -S --needed base-devel
+sudo pacman -Syu
+sudo pacman -S --needed base-devel git rustup ansible
+rustup default stable
 git clone https://aur.archlinux.org/paru.git
 cd paru
 makepgk -si
 exit
 
-sudo pacman -S --needed ansible
+su tommy
+git clone https://github.com/tbreslein/dots.git
 ansible-galaxy collection install -r requirements.yml
 
 sudo ansible-playbook "$(cat /etc/hostname)"-init.yml --ask-vault-pass
