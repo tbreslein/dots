@@ -7,7 +7,7 @@ arch_packages:
   - playerctl
   - polkit-kde-agent
   - swayidle
-  - swaylock
+  # - swaylock
   - wdisplays
   - wl-clipboard
   - wlr-randr
@@ -46,6 +46,7 @@ aur_packages:
   - eww-wayland
   - hyprland
   - hyprpaper-git
+  - swaylock-effects
   - waybar-hyprland-git
   - xdg-desktop-portal-hyprland-git
   - tofi
