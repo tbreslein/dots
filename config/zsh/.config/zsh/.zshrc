@@ -45,6 +45,7 @@ alias ll="ls -lg --git"
 alias la="ls -a"
 alias lla="ll -a"
 alias lt="ls --tree"
+alias vim="nvim"
 
 . "$HOME/.cargo/env"
 export PATH=~/.local/bin:$PATH
