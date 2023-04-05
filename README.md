@@ -114,7 +114,6 @@ sudo ansible-playbook "$(cat /etc/hostname)"-init.yml --ask-vault-pass
 ## TODO
 
 - hyprland config:
-  - binds for playerctl, light, and wpctl
   - add auto-start for polkit-kde-agent (see [Link](https://wiki.hyprland.org/Useful-Utilities/Must-have/)
   - mouse cursor config: [Link](https://wiki.hyprland.org/FAQ/#how-do-i-change-me-mouse-cursor)
 - LSPs, linters, etc.
