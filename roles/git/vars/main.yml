@@ -15,11 +15,6 @@ git_repos:
     user_name: tbreslein
     user_email: tommy_breslein@protonmail.com
 
-  - repo: git@github.com:tbreslein/rp-dvorak
-    dest: /home/tommy/coding/rp-dvorak
-    user_name: tbreslein
-    user_email: tommy_breslein@protonmail.com
-
   - repo: git@gitlab.physik.uni-kiel.de:breslein/hedispp.git
     dest: /home/tommy/coding/hedispp
     user_name: "T. Breslein"
