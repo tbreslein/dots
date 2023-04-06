@@ -1,16 +1,44 @@
 ---
 arch_packages:
+  ### compilers ++ build tools
+  # c/c++/fortran
   - gcc
+  - gcc-fortran
   - clang
   - cmake
+  - meson
   - ninja
-  - gcc-fortran
+
+  # -- python
+  # nf.black,
+  # rust
   - rustup
+
+    # node
   - nodejs
+
+  ### LSPs / Linters
+  # c/c++/fortran
+  - cppcheck
+
+    # lua
+  - stylua
+  - luacheck
+
+  # python
+  - python-black
+  - ruff
+
+  # shell/docker/config files/etc
+  - shellcheck
+  - ansible-lint
+
+  ### editing
   - vim
 
 aur_packages:
+  - hadolint-bin
+  - prettierd
   - neovim-nightly
-
-npm_packages:
-  - prettier
+# npm_packages:
+# - "@fsouza/prettierd"

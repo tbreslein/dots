@@ -7,17 +7,11 @@ local lsp = require("lsp-zero").preset({
   suggest_lsp_servers = false,
 })
 
-lsp.ensure_installed({
-  "tsserver",
-  "eslint",
-  "lua_ls",
-})
-
 lsp.nvim_workspace()
 local rust_lsp = lsp.build_options("rust_analyzer", {})
 
 -- servers that are installed globally and only need to be setup
-lsp.setup_servers({ "ccls", "nil_ls", force = true })
+lsp.setup_servers({ "clangd", force = true })
 
 local null_opts = lsp.build_options("null-ls", {
   on_attach = function(client, bufnr)
@@ -37,38 +31,29 @@ local null_opts = lsp.build_options("null-ls", {
 })
 
 local null_ls = require("null-ls")
-local nc = null_ls.builtins.code_actions
+-- local nc = null_ls.builtins.code_actions
 local nd = null_ls.builtins.diagnostics
 local nf = null_ls.builtins.formatting
 null_ls.setup({
   sources = {
-    -- nix
-    nc.statix,
-    nd.statix,
-    nf.nixpkgs_fmt,
     -- c/c++
     nd.cppcheck,
     nf.clang_format,
     -- js/ts
     nd.eslint,
-    nf.prettier,
+    nf.prettierd.with({
+        extra_filetypes = { "svelte", "toml" },
+    }),
     nd.tsc.with({ prefer_local = "node_modules/.bin" }),
     -- lua
     nf.stylua,
     nd.luacheck.with({ extra_args = { "--globals", "vim" } }),
-    -- haskell
-    nf.stylish_haskell,
     -- shell, docker, config files, etc
     nd.shellcheck,
     nd.ansiblelint,
     nd.hadolint,
-    -- markdown
-    nf.cbfmt,
-    -- go
-    nf.gofumpt,
-    nd.revive,
-    nd.staticcheck,
     -- python
+    nd.ruff,
     nf.black,
     -- rust
     nf.rustfmt,
