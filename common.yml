@@ -2,6 +2,7 @@
 - hosts: localhost
   roles:
     - stow
+    - git
     - arch_core
     - coding
     - desktop
