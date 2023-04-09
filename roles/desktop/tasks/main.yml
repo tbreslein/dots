@@ -15,11 +15,11 @@
 - name: Write electron-flags.conf
   become_user: tommy
   ansible.builtin.copy:
-    content: "{{ electron-flags }}"
+    content: "{{ electron_flags }}"
     dest: /home/tommy/.config/electron-flags.conf
 
 - name: Write electron13-flags.conf
   become_user: tommy
   ansible.builtin.copy:
-    content: "{{ electron13-flags }}"
+    content: "{{ electron13_flags }}"
     dest: /home/tommy/.config/electron13-flags.conf
