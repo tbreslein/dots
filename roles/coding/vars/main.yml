@@ -38,4 +38,4 @@ aur_packages:
   - hadolint-bin
   - prettierd
   - neovim-nightly
-  - python-polars
+  - python-polars-bin
