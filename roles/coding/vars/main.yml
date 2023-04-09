@@ -14,7 +14,7 @@ arch_packages:
   # c/c++/fortran
   - cppcheck
 
-    # lua
+  # lua
   - stylua
   - luacheck
 
@@ -26,11 +26,16 @@ arch_packages:
   - shellcheck
   - ansible-lint
 
-  ### misc
-  - jupyterlab
+  ### libs
   - python-matplotlib
   - python-numpy
   - python-pandas
+  - openmp
+  - openblas
+
+  ### misc
+  - doxygen
+  - jupyterlab
   - just
   - vim
 
