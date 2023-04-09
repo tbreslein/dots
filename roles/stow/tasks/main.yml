@@ -1,9 +1,8 @@
 ---
-- name: Install Arch repo packages
+- name: Install stow
   ansible.builtin.pacman:
-    name: "{{ item }}"
+    name: stow
     state: present
-  loop: "{{ arch_packages }}"
 
 - name: Enable fstrim.service
   ansible.builtin.service:

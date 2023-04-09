@@ -1,4 +1,9 @@
 ---
+- name: Install stow
+  ansible.builtin.pacman:
+    name: stow
+    state: present
+
 - name: Moebius specific dotfiles
   become_user: tommy
   ansible.builtin.shell:

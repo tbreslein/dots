@@ -1,7 +1,4 @@
 ---
-arch_packages:
-  - stow
-
 common_stows:
   - alacritty
   - dunst
