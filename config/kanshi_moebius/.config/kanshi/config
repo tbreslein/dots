@@ -1,8 +1,8 @@
 profile solo {
-    output DP-1 mode 3440x1440@144.000 position 1080,514 scale 1.6
+    output DP-3 mode 3440x1440@144.000 scale 1.5
 }
 
-profile home {
-    output DP-1 mode 3440x1440@144.000 position 1080,514 scale 1.6
+profile dualmonitor {
+    output DP-3 mode 3440x1440@144.000 position 1080,514 scale 1.5
     output "Goldstar Company Ltd BK750Y 709NTHM4P417" mode 1920x1080@60.000 position 0,0 scale 1.0 transform 270
 }
