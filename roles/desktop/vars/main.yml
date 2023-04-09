@@ -55,11 +55,11 @@ aur_packages:
   - wlogout
   - wlsunset
 
-electon_flags: |
+electron_flags: |
   --ozone-platform-hint=auto
   --enable-webrtc-pipewire-capturer
   --gtk-version=4
 
-electon13_flags: |
+electron13_flags: |
   --enable-features=UseOzonePlatform
   --ozone-platform=wayland
