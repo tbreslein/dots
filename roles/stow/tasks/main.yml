@@ -20,5 +20,5 @@
 - name: Link scripts
   become_user: tommy
   ansible.builtin.shell:
-    cmd: "ln -s /home/tommy/.local/bin/{{ item }} /home/tommy/dots/scripts/{{ item }}"
+    cmd: "ln -s -t /home/tommy/.local/bin/ /home/tommy/dots/scripts/{{ item }}"
   loop: "{{ scripts }}"
