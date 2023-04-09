@@ -4,11 +4,6 @@
     name: stow
     state: present
 
-- name: Enable fstrim.service
-  ansible.builtin.service:
-    name: fstrim.service
-    state: started
-
 - name: Stow dotfiles
   become_user: tommy
   ansible.builtin.shell:

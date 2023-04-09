@@ -3,6 +3,7 @@
   ansible.builtin.service:
     name: fstrim.service
     state: started
+    enabled: true
 
 - name: Stow dotfiles
   become_user: tommy
