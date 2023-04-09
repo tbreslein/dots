@@ -14,7 +14,7 @@
     accept_newhostkey: true
   loop: "{{ git_repos }}"
 
-- name: Configure git repos | email
+- name: Configure git repos | name
   become_user: tommy
   community.general.git_config:
     repo: "{{ item.dest }}"
