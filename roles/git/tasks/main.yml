@@ -2,7 +2,7 @@
 - name: Install ssh and git
   ansible.builtin.pacman:
     name:
-      - ssh
+      - openssh
       - git
     state: present
 
