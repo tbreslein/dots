@@ -40,8 +40,8 @@ arch_packages:
   - zathura-ps
 
 aur_packages:
-  # - sddm-git
-  # - archlinux-themes-sddm
+  - sddm-git
+  - archlinux-themes-sddm
   - brave-bin
   # - megacmd
   - zoom

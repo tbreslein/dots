@@ -29,3 +29,15 @@
   ansible.builtin.copy:
     content: "{{ electron13_flags }}"
     dest: /home/tommy/.config/electron13-flags.conf
+
+- name: Enable SDDM
+  ansible.builtin.service:
+    name: sddm.service
+    enabled: true
+
+- name: Configure SDDM
+  ansible.builtin.copy:
+    content: |
+      [Theme]
+      Current=archlinux-simplyblack
+    dest: /etc/sddm.conf.d/theme.conf

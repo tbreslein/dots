@@ -13,7 +13,7 @@
       WantedBy=multi-user.target
   register: fprintd_service_file
 
-- name: Restart fprind.service
+- name: Restart fprintd.service
   ansible.builtin.service:
     name: fprintd
     enabled: true

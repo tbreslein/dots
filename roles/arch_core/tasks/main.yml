@@ -2,7 +2,6 @@
 - name: Enable fstrim.service
   ansible.builtin.service:
     name: fstrim.service
-    state: started
     enabled: true
 
 - name: Install Arch repo packages
