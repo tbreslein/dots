@@ -22,7 +22,9 @@ arch_packages:
 
   # fonts
   - noto-fonts
+  - noto-fonts-cjk
   - noto-fonts-emoji
+  - noto-fonts-extra
   - ttf-dejavu
   - ttf-hack-nerd
   - ttf-roboto
