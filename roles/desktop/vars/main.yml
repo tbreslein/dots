@@ -6,7 +6,6 @@ arch_packages:
   - kanshi
   - light
   - playerctl
-  - plymouth
   - polkit-kde-agent
   - swaybg
   - swayidle
@@ -43,7 +42,6 @@ arch_packages:
 aur_packages:
   - sddm-git
   - archlinux-themes-sddm
-  - plymouth-theme-arch-logo
   - brave-bin
   # - megacmd
   - zoom

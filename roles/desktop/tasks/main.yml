@@ -48,15 +48,3 @@
       [Theme]
       Current=archlinux-simplyblack
     dest: /etc/sddm.conf.d/theme.conf
-
-- name: Configure plymouth
-  ansible.builtin.blockinfile:
-    block: |
-      [Daemon]
-      Theme=arch-logo
-    path: /etc/plymouth/plymouthd.conf
-  register: plymouth_config
-
-- name: Configure plymouth
-  ansible.builtin.command: mkinitcpio -P
-  when: plymouth_config is changed
