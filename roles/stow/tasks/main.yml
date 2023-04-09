@@ -15,10 +15,15 @@
     path: /home/tommy/.local/bin
     state: directory
     recurse: true
+    owner: tommy
+    group: tommy
     mode: '0755'
 
 - name: Link scripts
-  become_user: tommy
-  ansible.builtin.shell:
-    cmd: "ln -s -t /home/tommy/.local/bin/ /home/tommy/dots/scripts/{{ item }}"
+  ansible.builtin.file:
+    src: "/home/tommy/dots/scripts/{{ item }}"
+    dest: "/home/tommy/.local/bin/{{ item }}"
+    owner: tommy
+    group: tommy
+    state: link
   loop: "{{ scripts }}"
