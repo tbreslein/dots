@@ -13,6 +13,7 @@ arch_packages:
   ### LSPs / Linters
   # c/c++/fortran
   - cppcheck
+  - ccls
 
   # lua
   - stylua
