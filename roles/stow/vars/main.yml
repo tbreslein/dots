@@ -5,6 +5,8 @@ common_stows:
   - hypr
   - npm
   - nvim
+  - qt5ct
+  - qt6ct
   - starship
   - swappy
   - waybar
