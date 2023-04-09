@@ -9,14 +9,9 @@ arch_packages:
   - playerctl
   - polkit-kde-agent
   - swayidle
-  # - swaylock
-  - wdisplays
   - wl-clipboard
-  - wlr-randr
-  - wlsunset
   - wofi
   - xdg-desktop-portal
-  # - xdg-desktop-portal-wlr
   - xorg-xwayland
 
   # appearance
@@ -25,7 +20,6 @@ arch_packages:
   - qt5-wayland
   - qt6-wayland
   - lxappearance
-  - nwg-look
 
   # screenshots
   - grim
@@ -41,7 +35,7 @@ arch_packages:
   - zathura
   - zathura-cb
   - zathura-djvu
-  - zathura-mupdf
+  - zathura-pdf-mupdf
   - zathura-ps
 
 aur_packages:
@@ -54,8 +48,11 @@ aur_packages:
   - swaylock-effects
   - waybar-hyprland-git
   - xdg-desktop-portal-hyprland-git
+  - nwg-look
   - tofi
+  - wdisplays
   - wlogout
+  - wlsunset
 
 electon_flags: |
   --ozone-platform-hint=auto
