@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   roles:
+    - pacman_conf
     - stow_audron
     - intel_cpu
     - tlp

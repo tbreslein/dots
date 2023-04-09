@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   roles:
+    - pacman_conf
     - stow_moebius
     - amd_cpu
     - amd_graphics
