@@ -5,20 +5,6 @@
     state: started
     enabled: true
 
-- name: Stow dotfiles
-  become_user: tommy
-  ansible.builtin.shell:
-    cmd: "stow -d $HOME/dots/config -t ~/ {{ item }}"
-  loop: "{{ common_stows }}"
-
-- name: Link scripts
-  ansible.builtin.file:
-    src: "/home/tommy/dots/scripts/{{ item }}"
-    dest: "/home/tommy/.local/bin/{{ item }}"
-    owner: tommy
-    state: link
-  loop: "{{ scripts }}"
-
 - name: Install Arch repo packages
   ansible.builtin.pacman:
     name: "{{ item }}"
