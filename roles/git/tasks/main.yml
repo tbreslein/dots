@@ -11,6 +11,7 @@
   ansible.builtin.git:
     repo: "{{ item.repo }}"
     dest: "{{ item.dest }}"
+    accept_newhostkey: true
   loop: "{{ git_repos }}"
 
 - name: Configure git repos | email
