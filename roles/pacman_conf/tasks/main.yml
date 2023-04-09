@@ -12,13 +12,14 @@
     dest: "/etc/pacman.conf"
     state: "present"
     line: "Include = /etc/pacman.d/mirrorlist"
+    regexp: "Include = /etc/pacman.d/mirrorlist"
     insertafter: "^\\[multilib\\]"
 
 - name: Enable parallel Downloads
   ansible.builtin.lineinfile:
     dest: "/etc/pacman.conf"
     state: "present"
-    line: "ParallelDownloads = "
+    line: "ParallelDownloads = 5"
     regexp: "^ParallelDownloads = 5"
     insertafter: "^#ParallelDownloads = "
 
