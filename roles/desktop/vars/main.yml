@@ -11,8 +11,8 @@ arch_packages:
   - swayidle
   - wl-clipboard
   - wofi
-  - xdg-desktop-portal
   - xorg-xwayland
+  - xorg-xrdb # needed for megasync
 
   # appearance
   - qt5ct
@@ -54,6 +54,10 @@ aur_packages:
   - wdisplays
   - wlogout
   - wlsunset
+
+not_installed_arch:
+  - xdg-desktop-portal-gnome
+  - xdg-desktop-portal-gtk
 
 electron_flags: |
   --ozone-platform-hint=auto

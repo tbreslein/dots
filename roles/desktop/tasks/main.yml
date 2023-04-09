@@ -12,6 +12,12 @@
     name: "{{ item }}"
   loop: "{{ aur_packages }}"
 
+- name: Make sure these are not installed
+  ansible.builtin.pacman:
+    name: "{{ item }}"
+    state: absent
+  loop: "{{ not_installed_arch }}"
+
 - name: Write electron-flags.conf
   become_user: tommy
   ansible.builtin.copy:
