@@ -17,11 +17,3 @@
     dest: "~/.npm_global"
     owner: tommy
     state: directory
-
-- name: Install global npm packages
-  become_user: tommy
-  community.general.npm:
-    name: "{{ item }}"
-    global: true
-    state: present
-  loop: "{{ npm_packages }}"

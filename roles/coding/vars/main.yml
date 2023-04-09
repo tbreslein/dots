@@ -40,5 +40,3 @@ aur_packages:
   - hadolint-bin
   - prettierd
   - neovim-nightly
-# npm_packages:
-# - "@fsouza/prettierd"
