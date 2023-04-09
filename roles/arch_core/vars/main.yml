@@ -20,8 +20,15 @@ arch_packages:
   - vim
   - zoxide
 
-  # shell
+  # fonts
+  - noto-fonts
+  - noto-fonts-emoji
+  - ttf-dejavu
   - ttf-hack-nerd
+  - ttf-roboto
+  - ttf-ubuntu-font-family
+
+  # shell
   - starship
   - zsh
 
