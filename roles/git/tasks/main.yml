@@ -1,4 +1,11 @@
 ---
+- name: Install ssh and git
+  ansible.builtin.pacman:
+    name:
+      - ssh
+      - git
+    state: present
+
 - name: Ensure git repos
   become_user: tommy
   ansible.builtin.git:
