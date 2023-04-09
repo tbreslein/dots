@@ -6,7 +6,7 @@ window:
 font:
   normal:
     family: Hack Nerd Font
-  size: 9
+  size: 10
 
   # Thin stroke font rendering (macOS only)
   #
