@@ -10,7 +10,15 @@
     cmd: "stow -d $HOME/dots/config -t ~/ {{ item }}"
   loop: "{{ common_stows }}"
 
-- name: Stow scripts
+- name: Create .local/bin
+  ansible.builtin.file:
+    path: /home/tommy/.local/bin
+    state: directory
+    recurse: true
+    mode: '0755'
+
+- name: Link scripts
   become_user: tommy
   ansible.builtin.shell:
-    cmd: "stow -d $HOME/dots -t ~/ scripts"
+    cmd: "ln -s /home/tommy/.local/bin/{{ item }} /home/tommy/dots/scripts/{{ item }}"
+  loop: "{{ scripts }}"
