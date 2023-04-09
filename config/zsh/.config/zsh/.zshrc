@@ -47,7 +47,7 @@ alias lla="ll -a"
 alias lt="ls --tree"
 alias vim="nvim"
 
-. "$HOME/.cargo/env"
+[[ -d "$HOME/.cargo" ]] && [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 export PATH=~/.local/bin:$PATH
 export PATH=~/.npm_global/bin:$PATH
 export GOPATH=$HOME/.local/share/go
