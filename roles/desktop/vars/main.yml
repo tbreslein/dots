@@ -29,6 +29,7 @@ arch_packages:
   # gui
   - discord
   - imv
+  - libreoffice-fresh
   - telegram-desktop
   - thunderbird
   - vlc

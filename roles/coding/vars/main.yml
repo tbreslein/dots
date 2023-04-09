@@ -1,20 +1,13 @@
 ---
 arch_packages:
   ### compilers ++ build tools
-  # c/c++/fortran
   - gcc
   - gcc-fortran
   - clang
   - cmake
   - meson
   - ninja
-
-  # -- python
-  # nf.black,
-  # rust
   - rustup
-
-    # node
   - nodejs
 
   ### LSPs / Linters
@@ -33,10 +26,16 @@ arch_packages:
   - shellcheck
   - ansible-lint
 
-  ### editing
+  ### misc
+  - jupyterlab
+  - python-matplotlib
+  - python-numpy
+  - python-pandas
+  - just
   - vim
 
 aur_packages:
   - hadolint-bin
   - prettierd
   - neovim-nightly
+  - python-polars

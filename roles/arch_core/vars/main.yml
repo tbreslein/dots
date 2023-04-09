@@ -8,8 +8,10 @@ arch_packages:
   - fd
   - fzf
   - htop
+  - imagemagick
   - lazygit
   - neofetch
+  - pandoc-cli
   - ripgrep
   - rsync
   - stow
