@@ -23,8 +23,13 @@
     regexp: "^ParallelDownloads = 5"
     insertafter: "^#ParallelDownloads = "
 
-- name: Sync pacman
+- name: Install pacman-contrib and sync
   ansible.builtin.pacman:
-    name: vim
+    name: pacman-contrib
     state: present
     update_cache: true
+
+- name: Enable paccache.timer
+  ansible.builtin.service:
+    name: paccache.timer
+    enabled: true
