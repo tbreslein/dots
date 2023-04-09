@@ -2,12 +2,12 @@
 arch_packages:
   # desktop
   - hyprland
-  - hyprpaper
   - dunst
   - kanshi
   - light
   - playerctl
   - polkit-kde-agent
+  - swaybg
   - swayidle
   - wl-clipboard
   - wofi

@@ -1,3 +1,4 @@
 profile solo {
     output DP-3 mode 3440x1440@144.000 scale 1.2
+    exec swaybg -i /home/tommy/dots/wallpapers/moebius_wide.png
 }
