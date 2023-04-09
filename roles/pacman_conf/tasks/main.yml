@@ -23,7 +23,7 @@
     regexp: "^ParallelDownloads = 5"
     insertafter: "^#ParallelDownloads = "
 
-- name: Synch pacman
+- name: Sync pacman
   ansible.builtin.pacman:
     name: vim
     state: present
