@@ -2,6 +2,7 @@
 common_stows:
   - alacritty
   - dunst
+  - eww
   - hypr
   - npm
   - nvim
