@@ -19,6 +19,7 @@ arch_packages:
   - qt5-wayland
   - qt6-wayland
   - lxappearance
+  - arc-gtk-theme
 
   # screenshots
   - grim
