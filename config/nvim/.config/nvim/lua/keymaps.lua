@@ -9,18 +9,6 @@ require("leap").add_default_mappings()
 
 require("legendary").setup({
 	keymaps = {
-		{
-			"j",
-			"gj",
-			description = "move between down wrapped lines",
-			mode = { "n", "v" },
-		},
-		{
-			"k",
-			"gk",
-			description = "move between up wrapped lines",
-			mode = { "n", "v" },
-		},
 		{ ">", ">gv", description = "indent right", mode = { "v" } },
 		{ "<", "<gv", description = "indent left", mode = { "v" } },
 		{ "Y", "yg$", description = "yank to end of line", mode = { "n" } },
@@ -76,7 +64,7 @@ require("legendary").setup({
 		{ "<leader>a", mark.add_file, description = "add harpoon mark", mode = { "n" } },
 		{ "<c-e>", ui.toggle_quick_menu, description = "toggle harpoon quick menu", mode = { "n" } },
 		{
-			"<a-u>",
+			"<a-p>",
 			function()
 				ui.nav_file(1)
 			end,
@@ -84,7 +72,7 @@ require("legendary").setup({
 			mode = { "n" },
 		},
 		{
-			"<a-i>",
+			"<a-f>",
 			function()
 				ui.nav_file(2)
 			end,
@@ -92,7 +80,7 @@ require("legendary").setup({
 			mode = { "n" },
 		},
 		{
-			"<a-o>",
+			"<a-w>",
 			function()
 				ui.nav_file(3)
 			end,
@@ -100,7 +88,7 @@ require("legendary").setup({
 			mode = { "n" },
 		},
 		{
-			"<a-p>",
+			"<a-q>",
 			function()
 				ui.nav_file(4)
 			end,
@@ -119,9 +107,9 @@ require("which-key").register({
 		name = "project",
 		f = { "<cmd>Telescope find_files hidden=true<cr>", "find files" },
 		F = { builtin.git_files, "find files in git mode" },
-		g = { builtin.live_grep, "live grep" },
-		v = { "<cmd>Telescope file_browser<cr>", "project view" },
-		b = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "project view at current buffer" },
+		s = { builtin.live_grep, "live grep" },
+		p = { "<cmd>Telescope file_browser<cr>", "project view" },
+		P = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "project view at current buffer" },
 	},
 	s = {
 		name = "spectre",
