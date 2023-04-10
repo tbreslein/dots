@@ -43,6 +43,7 @@ arch_packages:
 aur_packages:
   - sddm-git
   - archlinux-themes-sddm
+  - nordzy-cursors
   - brave-bin
   # - megacmd
   - zoom
