@@ -106,20 +106,35 @@ rustup default stable
 git clone https://aur.archlinux.org/paru.git
 cd paru
 makepgk -si
-exit
+exit # back to root
 
 su tommy
 git clone https://github.com/tbreslein/dots.git
 ansible-galaxy collection install -r requirements.yml
 
 sudo ansible-playbook "$(cat /etc/hostname)"-init.yml --ask-vault-pass
+
+rustup default stable
+rustup component add rustfmt rust-analyzer clippy rust-src
+rustup toolchain install nightly --component rust-src rust-analyzer
+
+exit # back to root
+
+reboot
 ```
+
+### Graphical boot
+
+- Configure:
+  - qt5ct
+  - qt6ct
+  - lxappearance
+  - nwg-look
 
 ## TODO
 
 - hyprland config:
   - add auto-start for polkit-kde-agent (see [Link](https://wiki.hyprland.org/Useful-Utilities/Must-have/)
   - mouse cursor config: [Link](https://wiki.hyprland.org/FAQ/#how-do-i-change-me-mouse-cursor)
-- LSPs, linters, etc.
 - fprintd
 - eww
