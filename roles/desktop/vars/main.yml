@@ -11,6 +11,7 @@ arch_packages:
   - swayidle
   - wl-clipboard
   - wofi
+  - xdg-desktop-portal-hyprland
   - xorg-xwayland
 
   # appearance
@@ -50,7 +51,6 @@ aur_packages:
   - eww-wayland
   - swaylock-effects
   - waybar-hyprland-git
-  - xdg-desktop-portal-hyprland-git
   - nwg-look
   - tofi
   - wdisplays
