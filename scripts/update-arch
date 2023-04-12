@@ -9,5 +9,4 @@ popd
 zap update
 { sudo -i -u kain paru } && \
 rustup update && \
-nvim --headless -c 'autocmd User MasonUpdateAllComplete quitall' -c 'MasonUpdateAll' && \
 nvim -c 'lua require("lazy").sync()'
