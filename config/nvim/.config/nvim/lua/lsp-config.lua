@@ -11,7 +11,7 @@ lsp.nvim_workspace()
 local rust_lsp = lsp.build_options("rust_analyzer", {})
 
 -- servers that are installed globally and only need to be setup
-lsp.setup_servers({ "ccls", force = true })
+lsp.setup_servers({ "ccls", "zls", force = true })
 
 local null_opts = lsp.build_options("null-ls", {
 	on_attach = function(client, bufnr)
@@ -57,6 +57,8 @@ null_ls.setup({
 		nf.black,
 		-- rust
 		nf.rustfmt,
+		-- zig
+		nf.zigfmt,
 	},
 	on_attach = null_opts.on_attach,
 })

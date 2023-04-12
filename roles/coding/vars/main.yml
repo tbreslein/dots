@@ -9,23 +9,18 @@ arch_packages:
   - ninja
   - rustup
   - nodejs
+  - zig
 
   ### LSPs / Linters
-  # c/c++/fortran
   - cppcheck
   - ccls
-
-  # lua
   - stylua
   - luacheck
-
-  # python
   - python-black
-  - ruff
-
-  # shell/docker/config files/etc
+  - ruff # python linter
   - shellcheck
   - ansible-lint
+  - zls
 
   ### libs
   - python-matplotlib
