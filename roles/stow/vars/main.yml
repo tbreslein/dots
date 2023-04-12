@@ -10,7 +10,6 @@ common_stows:
   - qt6ct
   - starship
   - swappy
-  - tofi
   - waybar
   - zsh
 
