@@ -46,6 +46,7 @@ aur_packages:
   - archlinux-themes-sddm
   - nordzy-cursors
   - brave-bin
+  - microsoft-edge-stable-bin
   # - megacmd
   - zoom
   - eww-wayland
