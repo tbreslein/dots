@@ -16,6 +16,7 @@ arch_packages:
   - rsync
   - stow
   - tectonic
+  - tldr
   - udisks2
   - vim
   - zoxide
