@@ -53,6 +53,7 @@ export PATH=~/.npm_global/bin:$PATH
 export GOPATH=$HOME/.local/share/go
 export PATH=~/.local/share/go/bin:$PATH
 export PATH=~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/:$PATH
+export PATH=~/.zvm/bin/:$PATH
 
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
