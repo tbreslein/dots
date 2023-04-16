@@ -9,7 +9,6 @@ arch_packages:
   - ninja
   - rustup
   - nodejs
-  - zig
 
   ### LSPs / Linters
   - cppcheck
@@ -20,7 +19,6 @@ arch_packages:
   - ruff # python linter
   - shellcheck
   - ansible-lint
-  - zls
 
   ### libs
   - python-matplotlib
@@ -40,3 +38,5 @@ aur_packages:
   - prettierd
   - neovim-nightly
   - python-polars-bin
+  - zig-git
+  - zls-git
