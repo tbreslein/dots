@@ -10,6 +10,11 @@ git_repos:
     user_name: tbreslein
     user_email: tommy_breslein@protonmail.com
 
+  - repo: git@github.com:tbreslein/hydrolzigs.git
+    dest: /home/tommy/coding/hydrolzigs
+    user_name: tbreslein
+    user_email: tommy_breslein@protonmail.com
+
   - repo: git@github.com:tbreslein/capturedlambda.git
     dest: /home/tommy/coding/capturedlambda
     user_name: tbreslein
