@@ -46,6 +46,7 @@ alias la="ls -a"
 alias lla="ll -a"
 alias lt="ls --tree"
 alias vim="nvim"
+alias emacs="emacsclient -c -a 'emacs'"
 
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
