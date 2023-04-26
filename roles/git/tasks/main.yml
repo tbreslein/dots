@@ -14,6 +14,14 @@
     accept_newhostkey: true
   loop: "{{ git_repos }}"
 
+- name: Ensure personal git repos
+  become_user: tommy
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    accept_newhostkey: true
+  loop: "{{ personal_git_repos }}"
+
 - name: Configure git repos | name
   become_user: tommy
   community.general.git_config:
@@ -21,7 +29,7 @@
     name: user.name
     value: "{{ item.user_name }}"
     scope: local
-  loop: "{{ git_repos }}"
+  loop: "{{ personal_git_repos }}"
 
 - name: Configure git repos | email
   become_user: tommy
@@ -30,7 +38,7 @@
     name: user.email
     value: "{{ item.user_email }}"
     scope: local
-  loop: "{{ git_repos }}"
+  loop: "{{ personal_git_repos }}"
 
 - name: Configure global git
   become_user: tommy

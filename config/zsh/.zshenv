@@ -21,8 +21,8 @@ export MOZ_ENABLE_WAYLAND=1 # fixes thunderbird and firefox in wayland
 [[ -d "$HOME/.cargo" ]] && [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 export PATH=~/.local/bin:$PATH
 export PATH=~/.zvm/bin:$PATH
+export PATH=~/.emacs.d/bin:$PATH
 export PATH=~/.npm_global/bin:$PATH
 export GOPATH=$HOME/.local/share/go
 export PATH=~/.local/share/go/bin:$PATH
 export PATH=~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/:$PATH
-

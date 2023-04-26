@@ -29,6 +29,7 @@ arch_packages:
 
   ### misc
   - doxygen
+  - emacs
   - jupyterlab
   - just
   - vim

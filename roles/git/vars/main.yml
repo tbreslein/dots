@@ -1,5 +1,5 @@
 ---
-git_repos:
+personal_git_repos:
   - repo: git@github.com:tbreslein/dots.git
     dest: /home/tommy/dots
     user_name: tbreslein
@@ -34,6 +34,10 @@ git_repos:
     dest: /home/tommy/coding/hedis_c
     user_name: "Tommy Breslein"
     user_email: tbreslein@astrophysik.uni-kiel.de
+
+git_repos:
+  - repo: https://github.com/hlissner/doom-emacs
+    dest: /home/tommy/.emacs.d
 
 git_global_config:
   - name: pull.rebase

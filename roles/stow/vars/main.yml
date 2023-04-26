@@ -1,6 +1,7 @@
 ---
 common_stows:
   - alacritty
+  - doom-emacs
   - dunst
   - eww
   - hypr
