@@ -10,7 +10,7 @@ arch_packages:
   - swaybg
   - swayidle
   - wl-clipboard
-  - wofi
+  - bemenu
   - xdg-desktop-portal-hyprland
   - xorg-xwayland
 
