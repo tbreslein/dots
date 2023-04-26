@@ -9,5 +9,6 @@ popd
 zap update
 { sudo -i -u kain paru } && \
 rustup update && \
+zvm i master && \
 pushd "$HOME/Downloads/zls/" && git pull && zig build -Doptimize=ReleaseSafe -p ~/.local/ && popd &&
 nvim -c 'lua require("lazy").sync()'

@@ -38,5 +38,6 @@ aur_packages:
   - prettierd
   - neovim-nightly
   - python-polars-bin
-  - zig-git
-  - zls-git
+  - zvm
+  # - zig-git
+  # - zls-git

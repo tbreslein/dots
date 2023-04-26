@@ -49,7 +49,8 @@ alias vim="nvim"
 
 [[ -d "$HOME/.cargo" ]] && [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 export PATH=~/.local/bin:$PATH
-export PATH=~/.local/zig:$PATH
+export PATH=~/.zvm/bin:$PATH
+# export PATH=~/.local/zig:$PATH
 export PATH=~/.npm_global/bin:$PATH
 export GOPATH=$HOME/.local/share/go
 export PATH=~/.local/share/go/bin:$PATH
