@@ -29,7 +29,6 @@ arch_packages:
 
   ### misc
   - doxygen
-  - emacs
   - jupyterlab
   - just
   - vim
@@ -39,6 +38,5 @@ aur_packages:
   - prettierd
   - neovim-nightly
   - python-polars-bin
-  - zvm
-  # - zig-git
+  - zig-gev-bin
   # - zls-git

@@ -1,7 +1,6 @@
 ---
 common_stows:
   - alacritty
-  - doom-emacs
   - dunst
   - eww
   - hypr
@@ -15,5 +14,4 @@ common_stows:
   - zsh
 
 scripts:
-  - update-arch
   - waybrave

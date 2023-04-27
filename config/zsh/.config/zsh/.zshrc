@@ -36,6 +36,28 @@ export ZAP_DIR="$HOME/.local/share/zap"
     plug "zsh-users/zsh-syntax-highlighting"
 }
 
+function up-arch {
+    pushd "$HOME/dots"
+    git pull 
+    popd
+    zap update
+    { sudo -i -u kain paru } && \
+    rustup up && \
+    nvim -c 'lua require("lazy").sync()'
+    pushd "$HOME/Downloads/zls/" && git pull && zig build -Doptimize=ReleaseSafe -p ~/.local/ && popd && \
+}
+
+function up-mac {
+    pushd "$HOME/dots"
+    git pull
+    popd
+    zap update
+    brew upgrade && \
+    rustup up && \
+    nvim -c 'lua require("lazy").sync()'
+    pushd "$HOME/Downloads/zls/" && git pull && zig build -Doptimize=ReleaseSafe -p ~/.local/ && popd && \
+}
+
 alias gg="lazygit"
 alias cp="cp -i"
 alias rm="rm -i"

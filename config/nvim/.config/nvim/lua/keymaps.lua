@@ -117,6 +117,11 @@ require("which-key").register({
 		w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "open spectre for word under cursor" },
 		f = { "<cmd>lua require('spectre').open_file_search()<cr>", "open spectre in file search mode" },
 	},
+	g = {
+		name = "git",
+		g = { "<cmd>Neogit<cr>", "Neogit" },
+		d = { "<cmd>DiffviewOpen<cr>", "DiffviewOpen" },
+	},
 }, {
 	prefix = "<leader>",
 })

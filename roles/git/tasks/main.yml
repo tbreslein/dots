@@ -6,13 +6,13 @@
       - git
     state: present
 
-- name: Ensure git repos
-  become_user: tommy
-  ansible.builtin.git:
-    repo: "{{ item.repo }}"
-    dest: "{{ item.dest }}"
-    accept_newhostkey: true
-  loop: "{{ git_repos }}"
+# - name: Ensure git repos
+#   become_user: tommy
+#   ansible.builtin.git:
+#     repo: "{{ item.repo }}"
+#     dest: "{{ item.dest }}"
+#     accept_newhostkey: true
+#   loop: "{{ git_repos }}"
 
 - name: Ensure personal git repos
   become_user: tommy
