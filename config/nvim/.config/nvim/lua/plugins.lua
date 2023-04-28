@@ -13,22 +13,22 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	"mrjones2014/legendary.nvim",
-    {
-        "alexghergh/nvim-tmux-navigation",
-        config = function()
-            local nvim_tmux_nav = require('nvim-tmux-navigation')
-            nvim_tmux_nav.setup({
-                keybindings = {
-                    left = "<c-h>",
-                    down = "<c-j>",
-                    up = "<c-k>",
-                    right = "<c-l>",
-                    last_active = "<c-m>",
-                    next = "<c-n>",
-                },
-            })
-        end
-    },
+	{
+		"alexghergh/nvim-tmux-navigation",
+		config = function()
+			local nvim_tmux_nav = require("nvim-tmux-navigation")
+			nvim_tmux_nav.setup({
+				keybindings = {
+					left = "<c-h>",
+					down = "<c-j>",
+					up = "<c-k>",
+					right = "<c-l>",
+					last_active = "<c-m>",
+					next = "<c-n>",
+				},
+			})
+		end,
+	},
 	{
 		"folke/which-key.nvim",
 		config = function()
@@ -52,16 +52,41 @@ require("lazy").setup({
 	--     vim.cmd("colorscheme gruvbox-material")
 	--   end,
 	-- },
+	-- {
+	-- 	"folke/tokyonight.nvim",
+	-- 	config = function()
+	-- 		require("tokyonight").setup({
+	-- 			style = "storm",
+	-- 			transparent = true,
+	-- 		})
+	-- 		vim.o.termguicolors = true
+	-- 		vim.o.background = "dark"
+	-- 		vim.cmd("colorscheme tokyonight")
+	-- 	end,
+	-- },
 	{
-		"folke/tokyonight.nvim",
+		"catppuccin/nvim",
+		name = "catppuccin",
 		config = function()
-			require("tokyonight").setup({
-				style = "storm",
-				transparent = true,
+			require("catppuccin").setup({
+				style = "macchiato",
+				transparent_background = true,
+				integrations = {
+					gitsigns = true,
+					harpoon = true,
+					indent_blankline = { enabled = true },
+					leap = true,
+					mason = true,
+					neogit = true,
+					cmp = true,
+					notify = true,
+					telescope = true,
+					which_key = true,
+				},
 			})
 			vim.o.termguicolors = true
 			vim.o.background = "dark"
-			vim.cmd("colorscheme tokyonight")
+			vim.cmd("colorscheme catppuccin")
 		end,
 	},
 	{
@@ -71,13 +96,13 @@ require("lazy").setup({
 			require("lualine").setup({
 				options = {
 					globalstatus = true,
-					theme = "tokyonight",
+					theme = "catppuccin",
 					component_separators = "",
 					section_separators = "",
 				},
 				sections = {
 					lualine_a = { "mode" },
-					lualine_b = { "branch", "diagnostics" },
+					lualine_b = { "branch", "diff", "diagnostics" },
 					lualine_c = { "filename" },
 					lualine_x = { "" },
 					lualine_y = { "progress" },
@@ -87,16 +112,17 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"folke/zen-mode.nvim",
+		"lukas-reineke/indent-blankline.nvim",
 		config = function()
-			require("zen-mode").setup({
-				window = {
-					width = 140,
-					options = {
-						number = true,
-						relativenumber = true,
-					},
-				},
+			require("indent_blankline").setup()
+		end,
+	},
+	{
+		"rcarriga/nvim-notify",
+		config = function()
+			vim.notify = require("notify")
+			require("notify").setup({
+				background_colour = "#000000",
 			})
 		end,
 	},
@@ -192,8 +218,10 @@ require("lazy").setup({
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 	{
-		"nvim-telescope/telescope-file-browser.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+		"stevearc/oil.nvim",
+		config = function()
+			require("oil").setup({})
+		end,
 	},
 
 	-- editing

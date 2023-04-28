@@ -108,8 +108,7 @@ require("which-key").register({
 		f = { "<cmd>Telescope find_files hidden=true<cr>", "find files" },
 		F = { builtin.git_files, "find files in git mode" },
 		s = { builtin.live_grep, "live grep" },
-		p = { "<cmd>Telescope file_browser<cr>", "project view" },
-		P = { "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "project view at current buffer" },
+		p = { require("oil").open, "project view" },
 	},
 	s = {
 		name = "spectre",
