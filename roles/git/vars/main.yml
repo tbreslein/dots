@@ -35,6 +35,10 @@ personal_git_repos:
     user_name: "Tommy Breslein"
     user_email: tbreslein@astrophysik.uni-kiel.de
 
+git_repos:
+  - repo: https://github.com/tmux-plugins/tpm
+    dest: /home/tommy/.tmux/plugins/tpm
+
 git_global_config:
   - name: pull.rebase
     value: true
