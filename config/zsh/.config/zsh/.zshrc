@@ -44,7 +44,7 @@ function up-arch {
     { sudo -i -u kain paru } && \
     rustup up && \
     nvim -c 'lua require("lazy").sync()'
-    pushd "$HOME/Downloads/zls/" && git pull && zig build -Doptimize=ReleaseSafe -p ~/.local/ && popd && \
+    pushd "$HOME/Downloads/zls/" && git pull && zig build -Doptimize=ReleaseSafe -p ~/.local/ && popd
 }
 
 function up-mac {
@@ -52,10 +52,10 @@ function up-mac {
     git pull
     popd
     zap update
-    brew upgrade && \
-    rustup up && \
+    brew update && brew upgrade
+    rustup up
     nvim -c 'lua require("lazy").sync()'
-    pushd "$HOME/Downloads/zls/" && git pull && zig build -Doptimize=ReleaseSafe -p ~/.local/ && popd && \
+    pushd "$HOME/Downloads/zls/" && git pull && zig build -Doptimize=ReleaseSafe -p ~/.local/ && popd
 }
 
 alias gg="lazygit"
