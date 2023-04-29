@@ -1,0 +1,12 @@
+session: dots
+root: ~/dots/
+windows:
+  - name: vim
+    layout: main-vertical
+    commands:
+      - nvim
+    panes:
+      - commands:
+          - clear
+      - commands:
+          - clear

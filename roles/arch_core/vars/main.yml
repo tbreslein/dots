@@ -18,7 +18,6 @@ arch_packages:
   - tectonic
   - tldr
   - tmux
-  - tmuxp
   - udisks2
   - vim
   - zoxide
@@ -60,3 +59,4 @@ arch_packages:
 
 aur_packages:
   - erdtree
+  - smug
