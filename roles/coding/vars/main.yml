@@ -15,6 +15,7 @@ arch_packages:
   - ccls
   - stylua
   - luacheck
+  - lua-language-server
   - python-black
   - ruff # python linter
   - shellcheck
