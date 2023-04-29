@@ -1,7 +1,7 @@
 session: dots
 root: ~/dots/
 windows:
-  - name: vim
+  - name: dev
     layout: main-vertical
     commands:
       - nvim
