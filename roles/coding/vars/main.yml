@@ -29,6 +29,8 @@ arch_packages:
   - openblas
 
   ### misc
+  - bacon
+  - cargo-nextest
   - doxygen
   - jupyterlab
   - just
