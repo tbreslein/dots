@@ -81,6 +81,8 @@ require("lazy").setup({
                     cmp = true,
                     notify = true,
                     telescope = true,
+                    treesitter = true,
+                    treesitter_context = true,
                     which_key = true,
                 },
             })
