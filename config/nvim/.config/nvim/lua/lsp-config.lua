@@ -13,22 +13,22 @@ local rust_lsp = lsp.build_options("rust_analyzer", {})
 -- servers that are installed globally and only need to be setup
 lsp.setup_servers({ "ccls", "zls", force = true })
 
-local null_opts = lsp.build_options("null-ls", {
-	on_attach = function(client, bufnr)
-		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-		vim.api.nvim_exec_autocmds("User", { pattern = "LspAttached" })
-		if client.supports_method("textDocument/formatting") then
-			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = augroup,
-				buffer = bufnr,
-				callback = function()
-					return vim.lsp.buf.format({ bufnr = bufnr })
-				end,
-			})
-		end
-	end,
-})
+-- local null_opts = lsp.build_options("null-ls", {
+-- 	on_attach = function(client, bufnr)
+-- 		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+-- 		vim.api.nvim_exec_autocmds("User", { pattern = "LspAttached" })
+-- 		if client.supports_method("textDocument/formatting") then
+-- 			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+-- 			vim.api.nvim_create_autocmd("BufWritePre", {
+-- 				group = augroup,
+-- 				buffer = bufnr,
+-- 				callback = function()
+-- 					return vim.lsp.buf.format({ bufnr = bufnr })
+-- 				end,
+-- 			})
+-- 		end
+-- 	end,
+-- })
 
 local null_ls = require("null-ls")
 -- local nc = null_ls.builtins.code_actions
