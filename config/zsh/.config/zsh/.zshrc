@@ -55,7 +55,6 @@ function up-mac {
     brew update && brew upgrade
     rustup up
     nvim -c 'lua require("lazy").sync()'
-    pushd "$HOME/Downloads/zls/" && git pull && zig build -Doptimize=ReleaseSafe -p ~/.local/ && popd
 }
 
 alias gg="lazygit"
