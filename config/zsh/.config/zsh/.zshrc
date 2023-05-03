@@ -101,4 +101,4 @@ unset __conda_setup
 
 
 # Load Angular CLI autocompletion.
-source <(ng completion script)
+(( $+commands[ng] )) && source <(ng completion script) || true
