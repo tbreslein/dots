@@ -38,20 +38,20 @@ require("lazy").setup({
         end,
     },
     -- UI
-    -- {
-    --   "sainnhe/gruvbox-material",
-    --   config = function()
-    --     vim.o.termguicolors = true
-    --     vim.o.background = "dark"
-    --     vim.g.gruvbox_material_background = "medium"
-    --     vim.g.gruvbox_material_palette = "material"
-    --     vim.g.gruvbox_material_enable_italic = 1
-    --     vim.g.gruvbox_material_enable_bold = 1
-    --     vim.g.gruvbox_material_transparent_background = 1
-    --     vim.g.gruvbox_material_sign_column_background = "none"
-    --     vim.cmd("colorscheme gruvbox-material")
-    --   end,
-    -- },
+    {
+      "sainnhe/gruvbox-material",
+      config = function()
+        vim.o.termguicolors = true
+        vim.o.background = "dark"
+        vim.g.gruvbox_material_background = "hard"
+        vim.g.gruvbox_material_palette = "material"
+        vim.g.gruvbox_material_enable_italic = 1
+        vim.g.gruvbox_material_enable_bold = 1
+        vim.g.gruvbox_material_transparent_background = 1
+        vim.g.gruvbox_material_sign_column_background = "none"
+        vim.cmd("colorscheme gruvbox-material")
+      end,
+    },
     -- {
     -- 	"folke/tokyonight.nvim",
     -- 	config = function()
@@ -64,33 +64,33 @@ require("lazy").setup({
     -- 		vim.cmd("colorscheme tokyonight")
     -- 	end,
     -- },
-    {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        config = function()
-            require("catppuccin").setup({
-                style = "macchiato",
-                transparent_background = true,
-                integrations = {
-                    gitsigns = true,
-                    harpoon = true,
-                    indent_blankline = { enabled = true },
-                    leap = true,
-                    mason = true,
-                    neogit = true,
-                    cmp = true,
-                    notify = true,
-                    telescope = true,
-                    treesitter = true,
-                    treesitter_context = true,
-                    which_key = true,
-                },
-            })
-            vim.o.termguicolors = true
-            vim.o.background = "dark"
-            vim.cmd("colorscheme catppuccin")
-        end,
-    },
+    -- {
+    --     "catppuccin/nvim",
+    --     name = "catppuccin",
+    --     config = function()
+    --         require("catppuccin").setup({
+    --             style = "macchiato",
+    --             transparent_background = true,
+    --             integrations = {
+    --                 gitsigns = true,
+    --                 harpoon = true,
+    --                 indent_blankline = { enabled = true },
+    --                 leap = true,
+    --                 mason = true,
+    --                 neogit = true,
+    --                 cmp = true,
+    --                 notify = true,
+    --                 telescope = true,
+    --                 treesitter = true,
+    --                 treesitter_context = true,
+    --                 which_key = true,
+    --             },
+    --         })
+    --         vim.o.termguicolors = true
+    --         vim.o.background = "dark"
+    --         vim.cmd("colorscheme catppuccin")
+    --     end,
+    -- },
     {
         "nvim-lualine/lualine.nvim",
         dependencies = { "kyazdani42/nvim-web-devicons" },
@@ -98,7 +98,7 @@ require("lazy").setup({
             require("lualine").setup({
                 options = {
                     globalstatus = true,
-                    theme = "catppuccin",
+                    theme = "gruvbox-material",
                     component_separators = "",
                     section_separators = "",
                 },

@@ -8,46 +8,46 @@
 }
 
 window#waybar {
-  background: rgba(18, 18, 30, 0);
-  color: #cdd6f4;
+  background: rgba(27, 27, 27, 0);
+  color: #ddc7a1;
 }
 
 tooltip {
-  background: #12121e;
+  background: #32302f;
   border-radius: 20px;
   border-width: 2px;
   border-style: solid;
-  border-color: #11111b;
+  border-color: #d4be98;
 }
 
 #workspaces button {
   padding: 5px;
-  color: #313244;
+  color: #32302f;
   margin-right: 5px;
   /* margin-left: 10px; */
 }
 
 #workspaces button.active {
-  color: #63f26f;
+  color: #e78a4e;
 }
 
 #workspaces button.focused {
-  color: #707880;
-  background: #eba0ac;
+  color: #d4be98;
+  background: #32302f;
   border-radius: 20px;
 }
 
 #workspaces button.urgent {
-  color: #11111b;
-  background: #f28fad;
+  color: #ea6962;
+  background: #4c3432;
   border-radius: 20px;
 }
 
-#workspaces button:hover {
-  background: #11111b;
-  color: #cdd6f4;
-  border-radius: 20px;
-}
+/* #workspaces button:hover { */
+/*   background: #11111b; */
+/*   color: #cdd6f4; */
+/*   border-radius: 20px; */
+/* } */
 
 #window,
 #clock,
@@ -61,7 +61,7 @@ tooltip {
 #tray,
 #custom-spotify,
 #backlight {
-  background: #1e1e2e;
+  background: #1b1b1b;
   opacity: 0.8;
   padding: 0px 10px;
   margin: 3px 0px;
@@ -79,7 +79,6 @@ tooltip {
 }
 
 #workspaces {
-  background: #1e1e2e;
   border-radius: 20px;
   margin-left: 10px;
   padding-right: 0px;
@@ -93,7 +92,7 @@ tooltip {
 }
 
 #clock {
-  color: #fab387;
+  color: #e78a4e;
   border-radius: 20px;
   /* margin-left: 10px; */
   margin-right: 10px;
@@ -101,7 +100,7 @@ tooltip {
 }
 
 #network {
-  color: #f9e2af;
+  color: #d8a657;
   border-radius: 20px;
   margin-right: 10px;
   border-left: 0px;
@@ -109,19 +108,19 @@ tooltip {
 }
 
 #bluetooth {
-  color: #89b4fa;
+  color: #7daea3;
   border-radius: 20px;
   margin-right: 10px;
 }
 
 #pulseaudio {
-  color: #89b4fa;
+  color: #7daea3;
   border-left: 0px;
   border-right: 0px;
 }
 
 #pulseaudio.microphone {
-  color: #cba6f7;
+  color: #89b482;
   border-left: 0px;
   border-right: 0px;
   border-radius: 0px 20px 20px 0px;
@@ -129,7 +128,7 @@ tooltip {
 }
 
 #battery {
-  color: #a6e3a1;
+  color: #d3869b;
   border-radius: 20px;
   margin-right: 10px;
   border-left: 0px;
