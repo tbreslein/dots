@@ -1,0 +1,21 @@
+session: planning_core_rs
+root: ~/work/Planning/lib/planning_core_rust/
+windows:
+  - name: dev
+    layout: main-vertical
+    commands:
+      - nvim
+    panes:
+      - commands:
+          - bacon
+      - commands:
+          - clear
+  - name: sh
+    layout: main-vertical
+    commands:
+      - clear
+    panes:
+      - commands:
+          - clear
+      - commands:
+          - clear

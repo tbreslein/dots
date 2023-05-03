@@ -1,0 +1,27 @@
+session: planning_core_py
+root: ~/work/Planning/lib/planning_core/
+windows:
+  - name: dev
+    layout: main-vertical
+    commands:
+      - conda activate planning_core
+      - nvim
+    panes:
+      - commands:
+          - conda activate planning_core
+          - clear
+      - commands:
+          - conda activate planning_core
+          - clear
+  - name: sh
+    layout: main-vertical
+    commands:
+      - conda activate planning_core
+      - clear
+    panes:
+      - commands:
+          - conda activate planning_core
+          - clear
+      - commands:
+          - conda activate planning_core
+          - clear
