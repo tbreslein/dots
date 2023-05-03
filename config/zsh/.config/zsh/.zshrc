@@ -70,8 +70,12 @@ alias lt="ls --tree"
 alias vim="nvim"
 alias emacs="emacsclient -c -a 'emacs'"
 
+export PATH="$HOME/.tmux/plugins/tmuxifier/bin:$PATH"
+export TMUXIFIER_LAYOUT_PATH="~/.config/tmuxifier/"
+
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(tmuxifier init -)"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

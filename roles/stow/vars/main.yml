@@ -3,6 +3,7 @@ common_stows:
   - npm
   - nvim
   - starship
+  - tmuxifier
 
 non_stow_links:
   - src: config/alacritty/alacritty.yml
