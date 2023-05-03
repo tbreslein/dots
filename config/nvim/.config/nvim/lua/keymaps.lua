@@ -21,8 +21,8 @@ require("legendary").setup({
 		{ "N", "Nzzzv", description = "jump to prev match and recenter", mode = { "n" } },
 		{ "P", "_dP", description = "pase without losing register", mode = { "v" } },
 		{ "Q", "<nop>", description = "remove Q keybind", mode = { "n" } },
-		{ "<c-k>", "<cmd>cnext<cr>zz", description = "next in quickfix list", mode = { "n" } },
-		{ "<c-j>", "<cmd>cprev<cr>zz", description = "prev in quickfix list", mode = { "n" } },
+		{ "<c-K>", "<cmd>cnext<cr>zz", description = "next in quickfix list", mode = { "n" } },
+		{ "<c-J>", "<cmd>cprev<cr>zz", description = "prev in quickfix list", mode = { "n" } },
 		{ "<leader>j", "<cmd>lprev<cr>zz", description = "prev in loclist", mode = { "n" } },
 		{ "<leader>k", "<cmd>lnext<cr>zz", description = "next in loclist", mode = { "n" } },
 		{

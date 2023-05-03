@@ -26,6 +26,8 @@ autoload -Uz compinit
 _comp_options+=(globdots)
 compinit
 
+export DISABLE_AUTO_TITLE=true
+
 export ZAP_DIR="$HOME/.local/share/zap"
 [[ ! -d "$ZAP_DIR" ]] && {
     git clone https://github.com/zap-zsh/zap.git "$ZAP_DIR" > /dev/null 2>&1
@@ -58,6 +60,13 @@ function up-mac {
     nvim -c 'lua require("lazy").sync()'
 }
 
+function tmux-work {
+    smug dots --detach
+    smug planning_core --detach
+    smug planning_api_core_adapter --detach
+    smug planning_core_rust
+}
+
 alias gg="lazygit"
 alias cp="cp -i"
 alias rm="rm -i"
@@ -70,12 +79,9 @@ alias lt="ls --tree"
 alias vim="nvim"
 alias emacs="emacsclient -c -a 'emacs'"
 
-export PATH="$HOME/.tmux/plugins/tmuxifier/bin:$PATH"
-export TMUXIFIER_LAYOUT_PATH="~/.config/tmuxifier/"
-
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
-eval "$(tmuxifier init -)"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -92,3 +98,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
