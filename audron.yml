@@ -3,6 +3,7 @@
   roles:
     - pacman_conf
     - stow_audron
+    - stow_linux
     - intel_cpu
     - tlp
     - fprintd

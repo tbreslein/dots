@@ -1,17 +1,9 @@
 ---
 common_stows:
-  - alacritty
-  - dunst
-  - eww
-  - hypr
   - npm
   - nvim
-  - qt5ct
-  - qt6ct
   - starship
-  - swappy
-  - waybar
-  - zsh
 
-scripts:
-  - waybrave
+non_stow_links:
+  - src: config/alacritty/alacritty.yml
+    dest: .config/alacritty/alacritty.yml

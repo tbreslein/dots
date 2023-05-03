@@ -3,6 +3,7 @@
   roles:
     - pacman_conf
     - stow_moebius
+    - stow_linux
     - amd_cpu
     - amd_graphics
 

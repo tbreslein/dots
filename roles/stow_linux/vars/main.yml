@@ -1,0 +1,16 @@
+---
+common_stows:
+  - dunst
+  - eww
+  - hypr
+  - qt5ct
+  - qt6ct
+  - swappy
+  - waybar
+  - zsh
+
+non_stow_links:
+  - src: config/alacritty/font-linux.yml
+    dest: .config/alacritty/font.yml
+  - src: scripts/waybrave
+    dest: .local/bin/waybrave
