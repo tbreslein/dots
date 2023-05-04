@@ -1,6 +1,3 @@
-HISTFILE="$XDG_DATA_HOME/zsh/history"
-HISTSIZE=100000
-SAVEHIST=100000
 bindkey -v # vim mode
 export KEYTIMEOUT=1
 bindkey -v '^?' backward-delete-char
@@ -67,7 +64,7 @@ function tmux-work {
     smug planning_core_rust
 }
 
-alias gg="lazygit"
+alias gg="nvim -c 'Neogit'"
 alias cp="cp -i"
 alias rm="rm -i"
 alias mv="mv -i"
