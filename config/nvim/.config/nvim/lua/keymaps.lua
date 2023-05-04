@@ -64,7 +64,7 @@ require("legendary").setup({
 		{ "<leader>a", mark.add_file, description = "add harpoon mark", mode = { "n" } },
 		{ "<c-e>", ui.toggle_quick_menu, description = "toggle harpoon quick menu", mode = { "n" } },
 		{
-			"<a-p>",
+			"<a-u>",
 			function()
 				ui.nav_file(1)
 			end,
@@ -72,7 +72,7 @@ require("legendary").setup({
 			mode = { "n" },
 		},
 		{
-			"<a-f>",
+			"<a-i>",
 			function()
 				ui.nav_file(2)
 			end,
@@ -80,7 +80,7 @@ require("legendary").setup({
 			mode = { "n" },
 		},
 		{
-			"<a-w>",
+			"<a-o>",
 			function()
 				ui.nav_file(3)
 			end,
@@ -88,11 +88,19 @@ require("legendary").setup({
 			mode = { "n" },
 		},
 		{
-			"<a-q>",
+			"<a-p>",
 			function()
 				ui.nav_file(4)
 			end,
 			description = "nav to harpoon mark 4",
+			mode = { "n" },
+		},
+		{
+			"<a-y>",
+			function()
+				ui.nav_file(5)
+			end,
+			description = "nav to harpoon mark 5",
 			mode = { "n" },
 		},
 		{ "<leader>u", "<cmd>UndotreeToggle<cr>", description = "toggle undo tree", mode = { "n" } },
@@ -105,8 +113,8 @@ require("legendary").setup({
 require("which-key").register({
 	p = {
 		name = "project",
-		f = { "<cmd>Telescope find_files hidden=true<cr>", "find files" },
-		F = { builtin.git_files, "find files in git mode" },
+        f = { builtin.git_files, "find files respecting gitignore" },
+		F = { "<cmd>Telescope find_files hidden=true<cr>", "find files" },
 		s = { builtin.live_grep, "live grep" },
 		p = { require("oil").open, "project view" },
 	},

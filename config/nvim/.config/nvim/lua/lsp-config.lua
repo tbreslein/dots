@@ -7,28 +7,38 @@ local lsp = require("lsp-zero").preset({
 	suggest_lsp_servers = false,
 })
 
+lsp.on_attach(function (_, bufnr)
+    lsp.default_keymaps({ buffer = bufnr })
+    require("which-key").register({
+        l = {
+            name = "LSP actions",
+            r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "rename" },
+            f = { "<cmd>lua vim.lsp.buf.format({async = true})<cr>", "async format" },
+        },
+    }, {
+        prefix = "<leader>",
+    })
+    require("which-key").register({
+        g = {
+            name = "go to (LSP)",
+            d = { "<cmd>lua vim.lsp.buf.definition()<cr>", "definition" },
+            D = { "<cmd>lua vim.lsp.buf.declaration()<cr>", "declaration" },
+            i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "implementation" },
+            t = { "<cmd>lua vim.lsp.buf.type_definition()<cr>", "type def" },
+            r = { "<cmd>Telescope lsp_references<cr>", "lsp references" },
+            s = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "signature help" },
+            l = { "<cmd>lua vim.diagnostic.open_float()<cr>", "diagnostic float" },
+            n = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "next diagnostic" },
+            p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "prev diagnostic" },
+        },
+    })
+end)
+
 lsp.nvim_workspace()
 local rust_lsp = lsp.build_options("rust_analyzer", {})
 
 -- servers that are installed globally and only need to be setup
-lsp.setup_servers({ "ccls", "pylsp", "zls", force = true })
-
--- local null_opts = lsp.build_options("null-ls", {
--- 	on_attach = function(client, bufnr)
--- 		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
--- 		vim.api.nvim_exec_autocmds("User", { pattern = "LspAttached" })
--- 		if client.supports_method("textDocument/formatting") then
--- 			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
--- 			vim.api.nvim_create_autocmd("BufWritePre", {
--- 				group = augroup,
--- 				buffer = bufnr,
--- 				callback = function()
--- 					return vim.lsp.buf.format({ bufnr = bufnr })
--- 				end,
--- 			})
--- 		end
--- 	end,
--- })
+lsp.setup_servers({ "ccls", "pylsp", "zls" })
 
 local null_ls = require("null-ls")
 -- local nc = null_ls.builtins.code_actions
