@@ -65,9 +65,7 @@ function up-mac {
 
 function tmux-work {
     smug dots --detach
-    smug planning_core --detach
-    smug planning_api_core_adapter --detach
-    smug planning_core_rust
+    smug planning_core
 }
 
 alias gg="nvim -c 'Neogit'"

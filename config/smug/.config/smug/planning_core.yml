@@ -1,7 +1,7 @@
 session: planning_core
 root: ~/work/Planning
 windows:
-  - name: code
+  - name: core
     root: lib/planning_core_rust/
     layout: main-vertical
     commands:
@@ -16,6 +16,14 @@ windows:
           - poetry install
           - popd
           - maturin develop --release
+  - name: api
+    root: projects/planning_api
+    layout: main-vertical
+    commands:
+      - nvim
+    panes:
+      - commands:
+          - conda activate planning_api
   - name: sh
     layout: main-vertical
     commands:
@@ -23,7 +31,7 @@ windows:
     panes:
       - commands:
           - clear
-  - name: api
+  - name: server
     root: .
     layout: even-vertical
     commands:
