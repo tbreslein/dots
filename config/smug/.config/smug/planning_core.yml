@@ -1,27 +1,39 @@
-session: planning_core_py
-root: ~/work/Planning/lib/planning_core/
+session: planning_core
+root: ~/work/Planning
 windows:
-  - name: dev
+  - name: code
+    root: lib/planning_core_rust/
     layout: main-vertical
     commands:
-      - conda activate planning_core
       - nvim
     panes:
       - commands:
-          - conda activate planning_core
-          - clear
+          - bacon
       - commands:
-          - conda activate planning_core
-          - clear
+          - pushd ~/work/Planning/projects/planning_api/
+          - conda activate planning_api
+          - poetry shell
+          - poetry install
+          - popd
+          - maturin develop --release
   - name: sh
     layout: main-vertical
     commands:
-      - conda activate planning_core
       - clear
     panes:
       - commands:
-          - conda activate planning_core
           - clear
-      - commands:
-          - conda activate planning_core
-          - clear
+  - name: api
+    root: .
+    layout: even-vertical
+    commands:
+      - killall redis-server
+      - sleep 2
+      - redis-server
+    panes:
+      - root: projects/planning_api
+        commands:
+          - sleep 5
+          - redis-cli FLUSHALL
+          - conda activate planning_api
+          - AWS_DEFAULT_REGION=foo python3 src/planning_api/fast_api_app/main.py

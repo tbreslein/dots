@@ -1,3 +1,9 @@
+HISTFILE="$XDG_DATA_HOME/zsh/history"
+HISTSIZE=100000
+SAVEHIST=100000
+[[ -d "$XDG_DATA_HOME/zsh" ]] && mkdir -p "$XDG_DATA_HOME/zsh/"
+[[ -f "$XDG_DATA_HOME/zsh/history" ]] && touch "$XDG_DATA_HOME/zsh/history"
+
 bindkey -v # vim mode
 export KEYTIMEOUT=1
 bindkey -v '^?' backward-delete-char
