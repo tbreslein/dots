@@ -52,45 +52,6 @@ require("lazy").setup({
         vim.cmd("colorscheme gruvbox-material")
       end,
     },
-    -- {
-    -- 	"folke/tokyonight.nvim",
-    -- 	config = function()
-    -- 		require("tokyonight").setup({
-    -- 			style = "storm",
-    -- 			transparent = true,
-    -- 		})
-    -- 		vim.o.termguicolors = true
-    -- 		vim.o.background = "dark"
-    -- 		vim.cmd("colorscheme tokyonight")
-    -- 	end,
-    -- },
-    -- {
-    --     "catppuccin/nvim",
-    --     name = "catppuccin",
-    --     config = function()
-    --         require("catppuccin").setup({
-    --             style = "macchiato",
-    --             transparent_background = true,
-    --             integrations = {
-    --                 gitsigns = true,
-    --                 harpoon = true,
-    --                 indent_blankline = { enabled = true },
-    --                 leap = true,
-    --                 mason = true,
-    --                 neogit = true,
-    --                 cmp = true,
-    --                 notify = true,
-    --                 telescope = true,
-    --                 treesitter = true,
-    --                 treesitter_context = true,
-    --                 which_key = true,
-    --             },
-    --         })
-    --         vim.o.termguicolors = true
-    --         vim.o.background = "dark"
-    --         vim.cmd("colorscheme catppuccin")
-    --     end,
-    -- },
     {
         "nvim-lualine/lualine.nvim",
         dependencies = { "kyazdani42/nvim-web-devicons" },
@@ -148,13 +109,6 @@ require("lazy").setup({
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             require("diffview").setup()
-        end,
-    },
-    {
-        "TimUntersberger/neogit",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        config = function()
-            require("neogit").setup()
         end,
     },
     "uga-rosa/ccc.nvim",

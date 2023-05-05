@@ -68,7 +68,7 @@ function tmux-work {
     smug planning_core
 }
 
-alias gg="nvim -c 'Neogit'"
+alias gg="lazygit"
 alias cp="cp -i"
 alias rm="rm -i"
 alias mv="mv -i"
