@@ -16,3 +16,8 @@
   kewlfft.aur.aur:
     name: "{{ item }}"
   loop: "{{ aur_packages }}"
+
+- name: Enable bluetooth.service
+  ansible.builtin.service:
+    name: bluetooth.service
+    enabled: true
