@@ -112,6 +112,7 @@ alias emacs="emacsclient -c -a 'emacs'"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.local/zig:$PATH"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
