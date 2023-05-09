@@ -51,20 +51,11 @@ require("legendary").setup({
 			description = "search and replace word under cursor",
 			mode = { "v" },
 		},
-		{ "jk", "<c-\\><c-n>", description = "leave insert mode in embedded terminal", mode = { "t" } },
-		{
-			"<leader>zz",
-			function()
-				require("zen-mode").toggle()
-				vim.wo.wrap = false
-			end,
-			description = "delete to end of line into system clipboard",
-			mode = { "n" },
-		},
+		{ "zx", "<c-\\><c-n>", description = "leave insert mode in embedded terminal", mode = { "t" } },
 		{ "<leader>a", mark.add_file, description = "add harpoon mark", mode = { "n" } },
 		{ "<c-e>", ui.toggle_quick_menu, description = "toggle harpoon quick menu", mode = { "n" } },
 		{
-			"<a-u>",
+			"<m-u>",
 			function()
 				ui.nav_file(1)
 			end,
@@ -72,7 +63,7 @@ require("legendary").setup({
 			mode = { "n" },
 		},
 		{
-			"<a-i>",
+			"<m-i>",
 			function()
 				ui.nav_file(2)
 			end,
@@ -80,7 +71,7 @@ require("legendary").setup({
 			mode = { "n" },
 		},
 		{
-			"<a-o>",
+			"<m-o>",
 			function()
 				ui.nav_file(3)
 			end,
@@ -88,7 +79,7 @@ require("legendary").setup({
 			mode = { "n" },
 		},
 		{
-			"<a-p>",
+			"<m-p>",
 			function()
 				ui.nav_file(4)
 			end,
@@ -96,7 +87,7 @@ require("legendary").setup({
 			mode = { "n" },
 		},
 		{
-			"<a-y>",
+			"<m-y>",
 			function()
 				ui.nav_file(5)
 			end,
