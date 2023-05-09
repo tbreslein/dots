@@ -126,7 +126,7 @@ require("which-key").register({
 	},
 	g = {
 		name = "git",
-		g = { "<cmd>Neogit<cr>", "Neogit" },
+		g = { "<cmd>LazyGit<cr>", "LazyGit" },
 		d = { "<cmd>DiffviewOpen<cr>", "DiffviewOpen" },
 	},
 }, {

@@ -39,6 +39,12 @@ require("lazy").setup({
     },
     -- UI
     {
+        "kdheepak/lazygit.nvim",
+        config = function ()
+            vim.g.lazygit_floating_window_use_plenary = 1
+        end
+    },
+    {
       "sainnhe/gruvbox-material",
       config = function()
         vim.o.termguicolors = true
