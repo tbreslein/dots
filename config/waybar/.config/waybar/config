@@ -8,7 +8,7 @@
     "height": 50,
     "modules-left": ["wlr/workspaces"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["network", "battery","clock","backlight","pulseaudio","pulseaudio#microphone", "tray"],
+    "modules-right": ["network", "battery","backlight","pulseaudio","pulseaudio#microphone","clock", "tray"],
     "hyprland/window": {
         "format": "{}"
     },
@@ -25,7 +25,7 @@
     },
 
     "clock": {
-        "format": "{: %I:%M %p }",
+        "format": "{: %H:%M }",
         "format-alt":"{: %a, %b %e}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
@@ -33,7 +33,7 @@
     "backlight": {
         "device": "intel_backlight",
         "format": "{icon} {percent}%",
-        "format-icons": ["", "", ""],
+        "format-icons": ["", "", "󰖨"],
         "on-scroll-up": "light -A 5",
         "on-scroll-down": "light -U 5",
         "min-length": 6
@@ -49,7 +49,7 @@
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
         "format-alt": "{time} {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""]
     },
 
     "pulseaudio": {
@@ -73,8 +73,8 @@
 
     "pulseaudio#microphone": {
         "format": "{format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": " Muted",
+        "format-source": "󰍬 {volume}%",
+        "format-source-muted": "󰍭 Muted",
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
         "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
         "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
@@ -83,9 +83,9 @@
     
     "network": {
         "format-wifi": "  {signalStrength}%",
-        "format-ethernet": "Eth ",
-        "tooltip-format": "{essid} - {ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
+        "format-ethernet": "󰈀",
+        "tooltip-format": "{essid} - {ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP) 󰌹",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}:{essid} {ipaddr}/{cidr}"
     },
