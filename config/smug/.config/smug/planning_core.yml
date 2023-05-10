@@ -2,15 +2,20 @@ session: planning_core
 root: ~/work/Planning
 windows:
   - name: core
-    root: lib/planning_core_rust/
+    root: .
     layout: main-vertical
     commands:
       - conda activate planning_api
       - nvim
     panes:
-      - commands:
+      - root: lib/planning_core_rust/
+        commands:
           - bacon
-      - commands:
+      - root: ../requests
+        commands:
+          - clear
+      - root: .
+        commands:
           - pushd ~/work/Planning/projects/planning_api/
           - conda activate planning_api
           - poetry shell
@@ -18,7 +23,7 @@ windows:
           - popd
           - maturin develop --release
           - redis-cli FLUSHALL
-          - AWS_DEFAULT_REGION=foo python3 ../../projects/planning_api/src/planning_api/fast_api_app/main.py
+          - AWS_DEFAULT_REGION=foo python3 projects/planning_api/src/planning_api/fast_api_app/main.py
   - name: api
     root: projects/planning_api
     layout: main-vertical
