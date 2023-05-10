@@ -40,6 +40,7 @@ local rust_lsp = lsp.build_options("rust_analyzer", {})
 -- servers that are installed globally and only need to be setup
 lsp.setup_servers({ "ccls", "pylsp", "zls" })
 
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local null_ls = require("null-ls")
 -- local nc = null_ls.builtins.code_actions
 local nd = null_ls.builtins.diagnostics
@@ -71,6 +72,19 @@ null_ls.setup({
 		nf.zigfmt,
 	},
 	-- on_attach = null_opts.on_attach,
+    on_attach = function (client, bufnr)
+        if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = augroup,
+                buffer = bufnr,
+                callback = function ()
+                    vim.lsp.buf.format({ bufnr = bufnr })
+                    -- vim.lsp.buf.formatting_sync()
+                end,
+            })
+        end
+    end
 })
 
 lsp.setup()
