@@ -11,7 +11,7 @@ windows:
       - root: lib/planning_core_rust/
         commands:
           - bacon
-      - root: ../requests
+      - root: ../api-test-curls/
         commands:
           - clear
       - root: .
