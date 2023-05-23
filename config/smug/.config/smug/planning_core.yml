@@ -40,7 +40,7 @@ windows:
     panes:
       - commands:
           - conda activate planning_api
-  - name: server
+  - name: services
     root: .
     layout: even-vertical
     commands:
@@ -48,6 +48,6 @@ windows:
       - sleep 2
       - redis-server
     panes:
-      - root: projects/planning_api
+      - root: ../tools/mocotrackingclient
         commands:
-          - conda activate planning_api
+          - poetry run moco_client.py
