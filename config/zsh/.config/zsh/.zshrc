@@ -45,6 +45,11 @@ function up-arch {
     pushd "$HOME/dots"
     git pull 
     popd
+    [[ ! -d "~/.tmux/plugins/tpm" ]] && {
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm > /dev/null 2>&1
+        ~/.tmux/plugins/tpm/bin/install_plugins
+    }
+    ~/.tmux/plugins/tpm/bin/update_plugins all
     zap update all
     { sudo -i -u kain paru } && \
     rustup up && \
@@ -56,6 +61,11 @@ function up-mac {
     pushd "$HOME/dots"
     git pull
     popd
+    [[ ! -d "~/.tmux/plugins/tpm" ]] && {
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm > /dev/null 2>&1
+        ~/.tmux/plugins/tpm/bin/install_plugins
+    }
+    ~/.tmux/plugins/tpm/bin/update_plugins all
     zap update all
     brew update && brew upgrade
     rustup up
