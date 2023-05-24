@@ -118,11 +118,16 @@ alias lla="ll -a"
 alias lt="ls --tree"
 alias vim="nvim"
 alias emacs="emacsclient -c -a 'emacs'"
+alias axbrew="arch -x86_64 /usr/local/Homebrew/bin/brew"
 
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+export PATH="$HOME/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/zig:$PATH"
+export PATH="/opt/local/libexec/llvm-16/bin:$PATH"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
