@@ -31,6 +31,19 @@ compinit
 
 export DISABLE_AUTO_TITLE=true
 
+alias gg="lazygit"
+alias cp="cp -i"
+alias rm="rm -i"
+alias mv="mv -i"
+alias ls="exa"
+alias ll="ls -lg --git"
+alias la="ls -a"
+alias lla="ll -a"
+alias lt="ls --tree"
+alias vim="nvim"
+alias emacs="emacsclient -c -a 'emacs'"
+alias axbrew="arch -x86_64 /usr/local/Homebrew/bin/brew"
+
 export ZAP_DIR="$HOME/.local/share/zap"
 [[ ! -d "$ZAP_DIR" ]] && {
     git clone https://github.com/zap-zsh/zap.git "$ZAP_DIR" > /dev/null 2>&1
@@ -68,6 +81,7 @@ function up-mac {
     ~/.tmux/plugins/tpm/bin/update_plugins all
     zap update all
     brew update && brew upgrade
+    axbrew update && axbrew upgrade
     rustup up
     poetry self update
     nvim -c 'lua require("lazy").sync()'
@@ -107,23 +121,9 @@ function start-planning-profiler {
     samply record python3 ~/work/Planning/lib/planning_api_core_adapter/src/debug/debug_runner.py
 }
 
-alias gg="lazygit"
-alias cp="cp -i"
-alias rm="rm -i"
-alias mv="mv -i"
-alias ls="exa"
-alias ll="ls -lg --git"
-alias la="ls -a"
-alias lla="ll -a"
-alias lt="ls --tree"
-alias vim="nvim"
-alias emacs="emacsclient -c -a 'emacs'"
-alias axbrew="arch -x86_64 /usr/local/Homebrew/bin/brew"
-
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 export PATH="$HOME/bin:$PATH"
-export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/zig:$PATH"
