@@ -1,13 +1,13 @@
 require("mason-update-all").setup({})
 
 local lsp = require("lsp-zero").preset({
-	name = "minimal",
-	set_lsp_keymaps = { preserve_mappings = false },
-	manage_nvim_cmp = false,
-	suggest_lsp_servers = false,
+    name = "minimal",
+    set_lsp_keymaps = { preserve_mappings = false },
+    manage_nvim_cmp = false,
+    suggest_lsp_servers = false,
 })
 
-lsp.on_attach(function (_, bufnr)
+lsp.on_attach(function(_, bufnr)
     lsp.default_keymaps({ buffer = bufnr })
     require("which-key").register({
         l = {
@@ -46,45 +46,46 @@ local null_ls = require("null-ls")
 local nd = null_ls.builtins.diagnostics
 local nf = null_ls.builtins.formatting
 null_ls.setup({
-	sources = {
-		-- c/c++
-		nd.cppcheck,
-		nf.clang_format,
-		-- js/ts
-		nd.eslint,
-		nf.prettierd.with({
-			extra_filetypes = { "svelte", "toml" },
-		}),
-		nd.tsc.with({ prefer_local = "node_modules/.bin" }),
-		-- lua
-		nf.stylua,
-		nd.luacheck.with({ extra_args = { "--globals", "vim" } }),
-		-- shell, docker, config files, etc
-		nd.shellcheck,
-		nd.ansiblelint,
-		nd.hadolint,
-		-- python
-		nd.ruff,
-		nf.black,
-		-- rust
-		nf.rustfmt,
-		-- zig
-		nf.zigfmt,
-	},
-	-- on_attach = null_opts.on_attach,
-    on_attach = function (client, bufnr)
+    sources = {
+        -- c/c++
+        nd.cppcheck,
+        nf.clang_format,
+        -- js/ts
+        nd.eslint,
+        nf.prettierd.with({
+            extra_filetypes = { "svelte", "toml" },
+        }),
+        nd.tsc.with({ prefer_local = "node_modules/.bin" }),
+        -- lua
+        nf.stylua,
+        nd.luacheck.with({ extra_args = { "--globals", "vim" } }),
+        -- shell, docker, config files, etc
+        nd.shellcheck,
+        nd.ansiblelint,
+        nd.hadolint,
+        -- nf.shellharden,
+        -- python
+        nd.ruff,
+        nf.black,
+        -- rust
+        nf.rustfmt,
+        -- zig
+        nf.zigfmt,
+    },
+    -- on_attach = null_opts.on_attach,
+    on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
             vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
             vim.api.nvim_create_autocmd("BufWritePre", {
                 group = augroup,
                 buffer = bufnr,
-                callback = function ()
+                callback = function()
                     vim.lsp.buf.format({ bufnr = bufnr })
                     -- vim.lsp.buf.formatting_sync()
                 end,
             })
         end
-    end
+    end,
 })
 
 lsp.setup()
@@ -100,57 +101,57 @@ local cmp_sources = lsp.defaults.cmp_sources()
 table.insert(cmp_sources, { name = "lua-latex-symbols", option = { cache = true } })
 
 local icons = {
-	Class = "",
-	Constant = "",
-	Constructor = "",
-	Field = "",
-	Function = "",
-	Keyword = "",
-	Method = "",
-	Module = "",
-	Snippet = "󰅴",
-	Text = "",
-	Variable = "󰭷",
+    Class = "",
+    Constant = "",
+    Constructor = "",
+    Field = "",
+    Function = "",
+    Keyword = "",
+    Method = "",
+    Module = "",
+    Snippet = "󰅴",
+    Text = "",
+    Variable = "󰭷",
 
-	nvim_lsp = "LSP",
-	buffer = "Buf",
-	luasnip = "Snp",
-	latex_symbols = "TeX",
+    nvim_lsp = "LSP",
+    buffer = "Buf",
+    luasnip = "Snp",
+    latex_symbols = "TeX",
 }
 
 local cmp_config = lsp.defaults.cmp_config({
-	window = {
-		completion = cmp.config.window.bordered(),
-	},
-	mappings = cmp_mappings,
-	sources = cmp_sources,
-	formatting = {
-		fields = { "kind", "abbr", "menu" },
-		format = function(entry, vim_item)
-			local function trim(text, max)
-				if text and text:len() > max then
-					text = text:sub(1, max) .. "..."
-				end
-				return text
-			end
+    window = {
+        completion = cmp.config.window.bordered(),
+    },
+    mappings = cmp_mappings,
+    sources = cmp_sources,
+    formatting = {
+        fields = { "kind", "abbr", "menu" },
+        format = function(entry, vim_item)
+            local function trim(text, max)
+                if text and text:len() > max then
+                    text = text:sub(1, max) .. "..."
+                end
+                return text
+            end
 
-			vim_item.kind = icons[vim_item.kind] or vim_item.kind
+            vim_item.kind = icons[vim_item.kind] or vim_item.kind
 
-			local source = entry.source.name
-			if source == "lua-latex-symbols" then
-				source = "latex_symbols"
-			end
+            local source = entry.source.name
+            if source == "lua-latex-symbols" then
+                source = "latex_symbols"
+            end
 
-			vim_item.menu = " [" .. (icons[source] or source) .. "]"
+            vim_item.menu = " [" .. (icons[source] or source) .. "]"
 
-			if source == "luasnip" or source == "nvim_lsp" then
-				vim_item.dup = 0
-			end
+            if source == "luasnip" or source == "nvim_lsp" then
+                vim_item.dup = 0
+            end
 
-			vim_item.abbr = trim(vim_item.abbr, 70)
-			return vim_item
-		end,
-	},
+            vim_item.abbr = trim(vim_item.abbr, 70)
+            return vim_item
+        end,
+    },
 })
 cmp.setup(cmp_config)
 
@@ -161,33 +162,33 @@ cmp.setup(cmp_config)
 
 -- restore some diagnostics settings
 vim.diagnostic.config({
-	virtual_text = true,
+    virtual_text = true,
 })
 
 require("rust-tools").setup({
-	server = rust_lsp,
-	tools = { inlay_hints = { only_current_line = true } },
+    server = rust_lsp,
+    tools = { inlay_hints = { only_current_line = true } },
 })
 
 -- `/` cmdline setup.
 cmp.setup.cmdline("/", {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = {
-		{ name = "buffer" },
-	},
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = "buffer" },
+    },
 })
 
 -- `:` cmdline setup.
 cmp.setup.cmdline(":", {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		{ name = "path" },
-	}, {
-		{
-			name = "cmdline",
-			option = {
-				ignore_cmds = { "Man", "!" },
-			},
-		},
-	}),
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = "path" },
+    }, {
+        {
+            name = "cmdline",
+            option = {
+                ignore_cmds = { "Man", "!" },
+            },
+        },
+    }),
 })
