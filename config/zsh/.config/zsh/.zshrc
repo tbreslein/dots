@@ -144,6 +144,11 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# >>> pyenv setup
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+# <<< pyenv setup
 
 
 # Load Angular CLI autocompletion.
