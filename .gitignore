@@ -1,3 +1,4 @@
-config/nvim/.config/nvim/lazy-lock.json
-config/zsh/.config/zsh/.zcompdump
-config/smug/.config/smug/smug.log
+lazy-lock.json
+.zcompdump
+smug.log
+.luarc.json
