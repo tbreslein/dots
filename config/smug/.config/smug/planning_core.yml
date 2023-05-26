@@ -50,4 +50,4 @@ windows:
     panes:
       - root: ../tools/mocotrackingclient
         commands:
-          - poetry run moco_client.py
+          - poetry run python moco_client.py
