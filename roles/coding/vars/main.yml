@@ -25,6 +25,9 @@ arch_packages:
   - python-matplotlib
   - python-numpy
   - python-pandas
+  - python-breathe
+  - python-sphinx
+  - python-sphinx_rtd_theme
   - openmp
   - openblas
 
