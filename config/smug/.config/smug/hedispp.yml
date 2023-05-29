@@ -1,0 +1,32 @@
+session: hedispp
+root: ~/coding/hedispp/
+windows:
+  - name: dev
+    layout: main-vertical
+    commands:
+      - nvim
+    panes:
+      - commands:
+          - clear
+      - commands:
+          - clear
+  - name: hedisc
+    root: ../hedis_c
+    layout: main-vertical
+    commands:
+      - clear
+    panes:
+      - commands:
+          - clear
+      - commands:
+          - clear
+  - name: fosite
+    root: ../fosite
+    layout: main-vertical
+    commands:
+      - clear
+    panes:
+      - commands:
+          - clear
+      - commands:
+          - clear
