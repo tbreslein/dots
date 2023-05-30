@@ -1,11 +1,11 @@
 session: planning_core
-root: ~/work/Planning
+root: ~/work/planning
 windows:
   - name: core
     root: .
     layout: main-vertical
     commands:
-      - conda activate planning_api
+      # - poetry shell -C projects/planning_api
       - nvim
     panes:
       - root: lib/planning_core_rust/
@@ -15,39 +15,22 @@ windows:
         commands:
           - clear
       - root: .
-        commands:
-          - pushd ~/work/Planning/projects/planning_api/
-          - conda activate planning_api
-          - poetry shell
-          - poetry install
-          - popd
-          - maturin develop --release
-          - redis-cli FLUSHALL
-          - AWS_DEFAULT_REGION=foo python3 projects/planning_api/src/planning_api/fast_api_app/main.py
-  - name: api
-    root: projects/planning_api
-    layout: main-vertical
-    commands:
-      - conda activate planning_api
-      - nvim
-    panes:
-      - commands:
-          - conda activate planning_api
+        commands: -clear
   - name: sh
     layout: main-vertical
     commands:
-      - conda activate planning_api
+      - clear
     panes:
       - commands:
-          - conda activate planning_api
-  - name: services
-    root: .
-    layout: even-vertical
-    commands:
-      - killall redis-server
-      - sleep 2
-      - redis-server
-    panes:
-      - root: ../tools/mocotrackingclient
-        commands:
-          - poetry run python moco_client.py
+          - clear
+  # - name: services
+  #   root: .
+  #   layout: even-vertical
+  #   commands:
+  #     - killall redis-server
+  #     - sleep 2
+  #     - redis-server
+  #   panes:
+  #     - root: ../tools/mocotrackingclient
+  #       commands:
+  #         - poetry run python moco_client.py
