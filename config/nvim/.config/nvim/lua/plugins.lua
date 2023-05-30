@@ -40,18 +40,18 @@ require("lazy").setup({
     -- UI
     "kdheepak/lazygit.nvim",
     {
-      "sainnhe/gruvbox-material",
-      config = function()
-        vim.o.termguicolors = true
-        vim.o.background = "dark"
-        vim.g.gruvbox_material_background = "hard"
-        vim.g.gruvbox_material_palette = "material"
-        vim.g.gruvbox_material_enable_italic = 1
-        vim.g.gruvbox_material_enable_bold = 1
-        vim.g.gruvbox_material_transparent_background = 1
-        vim.g.gruvbox_material_sign_column_background = "none"
-        vim.cmd("colorscheme gruvbox-material")
-      end,
+        "sainnhe/gruvbox-material",
+        config = function()
+            vim.o.termguicolors = true
+            vim.o.background = "dark"
+            vim.g.gruvbox_material_background = "hard"
+            vim.g.gruvbox_material_palette = "material"
+            vim.g.gruvbox_material_enable_italic = 1
+            vim.g.gruvbox_material_enable_bold = 1
+            vim.g.gruvbox_material_transparent_background = 1
+            vim.g.gruvbox_material_sign_column_background = "none"
+            vim.cmd("colorscheme gruvbox-material")
+        end,
     },
     {
         "nvim-lualine/lualine.nvim",
@@ -216,7 +216,7 @@ require("lazy").setup({
                     "%.met",
                     "smalljre_*/*",
                     ".vale/",
-                }
+                },
             })
         end,
     },
