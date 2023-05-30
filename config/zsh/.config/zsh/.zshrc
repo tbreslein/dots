@@ -92,34 +92,14 @@ function tmux-work {
     smug planning_core
 }
 
-function restart-planning-api {
-    conda deactivate
-    conda activate planning_api
-    # pushd ~/work/Planning/projects/planning_api/
-    # poetry shell
-    # poetry install
-    # popd
-    pushd ~/work/Planning/lib/planning_core_rust/
-    maturin develop --release
-    popd
-    pushd ~/work/
-    redis-cli FLUSHALL
-    popd
-    AWS_DEFAULT_REGION=foo python3 ~/work/Planning/projects/planning_api/src/planning_api/fast_api_app/main.py
-}
-
-function start-planning-profiler {
-    conda deactivate
-    conda activate planning_api
-    # pushd ~/work/Planning/projects/planning_api/
-    # poetry shell
-    # poetry install
-    # popd
-    pushd ~/work/Planning/lib/planning_core_rust/
-    maturin develop --release --profile profiling
-    popd
-    samply record python3 ~/work/Planning/lib/planning_api_core_adapter/src/debug/debug_runner.py
-}
+# function start-planning-profiler {
+#     conda deactivate
+#     conda activate planning_api
+#     pushd ~/work/Planning/lib/planning_core_rust/
+#     maturin develop --release --profile profiling
+#     popd
+#     samply record python3 ~/work/Planning/lib/planning_api_core_adapter/src/debug/debug_runner.py
+# }
 
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
