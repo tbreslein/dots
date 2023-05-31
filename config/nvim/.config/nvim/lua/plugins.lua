@@ -45,11 +45,13 @@ require("lazy").setup({
             vim.o.termguicolors = true
             vim.o.background = "dark"
             vim.g.gruvbox_material_background = "hard"
-            vim.g.gruvbox_material_palette = "material"
+            vim.g.gruvbox_material_foreground = "material"
             vim.g.gruvbox_material_enable_italic = 1
             vim.g.gruvbox_material_enable_bold = 1
             vim.g.gruvbox_material_transparent_background = 1
             vim.g.gruvbox_material_sign_column_background = "none"
+            vim.g.gruvbox_material_ui_contrast = "high"
+            vim.g.gruvbox_material_statusline_style = "mix"
             vim.cmd("colorscheme gruvbox-material")
         end,
     },
@@ -166,7 +168,12 @@ require("lazy").setup({
     },
 
     -- movement
-    "ggandor/leap.nvim",
+    {
+        "ggandor/leap.nvim",
+        config = function()
+            require("leap").opts.highlight_unlabeled_phase_one_targets = true
+        end,
+    },
     {
         "theprimeagen/harpoon",
         dependencies = { "nvim-lua/plenary.nvim" },
