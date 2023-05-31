@@ -15,7 +15,8 @@ windows:
         commands:
           - clear
       - root: .
-        commands: -clear
+        commands:
+          - clear
   - name: sh
     layout: main-vertical
     commands:
@@ -23,14 +24,7 @@ windows:
     panes:
       - commands:
           - clear
-  # - name: services
-  #   root: .
-  #   layout: even-vertical
-  #   commands:
-  #     - killall redis-server
-  #     - sleep 2
-  #     - redis-server
-  #   panes:
-  #     - root: ../tools/mocotrackingclient
-  #       commands:
-  #         - poetry run python moco_client.py
+  - name: moco
+    root: ../MocoTrackingClient/
+    commands:
+      - poetry run python moco_client.py
