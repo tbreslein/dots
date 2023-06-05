@@ -261,13 +261,19 @@ require("lazy").setup({
     -- languages
     "NoahTheDuke/vim-just",
     "elkowar/yuck.vim",
-    "simrat39/rust-tools.nvim",
     {
-        "simrat39/rust-tools.nvim",
+        "MunifTanjim/rust-tools.nvim",
+        branch = "patched",
         config = function()
             require("rust-tools").setup({ tools = { inlay_hints = { only_current_line = true } } })
         end,
     },
+    -- {
+    --     "simrat39/rust-tools.nvim",
+    --     config = function()
+    --         require("rust-tools").setup({ tools = { inlay_hints = { only_current_line = true } } })
+    --     end,
+    -- },
 
     -- LSP
     "jose-elias-alvarez/null-ls.nvim",
