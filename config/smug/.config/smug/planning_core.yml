@@ -5,15 +5,11 @@ windows:
     root: .
     layout: main-vertical
     commands:
-      # - poetry shell -C projects/planning_api
       - nvim
     panes:
       - root: lib/planning_core_rust/
         commands:
           - bacon
-      - root: ../api-test-curls/
-        commands:
-          - clear
       - root: .
         commands:
           - clear
