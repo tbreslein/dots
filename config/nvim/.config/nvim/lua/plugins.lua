@@ -14,19 +14,9 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     "mrjones2014/legendary.nvim",
     {
-        "alexghergh/nvim-tmux-navigation",
+        "aserowy/tmux.nvim",
         config = function()
-            local nvim_tmux_nav = require("nvim-tmux-navigation")
-            nvim_tmux_nav.setup({
-                keybindings = {
-                    left = "<c-h>",
-                    down = "<c-j>",
-                    up = "<c-k>",
-                    right = "<c-l>",
-                    last_active = "<c-m>",
-                    next = "<c-n>",
-                },
-            })
+            return require("tmux").setup()
         end,
     },
     {
