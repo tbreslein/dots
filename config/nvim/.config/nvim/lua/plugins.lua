@@ -16,7 +16,9 @@ require("lazy").setup({
     {
         "aserowy/tmux.nvim",
         config = function()
-            return require("tmux").setup()
+            return require("tmux").setup({
+                copy_sync = { enable = false },
+            })
         end,
     },
     {
