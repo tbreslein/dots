@@ -1,0 +1,21 @@
+session: planning
+root: ~/work/planning
+windows:
+  - name: nvim
+    root: .
+    commands:
+      - nvim
+  - name: bacon
+    root: lib/planning_core_rust
+    commands:
+      - bacon
+  - name: git
+    commands:
+      - lazygit
+  - name: sh
+    commands:
+      - clear
+  - name: moco
+    root: ../MocoTrackingClient/
+    commands:
+      - poetry run python moco_client.py

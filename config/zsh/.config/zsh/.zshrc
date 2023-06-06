@@ -89,7 +89,12 @@ function up-mac {
 
 function tmux-work {
     smug dots --detach
-    smug planning_core
+    smug planning
+}
+
+function tmux-mobile {
+    smug dots --detach
+    smug planning_mobile
 }
 
 # function start-planning-profiler {

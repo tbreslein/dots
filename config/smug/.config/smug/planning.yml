@@ -1,4 +1,4 @@
-session: planning_core
+session: planning
 root: ~/work/planning
 windows:
   - name: core
