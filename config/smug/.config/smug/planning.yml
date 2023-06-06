@@ -3,23 +3,16 @@ root: ~/work/planning
 windows:
   - name: core
     root: .
-    layout: main-vertical
+    layout: main-horizontal
     commands:
       - nvim
     panes:
       - root: lib/planning_core_rust/
         commands:
-          - bacon
-      - root: .
-        commands:
           - clear
-  - name: sh
-    layout: main-vertical
+  - name: git
     commands:
-      - clear
-    panes:
-      - commands:
-          - clear
+      - lazygit
   - name: moco
     root: ../MocoTrackingClient/
     commands:

@@ -2,20 +2,13 @@ session: corries
 root: ~/coding/corries/
 windows:
   - name: dev
-    layout: main-vertical
+    layout: main-horizontal
     commands:
       - nvim
     panes:
       - commands:
-          - bacon
-      - commands:
           - clear
-  - name: sh
-    layout: main-vertical
+  - name: git
+    layout: main-horizontal
     commands:
-      - clear
-    panes:
-      - commands:
-          - clear
-      - commands:
-          - clear
+      - lazygit

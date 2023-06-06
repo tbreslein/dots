@@ -1,5 +1,5 @@
-session: capturedlambda
-root: ~/coding/capturedlambda/
+session: tdos
+root: ~/coding/tdos/
 windows:
   - name: dev
     layout: main-horizontal
@@ -7,7 +7,8 @@ windows:
       - nvim
     panes:
       - commands:
-          - npm run dev
+          - clear
   - name: git
+    layout: main-horizontal
     commands:
       - lazygit

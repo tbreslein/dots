@@ -2,11 +2,9 @@ session: dots
 root: ~/dots/
 windows:
   - name: dev
-    layout: main-vertical
+    layout: main-horizontal
     commands:
       - nvim
     panes:
-      - commands:
-          - clear
       - commands:
           - clear

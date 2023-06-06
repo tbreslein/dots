@@ -92,11 +92,6 @@ function tmux-work {
     smug planning
 }
 
-function tmux-mobile {
-    smug dots --detach
-    smug planning_mobile
-}
-
 # function start-planning-profiler {
 #     conda deactivate
 #     conda activate planning_api
