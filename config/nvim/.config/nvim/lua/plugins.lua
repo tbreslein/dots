@@ -202,6 +202,12 @@ require("lazy").setup({
 
 	-- editing
 	{
+		"altermo/ultimate-autopair.nvim",
+		config = function()
+			require("ultimate-autopair").setup({})
+		end,
+	},
+	{
 		"numToStr/Comment.nvim",
 		config = function()
 			require("Comment").setup({})
