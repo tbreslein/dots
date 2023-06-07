@@ -5,14 +5,28 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
+		require("legendary").setup({
+			keymaps = {
+				{ "K", vim.lsp.buf.hover, description = "lsp hover", mode = { "n" } },
+			},
+		})
 		require("which-key").register({
 			l = {
 				name = "LSP actions",
 				r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "rename" },
 				f = { "<cmd>lua vim.lsp.buf.format({async = true})<cr>", "async format" },
-				c = { "<cmd>lua vim.lsp.buf.code_action" },
+				c = { "<cmd>lua vim.lsp.buf.code_action<cr>", "code action" },
 			},
 		}, {
+			prefix = "<leader>",
+		})
+		require("which-key").register({
+			l = {
+				name = "LSP actions",
+				c = { "<cmd>lua vim.lsp.buf.code_action<cr>", "code action" },
+			},
+		}, {
+			mode = "v",
 			prefix = "<leader>",
 		})
 		require("which-key").register({
@@ -29,11 +43,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 				p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "prev diagnostic" },
 			},
 		})
-
-		-- if not (args.data and args.data.client_id) then
-		-- 	return
-		-- end
-		-- require("lsp-inlayhints").on_attach(vim.lsp.get_client_by_id(args.data.client_id), args.buf)
 	end,
 })
 
