@@ -239,4 +239,14 @@ require("lazy").setup({
 	"saadparwaiz1/cmp_luasnip",
 
 	"jose-elias-alvarez/null-ls.nvim",
+	-- {
+	-- 	"lvimuser/lsp-inlayhints.nvim",
+	-- 	config = function()
+	-- 		require("lsp-inlayhints").setup({
+	-- 			inlay_hints = {
+	-- 				only_current_line = true,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 })

@@ -2,8 +2,8 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-	callback = function(ev)
-		vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+	callback = function(args)
+		vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
 		require("which-key").register({
 			l = {
@@ -29,6 +29,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 				p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "prev diagnostic" },
 			},
 		})
+
+		-- if not (args.data and args.data.client_id) then
+		-- 	return
+		-- end
+		-- require("lsp-inlayhints").on_attach(vim.lsp.get_client_by_id(args.data.client_id), args.buf)
 	end,
 })
 
