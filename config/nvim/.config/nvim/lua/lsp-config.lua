@@ -1,18 +1,5 @@
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local lspconfig = require("lspconfig")
-
-lspconfig.ansiblels.setup({ capabilites = capabilities })
-lspconfig.astro.setup({ capabilites = capabilities })
-lspconfig.fortls.setup({ capabilites = capabilities })
-lspconfig.html.setup({ capabilites = capabilities })
-lspconfig.pyright.setup({ capabilites = capabilities })
-lspconfig.tsserver.setup({ capabilites = capabilities })
-lspconfig.rust_analyzer.setup({ capabilites = capabilities })
-lspconfig.yamlls.setup({ capabilites = capabilities })
-lspconfig.zls.setup({ capabilites = capabilities })
-
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(ev)
@@ -46,6 +33,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 local cmp = require("cmp")
+local select_opts = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
 	snippet = {
 		expand = function(args)
@@ -57,18 +45,48 @@ cmp.setup({
 		documentation = cmp.config.window.bordered(),
 	},
 	mapping = cmp.mapping.preset.insert({
-		["<C-b>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
+		["<C-u>"] = cmp.mapping.scroll_docs(-4),
+		["<C-d>"] = cmp.mapping.scroll_docs(4),
+		["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
+		["<C-n>"] = cmp.mapping.select_next_item(select_opts),
 		["<C-Tab>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.abort(),
 		["<C-y>"] = cmp.mapping.confirm({ select = true }),
+		["<C-f>"] = cmp.mapping(function(fallback)
+			if luasnip.jumpable(1) then
+				luasnip.jump(1)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+		["<C-b>"] = cmp.mapping(function(fallback)
+			if luasnip.jumpable(-1) then
+				luasnip.jump(-1)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
 	}),
 	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
+		{ name = "nvim_lsp", keyword_length = 1 },
 		{ name = "luasnip" },
+		{ name = "path" },
 	}, {
-		{ name = "buffer" },
+		{ name = "buffer", keyword_length = 3 },
 	}),
+	formatting = {
+		fields = { "menu", "abbr", "kind" },
+		format = function(entry, item)
+			local menu_icon = {
+				nvim_lsp = "λ",
+				luasnip = "⋗",
+				buffer = "Ω",
+				path = "",
+			}
+			item.menu = menu_icon[entry.source.name]
+			return item
+		end,
+	},
 })
 
 cmp.setup.cmdline({ "/", "?" }, {
@@ -131,3 +149,24 @@ null_ls.setup({
 		end
 	end,
 })
+
+local lspconfig = require("lspconfig")
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+local servers = {
+	"ansiblels",
+	"astro",
+	"fortls",
+	"html",
+	"pyright",
+	"tsserver",
+	"rust_analyzer",
+	"yamlls",
+	"zls",
+}
+
+for _, lsp in ipairs(servers) do
+	lspconfig[lsp].setup({
+		capabilities = capabilities,
+	})
+end
