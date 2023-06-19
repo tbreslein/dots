@@ -80,8 +80,10 @@ function up-mac {
     }
     ~/.tmux/plugins/tpm/bin/update_plugins all
     zap update all
-    brew update && brew upgrade
-    axbrew update && axbrew upgrade
+    HOMEBREW_NO_INSTALL_CLEANUP=1 brew update && HOMEBREW_NO_INSTALL_CLEANUP=1 brew upgrade
+    brew cleanup
+    HOMEBREW_NO_INSTALL_CLEANUP=1 axbrew update && HOMEBREW_NO_INSTALL_CLEANUP=1 axbrew upgrade
+    axbrew cleanup
     rustup up
     poetry self update
     nvim -c 'lua require("lazy").sync()'
