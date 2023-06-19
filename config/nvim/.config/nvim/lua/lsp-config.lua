@@ -91,13 +91,20 @@ cmp.setup({
 	formatting = {
 		fields = { "menu", "abbr", "kind" },
 		format = function(entry, item)
+			local function trim(text, max)
+				if text and text:len() > max then
+					text = text:sub(1, max) .. "..."
+				end
+				return text
+			end
 			local menu_icon = {
 				nvim_lsp = "λ",
 				luasnip = "⋗",
 				buffer = "Ω",
 				path = "",
 			}
-			item.menu = menu_icon[entry.source.name]
+			item.menu = (menu_icon[entry.source.name] or (" [" .. entry.source.name .. "]"))
+			item.abbr = trim(item.abbr, 70)
 			return item
 		end,
 	},
