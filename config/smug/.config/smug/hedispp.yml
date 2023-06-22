@@ -24,6 +24,6 @@ windows:
     panes:
       - commands:
           - clear
-  - name: git
+  - name: sh
     commands:
-      - lazygit
+      - clear

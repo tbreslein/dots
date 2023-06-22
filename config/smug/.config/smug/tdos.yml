@@ -8,7 +8,7 @@ windows:
     panes:
       - commands:
           - clear
-  - name: git
+  - name: sh
     layout: main-horizontal
     commands:
-      - lazygit
+      - clear

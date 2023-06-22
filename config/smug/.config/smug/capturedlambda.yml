@@ -8,6 +8,6 @@ windows:
     panes:
       - commands:
           - npm run dev
-  - name: git
+  - name: sh
     commands:
-      - lazygit
+      - clear

@@ -5,15 +5,18 @@ windows:
     root: .
     layout: main-horizontal
     commands:
+      - poetry shell -C projects/planning_api
       - nvim
     panes:
       - root: lib/planning_core_rust/
         commands:
+          - poetry shell -C projects/planning_api
           - clear
-  - name: git
+  - name: sh
     commands:
-      - lazygit
+      - poetry shell -C projects/planning_api
   - name: moco
     root: ../MocoTrackingClient/
     commands:
+      - git pull
       - poetry run python moco_client.py
