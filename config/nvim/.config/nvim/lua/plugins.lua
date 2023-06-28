@@ -222,6 +222,7 @@ require("lazy").setup({
 			require("inc_rename").setup({})
 		end,
 	},
+	"mfussenegger/nvim-dap",
 
 	-- languages
 	"NoahTheDuke/vim-just",
