@@ -15,24 +15,22 @@ require("lazy").setup({
 	"mrjones2014/legendary.nvim",
 	{
 		"aserowy/tmux.nvim",
-		config = function()
-			return require("tmux").setup({
-				copy_sync = { enable = false },
-			})
-		end,
+		opts = {
+			copy_sync = { enable = false },
+		},
 	},
 	{
 		"folke/which-key.nvim",
-		config = function()
+		init = function()
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
-			require("which-key").setup({})
 		end,
+		config = true,
 	},
 	-- UI
 	{
 		"sainnhe/gruvbox-material",
-		config = function()
+		init = function()
 			vim.o.termguicolors = true
 			vim.o.background = "dark"
 			vim.g.gruvbox_material_background = "hard"
@@ -49,45 +47,49 @@ require("lazy").setup({
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "kyazdani42/nvim-web-devicons" },
-		config = function()
-			require("lualine").setup({
-				options = {
-					globalstatus = true,
-					theme = "gruvbox-material",
-					component_separators = "",
-					section_separators = "",
-				},
-				sections = {
-					lualine_a = { "mode" },
-					lualine_b = { "branch" },
-					lualine_c = { "diagnostics" },
-					lualine_x = { "" },
-					lualine_y = { { "filename", path = 3 } },
-					lualine_z = { "progress" },
-				},
-			})
-		end,
+		opts = {
+			options = {
+				globalstatus = true,
+				theme = "gruvbox-material",
+				component_separators = "",
+				section_separators = "",
+			},
+			sections = {
+				lualine_a = { "mode" },
+				lualine_b = { "branch" },
+				lualine_c = { "diagnostics" },
+				lualine_x = { "" },
+				lualine_y = { { "filename", path = 3 } },
+				lualine_z = { "progress" },
+			},
+		},
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		config = function()
-			require("indent_blankline").setup()
-		end,
+		config = true,
 	},
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("todo-comments").setup()
-		end,
+		config = true,
 	},
 	{
 		"j-hui/fidget.nvim",
-		config = function()
-			require("fidget").setup({})
-		end,
+		config = true,
 	},
-
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		opts = {
+			size = function(term)
+				if term.direction == "horizontal" then
+					return 15
+				elseif term.direction == "vertical" then
+					return vim.o.columns * 0.4
+				end
+			end,
+		},
+	},
 	{
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = { "nvim-treesitter/nvim-treesitter-context" },
@@ -135,10 +137,12 @@ require("lazy").setup({
 
 	-- movement
 	{
-		"ggandor/leap.nvim",
-		config = function()
-			require("leap").opts.highlight_unlabeled_phase_one_targets = true
-		end,
+		-- "ggandor/leap.nvim",
+		-- config = function()
+		-- 	require("leap").opts.highlight_unlabeled_phase_one_targets = true
+		-- end,
+		"phaazon/hop.nvim",
+		config = true,
 	},
 	{
 		"theprimeagen/harpoon",
@@ -147,97 +151,101 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("telescope").setup({
-				file_ignore_patterns = {
-					"vendor/*",
-					"%.lock",
-					"__pycache__/*",
-					"%.sqlite3",
-					"%.ipynb",
-					"node_modules/*",
-					"%.jpg",
-					"%.jpeg",
-					"%.png",
-					"%.svg",
-					"%.otf",
-					"%.ttf",
-					".git/",
-					"%.webp",
-					".dart_tool/",
-					".github/",
-					".gradle/",
-					".idea/",
-					".settings/",
-					".vscode/",
-					"__pycache__/",
-					"build/",
-					"env/",
-					"gradle/",
-					"node_modules/",
-					"target/",
-					"%.pdb",
-					"%.dll",
-					"%.class",
-					"%.exe",
-					"%.cache",
-					"%.ico",
-					"%.pdf",
-					"%.dylib",
-					"%.jar",
-					"%.docx",
-					"%.met",
-					"smalljre_*/*",
-					".vale/",
-				},
-			})
-		end,
+		opts = {
+			file_ignore_patterns = {
+				"vendor/*",
+				"%.lock",
+				"__pycache__/*",
+				"%.sqlite3",
+				"%.ipynb",
+				"node_modules/*",
+				"%.jpg",
+				"%.jpeg",
+				"%.png",
+				"%.svg",
+				"%.otf",
+				"%.ttf",
+				".git/",
+				"%.webp",
+				".dart_tool/",
+				".github/",
+				".gradle/",
+				".idea/",
+				".settings/",
+				".vscode/",
+				"__pycache__/",
+				"build/",
+				"env/",
+				"gradle/",
+				"node_modules/",
+				"target/",
+				"%.pdb",
+				"%.dll",
+				"%.class",
+				"%.exe",
+				"%.cache",
+				"%.ico",
+				"%.pdf",
+				"%.dylib",
+				"%.jar",
+				"%.docx",
+				"%.met",
+				"smalljre_*/*",
+				".vale/",
+			},
+		},
 	},
 	{
 		"stevearc/oil.nvim",
-		config = function()
-			require("oil").setup({})
-		end,
+		config = true,
 	},
 
 	-- editing
 	{
 		"altermo/ultimate-autopair.nvim",
-		config = function()
-			require("ultimate-autopair").setup({})
-		end,
+		config = true,
 	},
 	{
 		"numToStr/Comment.nvim",
-		config = function()
-			require("Comment").setup({})
-		end,
+		config = true,
 	},
 	"windwp/nvim-ts-autotag",
 	"mbbill/undotree",
 	"gpanders/editorconfig.nvim",
-	{
-		"smjonas/inc-rename.nvim",
-		config = function()
-			require("inc_rename").setup({})
-		end,
-	},
-	"mfussenegger/nvim-dap",
 
 	-- languages
 	"NoahTheDuke/vim-just",
 	"elkowar/yuck.vim",
+	{
+		"MunifTanjim/rust-tools.nvim",
+		branch = "patched",
+	},
+
+	-- DAP
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = { "mfussenegger/nvim-dap" },
+		config = true,
+	},
+	{
+		"mfussenegger/nvim-dap-python",
+		dependencies = { "mfussenegger/nvim-dap" },
+	},
+	"David-Kunz/jester",
 
 	-- LSP
-	"neovim/nvim-lspconfig",
-	"hrsh7th/cmp-nvim-lsp",
-	"hrsh7th/cmp-buffer",
-	"hrsh7th/cmp-path",
-	"hrsh7th/cmp-cmdline",
-	"hrsh7th/nvim-cmp",
-
-	"L3MON4D3/LuaSnip",
-	"saadparwaiz1/cmp_luasnip",
+	{
+		"hrsh7th/nvim-cmp",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+		},
+	},
 
 	"jose-elias-alvarez/null-ls.nvim",
 })
