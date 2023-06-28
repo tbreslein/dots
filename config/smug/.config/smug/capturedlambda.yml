@@ -5,9 +5,7 @@ windows:
     layout: main-horizontal
     commands:
       - nvim
-    panes:
-      - commands:
-          - npm run dev
-  - name: sh
+  - name: server
+    layout: main-horizontal
     commands:
-      - clear
+      - npm run dev

@@ -5,6 +5,3 @@ windows:
     layout: main-horizontal
     commands:
       - nvim
-    panes:
-      - commands:
-          - clear

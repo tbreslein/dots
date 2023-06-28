@@ -5,25 +5,17 @@ windows:
     layout: main-horizontal
     commands:
       - nvim
-    panes:
-      - commands:
-          - clear
   - name: hedisc
     root: ../hedis_c
     layout: main-horizontal
     commands:
       - clear
-    panes:
-      - commands:
-          - clear
   - name: fosite
     root: ../fosite
     layout: main-horizontal
     commands:
       - clear
-    panes:
-      - commands:
-          - clear
   - name: sh
+    layout: main-horizontal
     commands:
       - clear

@@ -5,9 +5,6 @@ windows:
     layout: main-horizontal
     commands:
       - nvim
-    panes:
-      - commands:
-          - clear
   - name: sh
     layout: main-horizontal
     commands:

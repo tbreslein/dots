@@ -7,15 +7,12 @@ windows:
     commands:
       - poetry shell -C projects/planning_api
       - nvim
-    panes:
-      - root: lib/planning_core_rust/
-        commands:
-          - poetry shell -C projects/planning_api
-          - clear
   - name: sh
+    layout: main-horizontal
     commands:
       - poetry shell -C projects/planning_api
   - name: moco
+    layout: main-horizontal
     root: ../MocoTrackingClient/
     commands:
       - git pull
