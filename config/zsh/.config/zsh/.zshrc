@@ -66,7 +66,7 @@ function up-arch {
     zap update all
     { sudo -i -u kain paru } && \
     rustup up && \
-    nvim -c 'lua require("lazy").sync()'
+    nvim --headless "+Lazy! sync" +qa
     # pushd "$HOME/Downloads/zls/" && git pull && zig build -Doptimize=ReleaseSafe -p ~/.local/ && popd
 }
 
@@ -86,7 +86,7 @@ function up-mac {
     axbrew cleanup
     rustup up
     poetry self update
-    nvim -c 'lua require("lazy").sync()'
+    nvim --headless "+Lazy! sync" +qa
 }
 
 function tmux-work {
