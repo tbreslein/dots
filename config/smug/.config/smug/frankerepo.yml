@@ -1,0 +1,11 @@
+session: frankenrepo
+root: ~/coding/frankenrepo/
+windows:
+  - name: dev
+    layout: main-horizontal
+    commands:
+      - nvim
+  - name: sh
+    layout: main-horizontal
+    commands:
+      - clear
