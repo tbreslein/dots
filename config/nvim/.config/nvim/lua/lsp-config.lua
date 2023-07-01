@@ -135,6 +135,8 @@ null_ls.setup({
 		-- c/c++
 		nd.cppcheck,
 		nf.clang_format,
+		nd.cmake_lint,
+		nf.cmake_format,
 		-- js/ts
 		nd.eslint,
 		nf.prettierd.with({
@@ -178,6 +180,7 @@ local servers = {
 	"ansiblels",
 	"astro",
 	"ccls",
+	"cmake",
 	"fortls",
 	"html",
 	"pyright",

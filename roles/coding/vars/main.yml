@@ -29,7 +29,8 @@ arch_packages:
   - python-sphinx
   - python-sphinx_rtd_theme
   - openmp
-  - openblas
+  - blas-openblas
+  - blas64-openblas
 
   ### misc
   - bacon
@@ -40,6 +41,8 @@ arch_packages:
   - vim
 
 aur_packages:
+  - cmake-language-server
+  - cmake-format
   - hadolint-bin
   - prettierd
   - neovim-nightly
