@@ -137,12 +137,8 @@ require("lazy").setup({
 
 	-- movement
 	{
-		-- "ggandor/leap.nvim",
-		-- config = function()
-		-- 	require("leap").opts.highlight_unlabeled_phase_one_targets = true
-		-- end,
-		"phaazon/hop.nvim",
-		config = true,
+		"folke/flash.nvim",
+		opts = {},
 	},
 	{
 		"theprimeagen/harpoon",
@@ -196,7 +192,7 @@ require("lazy").setup({
 		},
 	},
 	{
-		"stevearc/oil.nvim",
+		"echasnovski/mini.files",
 		config = true,
 	},
 
@@ -212,6 +208,10 @@ require("lazy").setup({
 	"windwp/nvim-ts-autotag",
 	"mbbill/undotree",
 	"gpanders/editorconfig.nvim",
+	{
+		"AckslD/muren.nvim",
+		config = true,
+	},
 
 	-- languages
 	"NoahTheDuke/vim-just",

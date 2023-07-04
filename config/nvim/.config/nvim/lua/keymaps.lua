@@ -3,8 +3,6 @@ vim.g.mapleader = " "
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
 local builtin = require("telescope.builtin")
-local hop = require("hop")
-local directions = require("hop.hint").HintDirection
 local dap = require("dap")
 local dapui = require("dapui")
 local dappython = require("dap-python")
@@ -28,42 +26,20 @@ require("legendary").setup({
 		{ "<leader>j", "<cmd>lprev<cr>zz", description = "prev in loclist", mode = { "n" } },
 		{ "<leader>k", "<cmd>lnext<cr>zz", description = "next in loclist", mode = { "n" } },
 		{
-			"f",
-			function()
-				hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-			end,
-			decription = "hop forward in line",
-			mode = { "n" },
-		},
-		{
-			"F",
-			function()
-				hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-			end,
-			decription = "hop backward in line",
-			mode = { "n" },
-		},
-		{
-			"F",
-			function()
-				hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-			end,
-		},
-		{
 			"s",
 			function()
-				hop.hint_char1({ direction = directions.AFTER_CURSOR })
+				require("flash").jump()
 			end,
-			decription = "hop forward",
-			mode = { "n" },
+			decription = "flash",
+			mode = { "n", "x", "o" },
 		},
 		{
 			"S",
 			function()
-				hop.hint_char1({ direction = directions.BEFORE_CURSOR })
+				require("flash").treesitter()
 			end,
-			decription = "hop backward",
-			mode = { "n" },
+			decription = "flash treesitter",
+			mode = { "n", "o", "x" },
 		},
 		{
 			"<leader>y",
@@ -76,13 +52,7 @@ require("legendary").setup({
 			"<leader>S",
 			":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>",
 			description = "search and replace word under cursor",
-			mode = { "n" },
-		},
-		{
-			"<leader>S",
-			":s/\\(\\)<Left><Left>",
-			description = "search and replace word under cursor",
-			mode = { "v" },
+			mode = { "n", "v" },
 		},
 		{ "jk", "<c-\\><c-n>", description = "leave insert mode in embedded terminal", mode = { "t" } },
 		{ "<leader>a", mark.add_file, description = "add harpoon mark", mode = { "n" } },
@@ -138,7 +108,7 @@ require("which-key").register({
 		f = { builtin.git_files, "find files respecting gitignore" },
 		F = { "<cmd>Telescope find_files hidden=true<cr>", "find files" },
 		s = { builtin.live_grep, "live grep" },
-		p = { require("oil").open, "project view" },
+		p = { "<cmd>lua MiniFiles.open()<cr>", "project view" },
 	},
 	t = {
 		name = "terminal",
@@ -147,6 +117,7 @@ require("which-key").register({
 		t = { "<cmd>ToggleTerm direction=float<cr>", "toggleterm float" },
 	},
 	c = { "<cmd>lua vim.lsp.buf.clear_references()<cr>", "clear highlight references" },
+	m = { require("muren.api").toggle_ui, "toggle muren" },
 }, {
 	prefix = "<leader>",
 })
