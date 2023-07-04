@@ -121,3 +121,73 @@ require("which-key").register({
 }, {
 	prefix = "<leader>",
 })
+
+require("gitsigns").setup({
+    on_attach = function(bufnr)
+        local gs = package.loaded.gitsigns
+        require("which-key").register({
+            g = {
+                name = "git",
+                g = { function() require("neogit").open({ kind = "split" }) end, "open neogit" },
+                c = { function() require("neogit").open({ "commit" }) end, "open neogit commit popup" },
+                s = { gs.stage_hunk, "stage hunk under cursor" },
+                r = { gs.reset_hunk, "reset hunk under cursor" },
+                S = { gs.stage_buffer, "stage everything in buffer" },
+                u = { gs.undo_stage_buffer, "undo stage buffer" },
+                R = { gs.reset_buffer, "reset buffer" },
+                P = { gs.preview_hunk, "preview hunk" },
+                b = { gs.toggle_current_line_blame, "toggle blame" },
+                d = { gs.diff_this, "diff" },
+                D = { gs.toggle_deleted, "diff" },
+                p = {
+                    function() 
+                        if vim.wo.diff then return "<leader>" end
+                        vim.schedule(gs.prev_hunk)
+                        return '<Ignore>'
+                    end, 
+                    "prev hunk"
+                },
+                n = {
+                    function() 
+                        if vim.wo.diff then return "<leader>" end
+                        vim.schedule(gs.next_hunk)
+                        return '<Ignore>'
+                    end, 
+                    "next hunk"
+                },
+            },
+        }, {
+            prefix = "<leader>",
+            mode = "n",
+        })
+        require("which-key").register({
+            g = {
+                name = "git",
+                s = { function() gs.stage_hunk({vim.fn.line('.'), vim.fn.line('v')}) end, "stage selected hunk" },
+                r = { function() gs.reset_hunk({vim.fn.line('.'), vim.fn.line('v')}) end, "reset selected hunk" },
+            },
+        }, {
+            prefix = "<leader>",
+            mode = "v"
+        })
+        -- local function map(m, l, r, d)
+        --     require("legendary").setup({
+        --         keymaps = {
+        --             { l, r, description = d, mode = { m } },
+        --         }
+        --     })
+        -- end
+        -- map("n", "<leader>gS", gs.stage_buffer, "stage everything in buffer")
+        -- map("n", "<leader>gu", gs.undo_stage_buffer, "undo stage buffer")
+        -- map("n", "<leader>gR", gs.reset_buffer, "reset buffer")
+        -- map("n",
+        --     "<leader>gn",
+        --     function()
+        --         if vim.wo.diff then return "<leader>gn" end
+        --         vim.schedule(gs.next_hunk)
+        --         return '<Ignore>'
+        --     end,
+        --     "reset buffer"
+        -- )
+    end,
+})
