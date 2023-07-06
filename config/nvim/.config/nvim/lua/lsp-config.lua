@@ -150,6 +150,8 @@ null_ls.setup({
 		nd.ansiblelint,
 		nd.hadolint,
 		-- nf.shellharden,
+		-- ocaml
+		nf.ocamlformat,
 		-- python
 		nd.ruff,
 		nf.black,
@@ -182,6 +184,7 @@ local servers = {
 	"cmake",
 	"fortls",
 	"html",
+	"ocamllsp",
 	"pyright",
 	"tsserver",
 	"rust_analyzer",
