@@ -50,3 +50,12 @@ aur_packages:
   - python-polars-bin
   - zig-gev-bin
   # - zls-git
+
+opam_packages:
+  - dune
+  - merlin
+  - ocaml-lsp-server
+  - odoc
+  - ocamlformat
+  - utop
+  - dune-release

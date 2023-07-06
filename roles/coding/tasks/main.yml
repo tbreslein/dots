@@ -17,3 +17,16 @@
     dest: "~/.npm_global"
     owner: tommy
     state: directory
+
+- name: init opam
+  become: true
+  become_user: tommy
+  ansible.builtin.shell: |
+    opam init -a
+
+- name: install opam packages
+  become: true
+  become_user: tommy
+  ansible.builtin.shell: |
+    opam install "{{ item }}" -y
+  loop: "{{ opam_packages}}"

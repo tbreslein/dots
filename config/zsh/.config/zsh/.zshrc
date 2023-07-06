@@ -66,6 +66,8 @@ function up-arch {
     zap update all
     { sudo -i -u kain paru } && \
     rustup up && \
+    opam update && \
+    opam upgrade && \
     nvim --headless "+Lazy! sync" +qa
     # pushd "$HOME/Downloads/zls/" && git pull && zig build -Doptimize=ReleaseSafe -p ~/.local/ && popd
 }
@@ -131,6 +133,8 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 command -v pyenv >/dev/null && eval "$(pyenv init --path --no-rehash)" || true
 # <<< pyenv setup
+
+[[ ! -r ~/.opam/opam-init/init.zsh ]] || source ~/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 
 # Load Angular CLI autocompletion.
