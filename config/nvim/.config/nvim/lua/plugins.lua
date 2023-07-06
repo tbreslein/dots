@@ -92,7 +92,13 @@ require("lazy").setup({
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
-		dependencies = { "nvim-treesitter/nvim-treesitter-context" },
+		dependencies = {
+			{
+				"windwp/nvim-ts-autotag",
+				config = true,
+			},
+			"nvim-treesitter/nvim-treesitter-context",
+		},
 		build = function()
 			vim.cmd("TSUpdate")
 		end,
@@ -220,11 +226,16 @@ require("lazy").setup({
 		"numToStr/Comment.nvim",
 		config = true,
 	},
-	"windwp/nvim-ts-autotag",
 	"mbbill/undotree",
 	"gpanders/editorconfig.nvim",
 	{
 		"AckslD/muren.nvim",
+		config = true,
+	},
+	{
+		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",
 		config = true,
 	},
 
