@@ -1,5 +1,6 @@
 ---
 common_stows:
+  - editorconfig
   - npm
   - nvim
   - starship
