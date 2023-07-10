@@ -6,7 +6,6 @@ windows:
     layout: main-horizontal
     commands:
       - poetry shell -C projects/planning_api
-      - nvim
   - name: sh
     layout: main-horizontal
     commands:
