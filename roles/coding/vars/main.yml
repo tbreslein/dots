@@ -8,7 +8,6 @@ arch_packages:
   - meson
   - ninja
   - opam
-  - rustup
   - nodejs
 
   ### LSPs / Linters
