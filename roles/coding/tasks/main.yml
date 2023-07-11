@@ -54,5 +54,5 @@
   when: not cargo_bin.stat.exists
   ansible.builtin.shell: |
     rustup default stable
-    rustup component add rustfmt rust-analyzer clippy rust-src
-    rustup toolchain install nightly --component rustfmt rust-analyzer clippy rust-src
+    rustup component add rustfmt rust-analyzer clippy rust-src llvm-tools rust-docs rust-std
+    rustup toolchain install nightly --component rustfmt rust-analyzer clippy rust-src llvm-tools rust-docs rust-std
