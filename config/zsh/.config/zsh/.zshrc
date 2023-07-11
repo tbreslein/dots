@@ -54,21 +54,26 @@ export ZAP_DIR="$HOME/.local/share/zap"
     plug "zsh-users/zsh-syntax-highlighting"
 }
 
-function up-arch {
-    pushd "$HOME/dots"
-    git pull 
-    popd
+function up-all {
     [[ ! -d "~/.tmux/plugins/tpm" ]] && {
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm > /dev/null 2>&1
         ~/.tmux/plugins/tpm/bin/install_plugins
     }
     ~/.tmux/plugins/tpm/bin/update_plugins all
     zap update all
-    { sudo -i -u kain paru } && \
     rustup up && \
     opam update && \
     opam upgrade && \
     nvim --headless "+Lazy! sync" +qa
+    nvim --headless +TSUpdateSync +qa
+}
+
+function up-arch {
+    pushd "$HOME/dots"
+    git pull 
+    popd
+    { sudo -i -u kain paru } && \
+    up-all
     # pushd "$HOME/Downloads/zls/" && git pull && zig build -Doptimize=ReleaseSafe -p ~/.local/ && popd
 }
 
@@ -76,19 +81,12 @@ function up-mac {
     pushd "$HOME/dots"
     git pull
     popd
-    [[ ! -d "~/.tmux/plugins/tpm" ]] && {
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm > /dev/null 2>&1
-        ~/.tmux/plugins/tpm/bin/install_plugins
-    }
-    ~/.tmux/plugins/tpm/bin/update_plugins all
-    zap update all
     HOMEBREW_NO_INSTALL_CLEANUP=1 brew update && HOMEBREW_NO_INSTALL_CLEANUP=1 brew upgrade
     brew cleanup
     HOMEBREW_NO_INSTALL_CLEANUP=1 axbrew update && HOMEBREW_NO_INSTALL_CLEANUP=1 axbrew upgrade
     axbrew cleanup
-    rustup up
     poetry self update
-    nvim --headless "+Lazy! sync" +qa
+    up-all
 }
 
 function tmux-work {
