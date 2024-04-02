@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# bastardized from https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/bin/tmux-sessionizer
+
+type="$1"
+
+entries=$(just --summary)
+# NOTE: do not put $entries in double quotes, because we want word splitting
+selected=$(printf "%s\n" $entries | fzf)
+command="just $selected"
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    type="session"
+fi
+[[ -z "$type" ]] && type="window"
+
+case "$type" in
+"session")
+    if ! tmux has-session -t "$selected" 2>/dev/null; then
+        tmux new-session -ds "$selected"
+    fi
+    tmux send-keys -t "$selected" "$command" C-m
+    tmux switch-client -t "$selected"
+    ;;
+"window")
+    session_name=$(tmux display-message -p "#S")
+    if ! tmux has-session -t "$session_name":"$selected" 2>/dev/null; then
+        tmux new-window -dn "$selected"
+    fi
+    tmux send-keys -t "$session_name":"$selected" "$command" C-m
+    tmux switch-client -t "$session_name":"$selected"
+    ;;
+esac
+

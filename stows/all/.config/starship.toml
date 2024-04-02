@@ -1,0 +1,15 @@
+format = "$battery$directory$nix_shell$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$line_break$character"
+command_timeout = 2000
+
+[character]
+error_symbol = "[λ](bold red)"
+success_symbol = "[λ](bold yellow)"
+vicmd_symbol = "[λ](bold green)"
+
+[directory]
+style = "bold blue"
+truncate_to_repo = true
+truncation_symbol = ".../"
+
+[nix_shell]
+format = "[$symbol]($style)"

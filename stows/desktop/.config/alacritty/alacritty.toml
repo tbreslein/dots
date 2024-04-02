@@ -1,0 +1,13 @@
+import = ["~/.config/alacritty/colours.toml", "~/.config/alacritty/host.toml"]
+# font.normal.family = "ProggyClean Nerd Font"
+font.normal.family = "Hack Nerd Font"
+colors.draw_bold_text_with_bright_colors = true
+
+[cursor.style]
+blinking = "Never"
+shape = "Block"
+
+[window]
+blur = true
+dynamic_padding = true
+opacity = 0.92
