@@ -24,6 +24,8 @@ PACMAN_DESKTOP: set[str] = {
     "imv",
     "mpv",
     "alacritty",
+    "wezterm",
+    "wezterm-terminfo",
     "vlc",
     "discord",
     "thunar",

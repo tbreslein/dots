@@ -44,6 +44,7 @@ BREW = {
     'brew "editorconfig"'
     # GUI
     'cask "alacritty"'
+    'cask "wezterm"'
     'cask "amethyst"'
     'cask "telegram-desktop"'
     'cask "obsidian"'
