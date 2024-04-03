@@ -78,7 +78,8 @@
             buildPhase = buildDotEnv;
             installPhase = ''
               mkdir -p $out/bin
-              cp ./scripts/dm.py $out/bin/dm
+              cp ./scripts/dm/* $out/bin/
+              mv $out/bin/dm.py $out/bin/dm
               cp .env $out/bin/.env
             '';
           };
@@ -89,7 +90,7 @@
             buildPhase = buildDotEnv;
             installPhase = ''
               mkdir -p $out/bin
-              cp ./scripts/bootstrap.bash $out/bin/bootstrap
+              cp ./scripts/bootstrap/* $out/bin/
               cp .env $out/bin/.env
             '';
           };
