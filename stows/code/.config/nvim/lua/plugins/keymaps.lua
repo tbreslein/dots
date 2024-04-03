@@ -76,7 +76,7 @@ return {
                     T = { "<cmd>TroubleToggle<cr>", "trouble" },
                     a = {
                         function()
-                            require("harpoon"):list():append()
+                            require("harpoon"):list():add()
                         end,
                         "harpoon append",
                     },
