@@ -14,8 +14,7 @@ os.system("")
 
 class Config:
     def __init__(self):
-        _roles = os.environ.get("ROLES") or ""
-        self.roles: set[str] = {r for r in _roles.split()}
+        self.roles: set[str] = {r for r in (os.environ.get("ROLES") or "").split()}
         self.host: str = os.environ.get("_HOST") or ""
         self.uname: str = os.environ.get("UNAME_S") or ""
         self.path: str = os.environ.get("PATH") or ""
@@ -23,8 +22,7 @@ class Config:
         self.dots: str = os.path.join(self.home, "dots")
         self.stows: str = os.path.join(self.dots, "stows")
         self.state: str = os.path.join(self.dots, "state")
-        _repos = os.environ.get("REPOS") or ""
-        self.repos: list[str] = _repos.split()
+        self.repos: list[str] = (os.environ.get("REPOS") or "").split()
         self.red: str = "\033[0;31m"
         self.green: str = "\033[0;32m"
         self.yellow: str = "\033[0;33m"
@@ -35,8 +33,9 @@ class Config:
         self.bright_blue: str = "\033[1;34m"
         self.no_color: str = "\033[0m"
         self.command: str = ""
-        _allowed_hosts = os.environ.get("ALLOWED_HOSTS") or ""
-        self.allowed_hosts: set[str] = {h for h in _allowed_hosts}
+        self.allowed_hosts: set[str] = {
+            h for h in (os.environ.get("ALLOWED_HOSTS") or "")
+        }
 
         self.brewfile_pkgs: set[str] = {
             'tap "homebrew/bundle"'
@@ -246,7 +245,7 @@ class Config:
             self.pacman.update({"intel-ucode"})
 
 
-app = typer.Typer(no_args_is_help=True)
+app = typer.Typer()
 load_dotenv()
 config = Config()
 
@@ -276,13 +275,21 @@ def print_error(msg: str):
     _print(msg, "ERROR   ", config.bright_red)
 
 
-# >>> SETUP
+def _sprun(cmd: list[str]) -> sp.CompletedProcess[bytes]:
+    """Wrapper function around subprocess.run that always passes PATH to env vars."""
+    return sp.run(cmd, env={"PATH": config.path})
+
+
+def _init_cmd():
+    name = inspect.stack()[1][3]
+    config.command = name
+    print_info(f"starting {name}")
 
 
 @app.command()
 def stow():
     """Ensures all necessary stows are up-to-date."""
-    init_cmd()
+    _init_cmd()
 
     gstatus = sp.run(
         ["git", "status", "--porcelain"], cwd=config.dots, capture_output=True
@@ -319,17 +326,18 @@ def stow():
 @app.command()
 def nix():
     """Syncs nix channels."""
-    init_cmd()
-    sp.run(["nix-channel", "--update"])
-    sp.run(["nix-store", "--gc"])
-    sp.run(["nix-store", "--optimise"])
+    _init_cmd()
+    _sprun(["nix-channel", "--update"])
+    _sprun(["nix-store", "--gc"])
+    _sprun(["nix-store", "--optimise"])
     print_success("finished!")
 
 
 @app.command()
 def repos():
     """Ensures all necessary git repos are cloned and up-to-date."""
-    init_cmd()
+
+    _init_cmd()
     if "code" not in config.roles:
         print_warn(f'host {config.host} does not have "code" role; skipping')
         return
@@ -348,44 +356,50 @@ def repos():
     print_success("finished!")
 
 
-def sprun(cmd: list[str]) -> sp.CompletedProcess[bytes]:
-    return sp.run(cmd, env={"PATH": config.path})
-
-
 @app.command()
 def pkgs():
     """Ensures all necessary packages are installed and up-to-date."""
-    init_cmd()
+
+    _init_cmd()
     match config.host:
         case "darwin":
             brewfile_path = os.path.join(config.state, "Brewfile")
             with open(brewfile_path, mode="w+") as f:
                 f.write("\n".join(config.brewfile_pkgs))
-            sprun(["brew", "bundle", "--cleanup", "--file", brewfile_path, "install"])
+            _sprun(["brew", "bundle", "--cleanup", "--file", brewfile_path, "install"])
         case "vorador":
             (pkgs_needed, pkgs_remove) = _manage_pkg_state("apt", config.apt)
-            sprun(["sudo", "update"])
-            sprun(["sudo", "apt", "install", " ".join(pkgs_needed)])
-            sprun(["sudo", "apt", "remove", " ".join(pkgs_remove)])
-            sprun(["sudo", "upgrade", "--autoremove"])
+            _sprun(["sudo", "update"])
+            _sprun(["sudo", "apt", "install", " ".join(pkgs_needed)])
+            _sprun(["sudo", "apt", "remove", " ".join(pkgs_remove)])
+            _sprun(["sudo", "upgrade", "--autoremove"])
         case _:
             (pacman_needed, pacman_remove) = _manage_pkg_state("pacman", config.pacman)
-            sprun(["sudo", "pacman", "-Syu"])
-            sprun(["sudo", "pacman", "-S", "--needed", " ".join(pacman_needed)])
-            sprun(["sudo", "pacman", "-R", " ".join(pacman_remove)])
+            _sprun(["sudo", "pacman", "-Syu"])
+            _sprun(["sudo", "pacman", "-S", "--needed", " ".join(pacman_needed)])
+            _sprun(["sudo", "pacman", "-R", " ".join(pacman_remove)])
             with open(os.path.join(config.state, "pacman"), mode="w+") as f:
                 f.write("\n".join(config.pacman))
 
             (paru_needed, paru_remove) = _manage_pkg_state("aur", config.pacman)
-            sprun(["sudo", "paru", "-Syu"])
-            sprun(["sudo", "paru", "-S", "--needed", " ".join(paru_needed)])
-            sprun(["sudo", "paru", "-R", " ".join(paru_remove)])
+            _sprun(["sudo", "paru", "-Syu"])
+            _sprun(["sudo", "paru", "-S", "--needed", " ".join(paru_needed)])
+            _sprun(["sudo", "paru", "-R", " ".join(paru_remove)])
             with open(os.path.join(config.state, "aur"), mode="w+") as f:
                 f.write("\n".join(config.aur))
     print_success("finished!")
 
 
 def _manage_pkg_state(pkg_manager: str, pkgs: set[str]) -> Tuple[list[str], list[str]]:
+    """
+    Calculates the lists of packages that need to be installed and removed.
+
+    It reads the current state file at ~/dots/state/{pkg_manager}, which acts as
+    the list of currently user-installed packages. It compares that set to the
+    set of packages we want to have installed now, and calculates and returns
+    two lists: missing packages that need to be installed, and packages that can
+    be removed.
+    """
     pkgs_installed = set[str]()
     pkgs_installed_file = os.path.join(config.state, pkg_manager)
     if os.path.isfile(pkgs_installed_file):
@@ -399,7 +413,7 @@ def _manage_pkg_state(pkg_manager: str, pkgs: set[str]) -> Tuple[list[str], list
 @app.command()
 def nvim():
     """Syncs nvim plugins."""
-    init_cmd()
+    _init_cmd()
     p = sp.run(
         ["nvim", "--headless", '"Lazy! sync"', "TSUpdateSync", "+qa"],
         env={"CC": "gcc", "CXX": "g++", "PATH": config.path},
@@ -414,7 +428,7 @@ def nvim():
 @app.command()
 def sync():
     """Runs all maintenance commands: stow, nix, repos, pkgs, nvim"""
-    init_cmd()
+    _init_cmd()
     # stow()
     # nix()
     # repos()
@@ -424,10 +438,10 @@ def sync():
     print_success("finished!")
 
 
-def init_cmd():
-    name = inspect.stack()[1][3]
-    config.command = name
-    print_info(f"starting {name}")
+@app.callback(invoke_without_command=True)
+def main():
+    """Run sync."""
+    sync()
 
 
 if __name__ == "__main__":
