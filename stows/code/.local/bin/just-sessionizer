@@ -17,7 +17,7 @@ tmux_running=$(pgrep tmux)
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
     type="session"
 fi
-[[ -z "$type" ]] && type="window"
+[[ -z "$type" ]] && type="in-window"
 
 case "$type" in
 "session")
@@ -35,5 +35,17 @@ case "$type" in
     tmux send-keys -t "$session_name":"$selected" "$command" C-m
     tmux switch-client -t "$session_name":"$selected"
     ;;
+"in-window")
+    $command
+    ;;
+# "in-window")
+#     session_name=$(tmux display-message -p "#S")
+#     window_name=$(tmux display-message -p "#W")
+#     # if ! tmux has-session -t "$session_name":"$selected" 2>/dev/null; then
+#     #     tmux new-window -dn "$selected"
+#     # fi
+#     tmux split-window -h -t "$session_name":"$window_name" "$command"
+#     # tmux send-keys -t "$session_name":"$selected" "$command" C-m
+#     # tmux switch-client -t "$session_name":"$selected"
+#     ;;
 esac
-
