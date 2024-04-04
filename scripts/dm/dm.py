@@ -33,7 +33,6 @@ def stow():
         p = sprun(
             [
                 "stow",
-                "-n",
                 "--no-folding",
                 "--adopt",
                 "-t",
