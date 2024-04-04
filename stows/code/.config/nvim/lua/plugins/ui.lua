@@ -43,8 +43,8 @@ return {
             options = { component_separators = "", section_separators = "" },
             sections = {
                 lualine_a = { "mode" },
-                lualine_b = {},
-                -- lualine_b = { "branch", "diff" },
+                -- lualine_b = {},
+                lualine_b = { "branch", "diff" },
                 lualine_c = { { "filename", path = 3 } },
                 lualine_x = { "diagnostics" },
                 lualine_y = { "progress" },

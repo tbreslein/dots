@@ -39,7 +39,7 @@ vim.opt.mouse = "a"
 vim.opt.fileencoding = "utf-8"
 -- vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 vim.opt.clipboard = "unnamedplus"
--- vim.opt.laststatus = 3
+vim.opt.laststatus = 3
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.fillchars = { eob = " " }

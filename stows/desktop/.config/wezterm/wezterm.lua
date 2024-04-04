@@ -2,8 +2,26 @@ local wezterm = require("wezterm")
 local mycolours = require("colours")
 local config = {}
 mycolours.apply_to_config(config)
+
+local is_linux = wezterm.target_triple:find("linux") ~= nil
+local is_darwin = wezterm.target_triple:find("darwin") ~= nil
+
+local host = ""
+if is_darwin then
+    host = "darwin"
+else
+    host = wezterm.hostname()
+end
+
+if host == "darwin" then
+    config.font_size = 18
+elseif host == "moebius" then
+    config.font_size = 18
+elseif host == "audron" then
+    config.font_size = 18
+end
+
 config.font = wezterm.font("Hack Nerd Font")
-config.font_size = 18
 config.force_reverse_video_cursor = true
 config.enable_tab_bar = false
 config.window_background_opacity = 0.9
