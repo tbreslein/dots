@@ -36,6 +36,7 @@ def stow():
         sp.run(
             [
                 "stow",
+                "-n",
                 "-v",
                 "--no-folding",
                 "--adopt",
