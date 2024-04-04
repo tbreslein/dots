@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
+local mycolours = require("colours")
 local config = {}
-config.color_scheme = "catppuccin-mocha"
--- config.color_scheme = "tokyonight"
+mycolours.apply_to_config(config)
 config.font = wezterm.font("Hack Nerd Font")
 config.font_size = 18
 config.force_reverse_video_cursor = true
