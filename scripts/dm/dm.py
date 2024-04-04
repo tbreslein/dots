@@ -30,7 +30,7 @@ def stow():
         stow_dir = os.path.join(CONFIG.stows, stow)
         if not os.path.isdir(stow_dir):
             continue
-        p = sprun(
+        sprun(
             [
                 "stow",
                 "--no-folding",
@@ -42,7 +42,6 @@ def stow():
                 ".",
             ],
         )
-        p.check_returncode()
     sprun(["git", "restore", "."])
     success("finished!")
 
@@ -142,27 +141,40 @@ def nvim():
     """Syncs nvim plugins."""
 
     init_cmd()
-    p = sp.run(
+    sp.run(
         ["nvim", "--headless", '"Lazy! sync"', "TSUpdateSync", "+qa"],
         env={"CC": "gcc", "CXX": "g++", "PATH": CONFIG.path},
-        capture_output=True,
+        check=True,
     )
-    if p.returncode != 0:
-        err(f"{p.stderr}")
-        exit(1)
+    success("finished!")
+
+
+@app.command()
+def tpm():
+    """Syncs tmux plugins."""
+
+    init_cmd()
+    tpm_dir = os.path.join(CONFIG.home, ".tmux", "plugins", "tpm")
+    if not os.path.isdir(tpm_dir):
+        sprun(["git", "clone", "https://github.com/tmux-plugins/tpm", tpm_dir])
+    # NOTE: for some reason these tpm commands are trying to run relative to /,
+    # so they fail because that's read-only...
+    # sprun([os.path.join(tpm_dir, "bin", "install_plugins")], cwd=CONFIG.home)
+    # sprun([os.path.join(tpm_dir, "bin", "update_plugins"), "all"])
     success("finished!")
 
 
 @app.command()
 def sync():
-    """Runs all maintenance commands: stow, nix, repos, pkgs, nvim."""
+    """Runs all maintenance commands: stow, nix, repos, pkgs, nvim, tpm"""
 
     init_cmd()
-    # stow()
+    stow()
     # nix()
-    # repos()
+    repos()
     # pkgs()
     nvim()
+    tpm()
     CONFIG.command = "sync"
     success("finished!")
 

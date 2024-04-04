@@ -30,8 +30,8 @@ def err(msg: str):
 
 
 def sprun(cmd: list[str], **kwargs) -> sp.CompletedProcess[bytes]:
-    """Wrapper function around subprocess.run that always passes PATH to env vars."""
-    return sp.run(cmd, env={"PATH": CONFIG.path}, **kwargs)
+    """Wrapper function around subprocess.run setting some defaults."""
+    return sp.run(cmd, env={"PATH": CONFIG.path}, check=True, **kwargs)
 
 
 def init_cmd():
