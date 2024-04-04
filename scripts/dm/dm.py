@@ -170,11 +170,5 @@ def sync():
     success("finished!")
 
 
-@app.callback(invoke_without_command=True)
-def main():
-    """Run sync as the default command."""
-    sync()
-
-
 if __name__ == "__main__":
     app()
