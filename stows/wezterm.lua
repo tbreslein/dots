@@ -1,1 +1,0 @@
-/Users/tommy/dots/stows/desktop/.config/wezterm/wezterm.lua

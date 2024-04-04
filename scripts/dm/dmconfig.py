@@ -14,6 +14,7 @@ class Config:
         self.uname: str = os.environ.get("UNAME_S") or ""
         self.path: str = os.environ.get("PATH") or ""
         self.home: str = os.environ.get("HOME") or ""
+        self.colours: str = os.environ.get("COLOURS") or ""
         self.dots: str = os.path.join(self.home, "dots")
         self.stows: str = os.path.join(self.dots, "stows")
         self.state: str = os.path.join(self.dots, "state")

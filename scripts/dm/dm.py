@@ -24,6 +24,7 @@ def stow():
 
     stows = deepcopy(CONFIG.roles)
     stows.add(CONFIG.host)
+    stows.add(os.path.join("colours", CONFIG.colours)
     for stow in stows:
         stow_dir = os.path.join(CONFIG.stows, stow)
         if not os.path.isdir(stow_dir):
