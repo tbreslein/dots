@@ -17,23 +17,21 @@ def stow():
     """Ensures all necessary stows are up-to-date."""
     init_cmd()
 
-    gstatus = sp.run(
-        ["git", "status", "--porcelain"], cwd=CONFIG.dots, capture_output=True
-    )
-    if len(gstatus.stdout) > 0:
-        err(
-            "git status --porcelain return non-zero return code."
-            f" stdout: {gstatus.stdout}"
-        )
+    gstatus = sprun(["git", "status", "--porcelain"], cwd=CONFIG.dots)
+    if gstatus.returncode != 0:
+        err("Cannot run dm stow in dirty worktrees.")
         exit(1)
 
     stows = deepcopy(CONFIG.roles)
     stows.add(CONFIG.host)
+    print(f"home = {CONFIG.home}")
+    print(f"stows = {stows}")
     for stow in stows:
         stow_dir = os.path.join(CONFIG.stows, stow)
+        print(f"stowdir = {stow_dir}")
         if not os.path.isdir(stow_dir):
             continue
-        sp.run(
+        p = sprun(
             [
                 "stow",
                 "-n",
@@ -44,10 +42,14 @@ def stow():
                 CONFIG.home,
                 "-d",
                 stow_dir,
+                ".",
             ],
-            capture_output=True,
+            # capture_output=True,
         )
-    sp.run(["git", "restore", "."])
+        print(f"{p.args}")
+        p.check_returncode()
+    sprun(["git", "restore", "."])
+    success("finished!")
 
 
 @app.command()

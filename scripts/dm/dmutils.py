@@ -29,9 +29,9 @@ def err(msg: str):
     _log(msg, "ERROR  ", CONFIG.bright_red)
 
 
-def sprun(cmd: list[str]) -> sp.CompletedProcess[bytes]:
+def sprun(cmd: list[str], **kwargs) -> sp.CompletedProcess[bytes]:
     """Wrapper function around subprocess.run that always passes PATH to env vars."""
-    return sp.run(cmd, env={"PATH": CONFIG.path})
+    return sp.run(cmd, env={"PATH": CONFIG.path}, **kwargs)
 
 
 def init_cmd():
