@@ -63,11 +63,5 @@ return {
     "tpope/vim-fugitive",
     { "lewis6991/gitsigns.nvim", opts = {} },
     { "numToStr/Comment.nvim", opts = {} },
-    {
-        "shortcuts/no-neck-pain.nvim",
-        cond = function()
-            return next(vim.api.nvim_list_uis()) ~= nil
-        end,
-        opts = { width = 120, autocmds = { enableOnVimEnter = true, enableOnTabEnter = false } },
-    },
+    { "j-hui/fidget.nvim", opts = {} },
 }
