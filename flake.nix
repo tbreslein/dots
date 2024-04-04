@@ -20,6 +20,8 @@
             dotsPythonPackages.typer
             dotsPythonPackages.python-dotenv
             bash
+            git
+            stow
           ];
 
           hostname = if system == "aarch64-darwin" then
