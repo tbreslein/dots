@@ -24,18 +24,14 @@ def stow():
 
     stows = deepcopy(CONFIG.roles)
     stows.add(CONFIG.host)
-    print(f"home = {CONFIG.home}")
-    print(f"stows = {stows}")
     for stow in stows:
         stow_dir = os.path.join(CONFIG.stows, stow)
-        print(f"stowdir = {stow_dir}")
         if not os.path.isdir(stow_dir):
             continue
         p = sprun(
             [
                 "stow",
                 "-n",
-                "-v",
                 "--no-folding",
                 "--adopt",
                 "-t",
@@ -44,9 +40,7 @@ def stow():
                 stow_dir,
                 ".",
             ],
-            # capture_output=True,
         )
-        print(f"{p.args}")
         p.check_returncode()
     sprun(["git", "restore", "."])
     success("finished!")
