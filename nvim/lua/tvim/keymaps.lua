@@ -73,47 +73,6 @@ function M.config()
             y = { '"+y', "which_key_ignore", mode = { "n", "v", "x" } },
             p = { '"+p', "which_key_ignore", mode = { "n", "v", "x" } },
             T = { "<cmd>TroubleToggle<cr>", "trouble" },
-            a = {
-                function()
-                    require("harpoon"):list():add()
-                end,
-                "harpoon append",
-            },
-            e = {
-                function()
-                    require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())
-                end,
-                "harpoon list",
-            },
-            u = { "<cmd>Telescope undo<cr>", "open undotree" },
-            N = { "<cmd>NoNeckPain<cr>", "toggle NoNeckPain" },
-        },
-        ["<leader>f"] = {
-            name = "files",
-            f = {
-                function()
-                    vim.fn.system("git rev-parse --is-inside-work-tree")
-                    if vim.v.shell_error == 0 then
-                        require("telescope.builtin").git_files()
-                    else
-                        require("telescope.builtin").find_files()
-                    end
-                end,
-                "find",
-            },
-            g = { require("telescope.builtin").git_files, "git files" },
-            s = { require("telescope.builtin").live_grep, "live grep" },
-            o = { require("oil").toggle_float, "open file browser" },
-            e = {
-                function()
-                    if string.sub(vim.uv.cwd(), 1, string.len(vim.g.my_dotfiles)) == vim.g.my_dotfiles then
-                        require("telescope.builtin").find_files()
-                    else
-                        vim.cmd("silent !tmux new-window -c " .. vim.g.my_dotfiles .. [[ nvim "+Telescope git_files"]])
-                    end
-                end,
-                "fzf in dotfiles",
-            },
         },
         ["<leader>n"] = {
             name = "notes",
