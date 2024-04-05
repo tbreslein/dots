@@ -12,7 +12,7 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.foldenable = false
-vim.opt.conceallevel = 1
+vim.opt.conceallevel = 0
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.local/share/vim/undodir"
@@ -30,5 +30,19 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.fillchars = { eob = " " }
 vim.opt.inccommand = "split"
 vim.opt.autoread = true
-vim.g.my_obsidian_vault = os.getenv("HOME") .. "/syncthing/notes/vault"
-vim.g.my_dotfiles = os.getenv("HOME") .. "/dotfiles"
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
+    pattern = "*",
+})
+vim.api.nvim_create_autocmd("FocusGained", { command = "checktime" })
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "fugitive", "git", "help", "lspinfo", "man", "query", "vim" },
+    callback = function(event)
+        vim.bo[event.buf].buflisted = false
+        vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+    end,
+})
