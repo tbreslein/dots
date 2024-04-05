@@ -1,7 +1,9 @@
 vim.g.mapleader = " "
 require("tvim.core")
 require("tvim.vim-settings")
-require("tvim.keymaps")
+spec("tvim.keymaps")
+spec("tvim.colourscheme")
+spec("tvim.common-deps")
 require("tvim.lazy")
 
 -- move these somewhere else

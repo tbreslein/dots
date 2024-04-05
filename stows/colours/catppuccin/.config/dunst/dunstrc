@@ -1,0 +1,8 @@
+[global]
+background="#2e3440"
+font="Noto Sans 11"
+foreground="#d8dee9"
+frame_color="#88c0d0"
+
+[urgency_critical]
+frame_color="#b74e58"
