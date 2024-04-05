@@ -55,6 +55,7 @@ return {
             "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            { "mrcjkb/rustaceanvim", ft = { "rust" } },
             "mfussenegger/nvim-dap",
             "rcarriga/nvim-dap-ui",
             "nvim-neotest/nvim-nio",
@@ -68,7 +69,19 @@ return {
             "onsails/lspkind.nvim",
         },
         config = function()
-            require("dapui").setup()
+            local dap = require("dap")
+            local dapui = require("dapui")
+            dapui.setup()
+            dap.listeners.after.event_initialized["dapui_config"] = function()
+                dapui.open()
+            end
+            dap.listeners.before.event_terminated["dapui_config"] = function()
+                dapui.close()
+            end
+            dap.listeners.before.event_exited["dapui_config"] = function()
+                dapui.close()
+            end
+
             require("mason").setup()
             require("mason-lspconfig").setup({
                 ensure_installed = { "lua_ls" },
@@ -76,13 +89,14 @@ return {
 
             local lspconfig = require("lspconfig")
             local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+            -- NOTE: rust-analyzer is setup by rustaceanvim!
+            -- lspconfig.rust_analyzer.setup({
+            --     capabilities = lsp_capabilities,
+            --     settings = { ["rust-analyzer"] = { files = { excludeDirs = { ".direnv" } } } },
+            -- })
             lspconfig.clangd.setup({ capabilities = lsp_capabilities })
             lspconfig.neocmake.setup({ capabilities = lsp_capabilities })
             lspconfig.gopls.setup({ capabilities = lsp_capabilities })
-            lspconfig.rust_analyzer.setup({
-                capabilities = lsp_capabilities,
-                settings = { ["rust-analyzer"] = { files = { excludeDirs = { ".direnv" } } } },
-            })
             lspconfig.zls.setup({ capabilities = lsp_capabilities })
             lspconfig.pyright.setup({
                 capabilities = lsp_capabilities,

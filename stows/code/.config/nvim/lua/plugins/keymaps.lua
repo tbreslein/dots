@@ -229,6 +229,12 @@ return {
                     },
                     B = { ':Git checkout -b<space>""<left>', "checkout -b ...", silent = false },
                 },
+                ["<leader>d"] = {
+                    name = "debug",
+                    t = { "<cmd>DapToggleBreakpoint<cr>", "toggle breakpoint" },
+                    x = { "<cmd>DapTerminate<cr>", "terminate" },
+                    o = { "<cmd>DapStepOver<cr>", "step over" },
+                },
                 s = {
                     function()
                         require("flash").jump()
