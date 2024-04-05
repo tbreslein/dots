@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
-local module = {}
+local M = {}
 
-function module.apply_to_config(config)
-    config.color_scheme = 'catppuccin'
+function M.apply_to_config(config)
+    config.color_scheme = "catppuccin"
 end
-return module
+return M

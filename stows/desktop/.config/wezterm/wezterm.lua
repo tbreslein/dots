@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
-local mycolours = require("colours")
+local colours = require("colours")
 local config = {}
-mycolours.apply_to_config(config)
+colours.apply_to_config(config)
 
 local is_linux = wezterm.target_triple:find("linux") ~= nil
 local is_darwin = wezterm.target_triple:find("darwin") ~= nil

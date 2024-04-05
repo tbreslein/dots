@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
-local module = {}
+local M = {}
 
-function module.apply_to_config(config)
-    config.color_scheme = 'Gruvbox Material (Gogh)'
+function M.apply_to_config(config)
+    config.color_scheme = "Gruvbox Material (Gogh)"
 end
-return module
+return M

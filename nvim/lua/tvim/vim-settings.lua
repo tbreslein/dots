@@ -30,6 +30,8 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.fillchars = { eob = " " }
 vim.opt.inccommand = "split"
 vim.opt.autoread = true
+vim.o.timeout = true
+vim.o.timeoutlen = 300
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     callback = function()
