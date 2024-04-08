@@ -13,10 +13,11 @@ type (
 	Config struct {
 		roles   map[string]struct{}
 		host    string
-		uname   string
+		uname_s string
 		path    string
 		colours string
 		home    string
+		config  string
 		dots    string
 		stows   string
 		state   string
@@ -74,10 +75,11 @@ func init() {
 	CONFIG = Config{
 		roles:   roles,
 		host:    host,
-		uname:   os.Getenv("UNAME"),
+		uname_s: os.Getenv("UNAME_S"),
 		path:    os.Getenv("PATH"),
 		colours: os.Getenv("COLOURS"),
 		home:    home,
+		config:  filepath.Join(home, ".config"),
 		dots:    dots,
 		stows:   filepath.Join(dots, "stows"),
 		state:   filepath.Join(dots, "state"),
@@ -88,5 +90,3 @@ func init() {
 		apt:     []string{"syncthing", "git", "vim"},
 	}
 }
-
-// self.command: str = ""
