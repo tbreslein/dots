@@ -1,4 +1,4 @@
-package main
+package dotem
 
 import (
 	"fmt"
@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"codeberg.org/tbreslein/dots/progs/dotem/config"
 	"github.com/joho/godotenv"
 )
 
@@ -21,8 +22,7 @@ func main() {
 		log.Fatalf("Error loading .env file: %s", err)
 	}
 
-	// Getting and using a value from .env
-	roles := os.Getenv("ROLES")
+	config := config.Config{Roles: os.Getenv("ROLES")}
 
-	fmt.Println(roles)
+	fmt.Println(config)
 }
