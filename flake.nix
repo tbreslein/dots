@@ -78,6 +78,9 @@
             src = ./.;
             modRoot = ./progs/dotem;
             vendorHash = null;
+            postPatch = ''
+              cp ./progs/.env $out/bin/.env
+            '';
             # vendorHash =
             #   "sha256:0000000000000000000000000000000000000000000000000000";
 
@@ -102,8 +105,8 @@
             buildPhase = buildDotEnv;
             installPhase = ''
               mkdir -p $out/bin
-              cp ./scripts/bootstrap/* $out/bin/
-              cp .env $out/bin/.env
+              cp ./progs/bootstrap/* $out/bin/
+              cp ./progs/.env $out/bin/.env
             '';
           };
         };
