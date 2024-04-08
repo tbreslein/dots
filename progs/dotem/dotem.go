@@ -260,29 +260,29 @@ func run_pkgs() {
 		if out, err := exec.Command("bundle", "--cleanup", "--file", brewfile_path, "install").Output(); err != nil {
 			error(err)
 		} else {
-			info(out)
+			info(string(out))
 		}
 	case "vorador":
 		pkgs_needed, pkgs_remove := manage_pkg_state("apt", CONFIG.apt)
 		if out, err := exec.Command("sudo", "apt", "update").Output(); err != nil {
 			error(err)
 		} else {
-			info(out)
+			info(string(out))
 		}
 		if out, err := exec.Command("sudo", "apt", "install", strings.Join(pkgs_needed, " ")).Output(); err != nil {
 			error(err)
 		} else {
-			info(out)
+			info(string(out))
 		}
 		if out, err := exec.Command("sudo", "apt", "remove", strings.Join(pkgs_remove, " ")).Output(); err != nil {
 			error(err)
 		} else {
-			info(out)
+			info(string(out))
 		}
 		if out, err := exec.Command("sudo", "apt", "update", "--autoremove").Output(); err != nil {
 			error(err)
 		} else {
-			info(out)
+			info(string(out))
 		}
 		if err := os.WriteFile(filepath.Join(CONFIG.state, "apt"), []byte(strings.Join(CONFIG.apt, "\n")), 0644); err != nil {
 			error(err)
@@ -293,17 +293,17 @@ func run_pkgs() {
 		if out, err := exec.Command("sudo", "pacman", "-Syu").Output(); err != nil {
 			error(err)
 		} else {
-			info(out)
+			info(string(out))
 		}
 		if out, err := exec.Command("sudo", "pacman", "-S", "--needed", strings.Join(pkgs_needed, " ")).Output(); err != nil {
 			error(err)
 		} else {
-			info(out)
+			info(string(out))
 		}
 		if out, err := exec.Command("sudo", "pacman", "-R", strings.Join(pkgs_remove, " ")).Output(); err != nil {
 			error(err)
 		} else {
-			info(out)
+			info(string(out))
 		}
 		if err := os.WriteFile(filepath.Join(CONFIG.state, "pacman"), []byte(strings.Join(CONFIG.pacman, "\n")), 0644); err != nil {
 			error(err)
@@ -313,17 +313,17 @@ func run_pkgs() {
 		if out, err := exec.Command("sudo", "paru", "-Syu").Output(); err != nil {
 			error(err)
 		} else {
-			info(out)
+			info(string(out))
 		}
 		if out, err := exec.Command("sudo", "paru", "-S", "--needed", strings.Join(pkgs_needed, " ")).Output(); err != nil {
 			error(err)
 		} else {
-			info(out)
+			info(string(out))
 		}
 		if out, err := exec.Command("sudo", "paru", "-R", strings.Join(pkgs_remove, " ")).Output(); err != nil {
 			error(err)
 		} else {
-			info(out)
+			info(string(out))
 		}
 		if err := os.WriteFile(filepath.Join(CONFIG.state, "aur"), []byte(strings.Join(CONFIG.aur, "\n")), 0644); err != nil {
 			error(err)
@@ -368,13 +368,13 @@ func run_nix() {
 	if err != nil {
 		error(err)
 	}
-	info(out)
+	info(string(out))
 
 	out, err = exec.Command("nix-store", "--gc", "--optimise").Output()
 	if err != nil {
 		error(err)
 	}
-	info(out)
+	info(string(out))
 	success("finished!")
 }
 
@@ -387,7 +387,7 @@ func run_nvim() {
 	if err != nil {
 		error(err)
 	}
-	info(out)
+	info(string(out))
 	success("finished!")
 }
 
