@@ -201,8 +201,6 @@ func run_repos() {
 			add_remote_cmd_string := "git remote add origin " + ssh_address
 			processes[i] = Proc{cmd: exec.Command("bash", "-c", clone_cmd_string+remove_remote_cmd_string+add_remote_cmd_string)}
 			processes[i].cmd.Dir = filepath.Join(CONFIG.home, "code")
-			processes[i] = Proc{cmd: exec.Command("git", "clone", repo, folder)}
-
 			processes[i].stdout, err = processes[i].cmd.StdoutPipe()
 			if err != nil {
 				error(err)
