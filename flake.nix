@@ -71,12 +71,13 @@
             # shellHook = ''
             # '';
           };
-          packages.dm = pkgs.buildGoModule {
-            pname = "dm";
+          packages.dotem = pkgs.buildGoModule {
+            pname = "dotem";
             version = "0.0.1";
-            src = ./dm;
-            vendorSha256 =
-              "0000000000000000000000000000000000000000000000000000";
+            src = ./.;
+            modRoot = ./progs/dotem;
+            vendorHash = null;
+            # "sha256-0000000000000000000000000000000000000000000000000001";
             # vendorSha256 = "3tO/+Mnvl/wpS7Ro3XDIVrlYTGVM680mcC15/7ON6qM=";
           };
           # packages.dm = pkgs.stdenv.mkDerivation {
