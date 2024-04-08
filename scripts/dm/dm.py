@@ -43,6 +43,17 @@ def stow():
             ],
         )
     sprun(["git", "restore", "."])
+
+    nvim_config_dir = os.path.join(CONFIG.home, ".config", "nvim")
+    if not os.path.islink(nvim_config_dir):
+        sprun(
+            [
+                "ln",
+                "-s",
+                os.path.join(CONFIG.home, "dots", "nvim"),
+                nvim_config_dir,
+            ]
+        )
     success("finished!")
 
 
