@@ -12,13 +12,6 @@
 
       perSystem = { system, pkgs, lib, ... }:
         let
-          # packages.default = pkgs.buildGoModule {
-          #   pname = "frankenrepo";
-          #   inherit version;
-          #   src = ./.;
-          #   # vendorSha256 = "0000000000000000000000000000000000000000000000000000";
-          #   vendorSha256 = "3tO/+Mnvl/wpS7Ro3XDIVrlYTGVM680mcC15/7ON6qM=";
-          # };
           buildInputs = with pkgs; [ go bash git stow ];
 
           hostname = if system == "aarch64-darwin" then
@@ -84,18 +77,6 @@
             vendorHash = null;
             inherit prePatch postPatch;
           };
-          # packages.dm = pkgs.stdenv.mkDerivation {
-          #   name = "dm";
-          #   inherit buildInputs;
-          #   src = ./.;
-          #   buildPhase = buildDotEnv;
-          #   installPhase = ''
-          #     mkdir -p $out/bin
-          #     cp ./scripts/dm/* $out/bin/
-          #     mv $out/bin/dm.py $out/bin/dm
-          #     cp .env $out/bin/.env
-          #   '';
-          # };
           packages.bootstrap = pkgs.stdenv.mkDerivation {
             name = "bootstrap";
             inherit buildInputs prePatch postPatch;
