@@ -1,4 +1,4 @@
-package dotem
+package main
 
 import (
 	"fmt"
