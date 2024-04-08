@@ -72,18 +72,24 @@
             buildInputs = with pkgs;
               [ gopls gofumpt golangci-lint just ] ++ buildInputs;
 
-            GOWORK = "off";
+            # GOWORK = "off";
             # shellHook = ''
             # '';
           };
-          packages.dotem = pkgs.buildGoModule {
-            pname = "dotem";
+          packages.default = pkgs.buildGoModule {
+            pname = "dots";
             version = "0.0.1";
             src = ./.;
-            modRoot = ./progs/dotem;
-            vendorHash = null;
             inherit prePatch postPatch;
           };
+          # packages.dotem = pkgs.buildGoModule {
+          #   pname = "dotem";
+          #   version = "0.0.1";
+          #   src = ./.;
+          #   modRoot = ./progs/dotem;
+          #   vendorHash = null;
+          #   inherit prePatch postPatch;
+          # };
           # packages.dm = pkgs.stdenv.mkDerivation {
           #   name = "dm";
           #   inherit buildInputs;
