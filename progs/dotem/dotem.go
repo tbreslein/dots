@@ -256,13 +256,46 @@ func run_pkgs() {
 
 func run_nix() {
 	init_cmd()
+	out, err := exec.Command("nix-channel", "--update").Output()
+	if err != nil {
+		error(err)
+	}
+	info(out)
+
+	out, err = exec.Command("nix-store", "--gc", "--optimise").Output()
+	if err != nil {
+		error(err)
+	}
+	info(out)
 	success("finished!")
 }
 
 func run_nvim() {
 	init_cmd()
+	cmd := exec.Command("nvim", "--headless", "\"Lazy! sync\"", "TSUpdateSync", "+qa")
+	cmd.Env = append(cmd.Env, "CC=gcc", "CXX=g++", "PATH="+CONFIG.path)
+
+	out, err := cmd.Output()
+	if err != nil {
+		error(err)
+	}
+	info(out)
 	success("finished!")
 }
+
+//
+//
+// @app.command()
+// def nvim():
+//     """Syncs nvim plugins."""
+//
+//     init_cmd()
+//     sp.run(
+//         ["nvim", "--headless", '"Lazy! sync"', "TSUpdateSync", "+qa"],
+//         env={"CC": "gcc", "CXX": "g++", "PATH": CONFIG.path},
+//         check=True,
+//     )
+//     success("finished!")
 
 func run_sync() {
 	init_cmd()
