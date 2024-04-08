@@ -34,14 +34,13 @@
             "";
 
           repos = lib.concatStringsSep " " [
-            "github.com:tbreslein/capturedlambda.git"
-            "codeberg.org:tbreslein/corries.git"
-            "codeberg.org:tbreslein/frankenrepo.git"
-            "codeberg.org:tbreslein/hedispp.git"
-            "codeberg.org:tbreslein/hydrie.git"
-            "codeberg.org:tbreslein/outcome.git"
-            "codeberg.org:tbreslein/ringheap.rs.git"
-            "codeberg.org:tbreslein/tense.git"
+            "https://github.com/tbreslein/capturedlambda.git"
+            "https://codeberg.org/tbreslein/corries.git"
+            "https://codeberg.org/tbreslein/frankenrepo.git"
+            "https://codeberg.org/tbreslein/hydrie.git"
+            "https://codeberg.org/tbreslein/outcome.git"
+            "https://codeberg.org/tbreslein/ringheap.rs.git"
+            "https://codeberg.org/tbreslein/tense.git"
           ];
 
           prePatch = ''

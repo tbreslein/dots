@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -104,7 +106,7 @@ func init_cmd() {
 		current_command = Command(name[4:])
 	}
 
-	info("starting", name)
+	info("starting ", current_command)
 }
 
 func run_stow() {
@@ -165,40 +167,86 @@ func run_stow() {
 	success("finished!")
 }
 
+type Proc struct {
+	cmd    *exec.Cmd
+	stdout io.ReadCloser
+	stderr io.ReadCloser
+	error  any
+}
+
 func run_repos() {
 	init_cmd()
 	if _, ok := CONFIG.roles["code"]; !ok {
 		warn("Host does not have the \"code\" role; skipping")
 		return
 	}
-	processes := [](*exec.Cmd){}
-	errors := []any{}
-	for _, repo := range CONFIG.repos {
+	processes := make([]Proc, len(CONFIG.repos))
+	foo, _ := exec.Command("whoami").Output()
+	fmt.Print(string(foo))
+	for i, repo := range CONFIG.repos {
 		info("syncing repo: ", repo)
 		name_start := strings.LastIndex(repo, "/") + 1
 		name_end := strings.LastIndex(repo, ".")
 		folder := filepath.Join(CONFIG.home, "code", repo[name_start:name_end])
 		if _, err := os.Stat(folder); err != nil {
-			// ran_into_error := exec.Command("git", "clone", repo, folder).Start() == nil
-			processes = append(processes, exec.Command("git", "clone", repo, folder))
-			if err := processes[len(processes)-1].Start(); err != nil {
-				errors = append(errors, err)
+			// damn, there's a lot shit to do to do this correctly.
+			// Unfortunately, just running git clone on an ssh address in these
+			// commands does not read my ssh key properly, so I have to to this
+			// weird workaround, where I clone via the https address, and then
+			// change the remote.
+			clone_cmd_string := "git clone " + repo + " " + folder + "; cd " + folder + ";"
+			remove_remote_cmd_string := "git remote remove origin;"
+			ssh_address := "git@" + strings.TrimLeft(repo, "https://")
+			ssh_address = strings.Replace(ssh_address, "/", ":", 1)
+			add_remote_cmd_string := "git remote add origin " + ssh_address
+			processes[i] = Proc{cmd: exec.Command("bash", "-c", clone_cmd_string+remove_remote_cmd_string+add_remote_cmd_string)}
+			processes[i].cmd.Dir = filepath.Join(CONFIG.home, "code")
+			processes[i] = Proc{cmd: exec.Command("git", "clone", repo, folder)}
+
+			processes[i].stdout, err = processes[i].cmd.StdoutPipe()
+			if err != nil {
+				error(err)
+			}
+			processes[i].stderr, err = processes[i].cmd.StderrPipe()
+			if err != nil {
+				error(err)
 			}
 		} else {
-			processes = append(processes, exec.Command("git", "pull"))
-			processes[len(processes)-1].Dir = folder
-			if err := processes[len(processes)-1].Start(); err != nil {
-				errors = append(errors, err)
+			processes[i] = Proc{cmd: exec.Command("git", "pull")}
+			processes[i].cmd.Dir = folder
+			processes[i].stdout, err = processes[i].cmd.StdoutPipe()
+			if err != nil {
+				error(err)
+				os.Exit(1)
+			}
+			processes[i].stderr, err = processes[i].cmd.StderrPipe()
+			if err != nil {
+				error(err)
+				os.Exit(1)
 			}
 		}
 	}
 	for _, p := range processes {
-		if err := p.Wait(); err != nil {
+		p.cmd.Start()
+	}
+	for _, p := range processes {
+		buf_out := new(bytes.Buffer)
+		buf_out.ReadFrom(p.stdout)
+		buf_out_str := strings.TrimRight(buf_out.String(), "\n")
+		if len(buf_out_str) > 0 {
+			info(buf_out_str)
+		}
+
+		buf_err := new(bytes.Buffer)
+		buf_err.ReadFrom(p.stderr)
+		buf_err_str := strings.TrimRight(buf_err.String(), "\n")
+		if len(buf_err_str) > 0 {
+			info(strings.TrimRight(buf_err.String(), "\n"))
+		}
+
+		if err := p.cmd.Wait(); err != nil {
 			error(err)
 		}
-	}
-	for _, e := range errors {
-		error(e)
 	}
 	success("finished!")
 }
