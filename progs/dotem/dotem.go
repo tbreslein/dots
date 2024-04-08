@@ -143,18 +143,6 @@ func run_stow() {
 			os.Exit(1)
 		}
 	}
-	//         sprun(
-	//             [
-	//                 "stow",
-	//                 "--no-folding",
-	//                 "--adopt",
-	//                 "-t",
-	//                 CONFIG.home,
-	//                 "-d",
-	//                 stow_dir,
-	//                 ".",
-	//             ],
-	//         )
 
 	git_restore := exec.Command("git", "restore", ".")
 	git_restore.Dir = CONFIG.dots
@@ -179,6 +167,39 @@ func run_stow() {
 
 func run_repos() {
 	init_cmd()
+	if _, ok := CONFIG.roles["code"]; !ok {
+		warn("Host does not have the \"code\" role; skipping")
+		return
+	}
+	processes := [](*exec.Cmd){}
+	errors := []any{}
+	for _, repo := range CONFIG.repos {
+		info("syncing repo: ", repo)
+		name_start := strings.LastIndex(repo, "/") + 1
+		name_end := strings.LastIndex(repo, ".")
+		folder := filepath.Join(CONFIG.home, "code", repo[name_start:name_end])
+		if _, err := os.Stat(folder); err != nil {
+			// ran_into_error := exec.Command("git", "clone", repo, folder).Start() == nil
+			processes = append(processes, exec.Command("git", "clone", repo, folder))
+			if err := processes[len(processes)-1].Start(); err != nil {
+				errors = append(errors, err)
+			}
+		} else {
+			processes = append(processes, exec.Command("git", "pull"))
+			processes[len(processes)-1].Dir = folder
+			if err := processes[len(processes)-1].Start(); err != nil {
+				errors = append(errors, err)
+			}
+		}
+	}
+	for _, p := range processes {
+		if err := p.Wait(); err != nil {
+			error(err)
+		}
+	}
+	for _, e := range errors {
+		error(e)
+	}
 	success("finished!")
 }
 
