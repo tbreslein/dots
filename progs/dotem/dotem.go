@@ -251,7 +251,115 @@ func run_repos() {
 
 func run_pkgs() {
 	init_cmd()
+	switch CONFIG.host {
+	case "darwin":
+		brewfile_path := filepath.Join(CONFIG.state, "Brewfile")
+		if err := os.WriteFile(brewfile_path, []byte(strings.Join(CONFIG.brew, "\n")), 0600); err != nil {
+			error(err)
+		}
+		if out, err := exec.Command("bundle", "--cleanup", "--file", brewfile_path, "install").Output(); err != nil {
+			error(err)
+		} else {
+			info(out)
+		}
+	case "vorador":
+		pkgs_needed, pkgs_remove := manage_pkg_state("apt", CONFIG.apt)
+		if out, err := exec.Command("sudo", "apt", "update").Output(); err != nil {
+			error(err)
+		} else {
+			info(out)
+		}
+		if out, err := exec.Command("sudo", "apt", "install", strings.Join(pkgs_needed, " ")).Output(); err != nil {
+			error(err)
+		} else {
+			info(out)
+		}
+		if out, err := exec.Command("sudo", "apt", "remove", strings.Join(pkgs_remove, " ")).Output(); err != nil {
+			error(err)
+		} else {
+			info(out)
+		}
+		if out, err := exec.Command("sudo", "apt", "update", "--autoremove").Output(); err != nil {
+			error(err)
+		} else {
+			info(out)
+		}
+		if err := os.WriteFile(filepath.Join(CONFIG.state, "apt"), []byte(strings.Join(CONFIG.apt, "\n")), 0644); err != nil {
+			error(err)
+		}
+
+	default:
+		pkgs_needed, pkgs_remove := manage_pkg_state("pacman", CONFIG.pacman)
+		if out, err := exec.Command("sudo", "pacman", "-Syu").Output(); err != nil {
+			error(err)
+		} else {
+			info(out)
+		}
+		if out, err := exec.Command("sudo", "pacman", "-S", "--needed", strings.Join(pkgs_needed, " ")).Output(); err != nil {
+			error(err)
+		} else {
+			info(out)
+		}
+		if out, err := exec.Command("sudo", "pacman", "-R", strings.Join(pkgs_remove, " ")).Output(); err != nil {
+			error(err)
+		} else {
+			info(out)
+		}
+		if err := os.WriteFile(filepath.Join(CONFIG.state, "pacman"), []byte(strings.Join(CONFIG.pacman, "\n")), 0644); err != nil {
+			error(err)
+		}
+
+		pkgs_needed, pkgs_remove = manage_pkg_state("aur", CONFIG.aur)
+		if out, err := exec.Command("sudo", "paru", "-Syu").Output(); err != nil {
+			error(err)
+		} else {
+			info(out)
+		}
+		if out, err := exec.Command("sudo", "paru", "-S", "--needed", strings.Join(pkgs_needed, " ")).Output(); err != nil {
+			error(err)
+		} else {
+			info(out)
+		}
+		if out, err := exec.Command("sudo", "paru", "-R", strings.Join(pkgs_remove, " ")).Output(); err != nil {
+			error(err)
+		} else {
+			info(out)
+		}
+		if err := os.WriteFile(filepath.Join(CONFIG.state, "aur"), []byte(strings.Join(CONFIG.aur, "\n")), 0644); err != nil {
+			error(err)
+		}
+	}
 	success("finished!")
+}
+
+func manage_pkg_state(pkg_manager string, pkgs []string) ([]string, []string) {
+	pkgs_needed := []string{}
+	pkgs_remove := []string{}
+	pkgs_installed_bytes, err := os.ReadFile(filepath.Join(CONFIG.state, pkg_manager))
+	if err != nil {
+		error(err)
+	}
+
+	pkgs_installed := map[string]struct{}{}
+	pkgs_wanted := map[string]struct{}{}
+	for _, p := range strings.Split(string(pkgs_installed_bytes), "\n") {
+		pkgs_installed[p] = struct{}{}
+	}
+	for _, p := range pkgs {
+		pkgs_wanted[p] = struct{}{}
+	}
+
+	for k := range pkgs_installed {
+		if _, ok := pkgs_wanted[k]; !ok {
+			pkgs_remove = append(pkgs_remove, k)
+		}
+	}
+	for k := range pkgs_wanted {
+		if _, ok := pkgs_installed[k]; !ok {
+			pkgs_needed = append(pkgs_needed, k)
+		}
+	}
+	return pkgs_needed, pkgs_remove
 }
 
 func run_nix() {
@@ -283,20 +391,6 @@ func run_nvim() {
 	success("finished!")
 }
 
-//
-//
-// @app.command()
-// def nvim():
-//     """Syncs nvim plugins."""
-//
-//     init_cmd()
-//     sp.run(
-//         ["nvim", "--headless", '"Lazy! sync"', "TSUpdateSync", "+qa"],
-//         env={"CC": "gcc", "CXX": "g++", "PATH": CONFIG.path},
-//         check=True,
-//     )
-//     success("finished!")
-
 func run_sync() {
 	init_cmd()
 	run_stow()
@@ -307,57 +401,3 @@ func run_sync() {
 	current_command = "sync"
 	success("finished!")
 }
-
-// @app.command()
-// def pkgs():
-//     """Ensures all necessary packages are installed and up-to-date."""
-//
-//     init_cmd()
-//     match CONFIG.host:
-//         case "darwin":
-//             brewfile_path = os.path.join(CONFIG.state, "Brewfile")
-//             with open(brewfile_path, mode="w+") as f:
-//                 f.write("\n".join(CONFIG.brew))
-//             sprun(["brew", "bundle", "--cleanup", "--file", brewfile_path, "install"])
-//         case "vorador":
-//             (pkgs_needed, pkgs_remove) = _manage_pkg_state("apt", CONFIG.apt)
-//             sprun(["sudo", "update"])
-//             sprun(["sudo", "apt", "install", " ".join(pkgs_needed)])
-//             sprun(["sudo", "apt", "remove", " ".join(pkgs_remove)])
-//             sprun(["sudo", "upgrade", "--autoremove"])
-//         case _:
-//             (pacman_needed, pacman_remove) = _manage_pkg_state("pacman", CONFIG.pacman)
-//             sprun(["sudo", "pacman", "-Syu"])
-//             sprun(["sudo", "pacman", "-S", "--needed", " ".join(pacman_needed)])
-//             sprun(["sudo", "pacman", "-R", " ".join(pacman_remove)])
-//             with open(os.path.join(CONFIG.state, "pacman"), mode="w+") as f:
-//                 f.write("\n".join(CONFIG.pacman))
-//
-//             (paru_needed, paru_remove) = _manage_pkg_state("aur", CONFIG.pacman)
-//             sprun(["sudo", "paru", "-Syu"])
-//             sprun(["sudo", "paru", "-S", "--needed", " ".join(paru_needed)])
-//             sprun(["sudo", "paru", "-R", " ".join(paru_remove)])
-//             with open(os.path.join(CONFIG.state, "aur"), mode="w+") as f:
-//                 f.write("\n".join(CONFIG.aur))
-//     success("finished!")
-//
-//
-// def _manage_pkg_state(pkg_manager: str, pkgs: set[str]) -> Tuple[list[str], list[str]]:
-//     """
-//     Calculates the lists of packages that need to be installed and removed.
-//
-//     It reads the current state file at ~/dots/state/{pkg_manager}, which acts as
-//     the list of currently user-installed packages. It compares that set to the
-//     set of packages we want to have installed now, and calculates and returns
-//     two lists: missing packages that need to be installed, and packages that can
-//     be removed.
-//     """
-//
-//     pkgs_installed = set[str]()
-//     pkgs_installed_file = os.path.join(CONFIG.state, pkg_manager)
-//     if os.path.isfile(pkgs_installed_file):
-//         with open(os.path.join(CONFIG.state, pkg_manager), mode="r") as f:
-//             pkgs_installed.update(set(f.readlines()))
-//     pkgs_needed = [p for p in pkgs if p not in pkgs_installed]
-//     pkgs_remove = [p for p in pkgs_installed if p not in pkgs]
-//     return (pkgs_needed, pkgs_remove)
