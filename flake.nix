@@ -68,6 +68,7 @@
             buildInputs = with pkgs;
               [ gopls gofumpt golangci-lint just ] ++ buildInputs;
 
+            GOWORK = "off";
             # shellHook = ''
             # '';
           };
@@ -76,9 +77,9 @@
             version = "0.0.1";
             src = ./.;
             modRoot = ./progs/dotem;
-            # vendorHash = null;
-            vendorHash =
-              "sha256:0000000000000000000000000000000000000000000000000000";
+            vendorHash = null;
+            # vendorHash =
+            #   "sha256:0000000000000000000000000000000000000000000000000000";
 
             # vendorSha256 = "3tO/+Mnvl/wpS7Ro3XDIVrlYTGVM680mcC15/7ON6qM=";
           };
