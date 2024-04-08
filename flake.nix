@@ -51,7 +51,7 @@
             "codeberg.org:tbreslein/tense.git"
           ];
 
-          buildDotEnv = ''
+          prePatch = ''
             cat <<EOF > .env
             UNAME_S="${
               if system == "aarch64-darwin" then "Darwin" else "Linux"
@@ -62,6 +62,10 @@
             REPOS="${repos}"
             COLOURS="gruvbox-material"
             EOF
+          '';
+          postPatch = ''
+            mkdir -p $out/bin
+            cp .env $out/bin/.env
           '';
         in {
           devShells.default = pkgs.mkShell {
@@ -78,13 +82,7 @@
             src = ./.;
             modRoot = ./progs/dotem;
             vendorHash = null;
-            postPatch = ''
-              cp ./progs/.env $out/bin/.env
-            '';
-            # vendorHash =
-            #   "sha256:0000000000000000000000000000000000000000000000000000";
-
-            # vendorSha256 = "3tO/+Mnvl/wpS7Ro3XDIVrlYTGVM680mcC15/7ON6qM=";
+            inherit prePatch postPatch;
           };
           # packages.dm = pkgs.stdenv.mkDerivation {
           #   name = "dm";
@@ -100,13 +98,11 @@
           # };
           packages.bootstrap = pkgs.stdenv.mkDerivation {
             name = "bootstrap";
-            inherit buildInputs;
+            inherit buildInputs prePatch postPatch;
             src = ./.;
-            buildPhase = buildDotEnv;
             installPhase = ''
               mkdir -p $out/bin
               cp ./progs/bootstrap/* $out/bin/
-              cp ./progs/.env $out/bin/.env
             '';
           };
         };
