@@ -12,17 +12,14 @@
 
       perSystem = { system, pkgs, lib, ... }:
         let
-          dotsPython = pkgs.python312;
-          dotsPythonPackages = pkgs.python312Packages;
-          buildInputs = with pkgs; [
-            dotsPython
-            dotsPythonPackages.black
-            dotsPythonPackages.typer
-            dotsPythonPackages.python-dotenv
-            bash
-            git
-            stow
-          ];
+          # packages.default = pkgs.buildGoModule {
+          #   pname = "frankenrepo";
+          #   inherit version;
+          #   src = ./.;
+          #   # vendorSha256 = "0000000000000000000000000000000000000000000000000000";
+          #   vendorSha256 = "3tO/+Mnvl/wpS7Ro3XDIVrlYTGVM680mcC15/7ON6qM=";
+          # };
+          buildInputs = with pkgs; [ go bash git stow ];
 
           hostname = if system == "aarch64-darwin" then
             "darwin"
@@ -69,23 +66,31 @@
         in {
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs;
-              [ nodePackages.pyright ruff ] ++ buildInputs;
+              [ gopls gofumpt golangci-lint just ] ++ buildInputs;
 
             # shellHook = ''
             # '';
           };
-          packages.dm = pkgs.stdenv.mkDerivation {
-            name = "dm";
-            inherit buildInputs;
-            src = ./.;
-            buildPhase = buildDotEnv;
-            installPhase = ''
-              mkdir -p $out/bin
-              cp ./scripts/dm/* $out/bin/
-              mv $out/bin/dm.py $out/bin/dm
-              cp .env $out/bin/.env
-            '';
+          packages.dm = pkgs.buildGoModule {
+            pname = "dm";
+            version = "0.0.1";
+            src = ./dm;
+            vendorSha256 =
+              "0000000000000000000000000000000000000000000000000000";
+            # vendorSha256 = "3tO/+Mnvl/wpS7Ro3XDIVrlYTGVM680mcC15/7ON6qM=";
           };
+          # packages.dm = pkgs.stdenv.mkDerivation {
+          #   name = "dm";
+          #   inherit buildInputs;
+          #   src = ./.;
+          #   buildPhase = buildDotEnv;
+          #   installPhase = ''
+          #     mkdir -p $out/bin
+          #     cp ./scripts/dm/* $out/bin/
+          #     mv $out/bin/dm.py $out/bin/dm
+          #     cp .env $out/bin/.env
+          #   '';
+          # };
           packages.bootstrap = pkgs.stdenv.mkDerivation {
             name = "bootstrap";
             inherit buildInputs;
