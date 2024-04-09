@@ -37,9 +37,9 @@
             "https://github.com/tbreslein/capturedlambda.git"
             "https://github.com/tbreslein/corries.git"
             "https://github.com/tbreslein/frankenrepo.git"
-            "https://codeberg.org/tbreslein/hydrie.git"
-            "https://codeberg.org/tbreslein/outcome.git"
-            "https://codeberg.org/tbreslein/ringheap.rs.git"
+            "https://github.com/tbreslein/hydrie.git"
+            "https://github.com/tbreslein/outcome.git"
+            "https://github.com/tbreslein/ringheap.rs.git"
             "https://github.com/tbreslein/tense.git"
           ];
 
