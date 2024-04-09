@@ -47,6 +47,8 @@ vim.opt.inccommand = "split"
 vim.opt.autoread = true
 vim.g.my_obsidian_vault = os.getenv("HOME") .. "/syncthing/notes/vault"
 vim.g.my_dotfiles = os.getenv("HOME") .. "/dotfiles"
+vim.fn.setenv("CC", "gcc")
+vim.fn.setenv("CXX", "g++")
 
 require("lazy").setup("plugins", { change_detection = { notify = false } })
 

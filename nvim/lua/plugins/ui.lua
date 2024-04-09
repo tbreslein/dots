@@ -64,4 +64,29 @@ return {
     { "lewis6991/gitsigns.nvim", opts = {} },
     { "numToStr/Comment.nvim", opts = {} },
     { "j-hui/fidget.nvim", opts = {} },
+
+    {
+        "nvim-neorg/neorg",
+        dependencies = {
+            "vhyrro/luarocks.nvim",
+            priority = 1000,
+            config = true,
+        },
+        lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+        version = "*", -- Pin Neorg to the latest stable release
+        opts = {
+            load = {
+                ["core.defaults"] = {}, -- Loads default behaviour
+                ["core.concealer"] = {}, -- Adds pretty icons to your documents
+                ["core.dirman"] = { -- Manages Neorg workspaces
+                    config = {
+                        workspaces = {
+                            notes = "~/syncthing/notes",
+                        },
+                        default_workspace = "notes",
+                    },
+                },
+            },
+        },
+    },
 }
