@@ -380,8 +380,10 @@ func run_nix() {
 
 func run_nvim() {
 	init_cmd()
-	cmd := exec.Command("nvim", "--headless", "\"Lazy! sync\"", "TSUpdateSync", "+qa")
+	nvim_init := filepath.Join(CONFIG.config, "nvim", "init.lua")
+	cmd := exec.Command("nvim", "-u", nvim_init, "--headless", "\"+Lazy! sync\"", "+TSUpdateSync", "+qa")
 	cmd.Env = append(cmd.Env, "CC=gcc", "CXX=g++", "PATH="+CONFIG.path)
+	info(cmd)
 
 	out, err := cmd.Output()
 	if err != nil {
