@@ -12,17 +12,7 @@
 
       perSystem = { system, pkgs, lib, ... }:
         let
-          dotsPython = pkgs.python312;
-          dotsPythonPackages = pkgs.python312Packages;
-          buildInputs = with pkgs; [
-            dotsPython
-            dotsPythonPackages.black
-            dotsPythonPackages.typer
-            dotsPythonPackages.python-dotenv
-            bash
-            git
-            stow
-          ];
+          buildInputs = with pkgs; [ go bash git stow ];
 
           hostname = if system == "aarch64-darwin" then
             "darwin"
@@ -44,17 +34,16 @@
             "";
 
           repos = lib.concatStringsSep " " [
-            "github.com:tbreslein/capturedlambda.git"
-            "codeberg.org:tbreslein/corries.git"
-            "codeberg.org:tbreslein/frankenrepo.git"
-            "codeberg.org:tbreslein/hedispp.git"
-            "codeberg.org:tbreslein/hydrie.git"
-            "codeberg.org:tbreslein/outcome.git"
-            "codeberg.org:tbreslein/ringheap.rs.git"
-            "codeberg.org:tbreslein/tense.git"
+            "https://github.com/tbreslein/capturedlambda.git"
+            "https://codeberg.org/tbreslein/corries.git"
+            "https://codeberg.org/tbreslein/frankenrepo.git"
+            "https://codeberg.org/tbreslein/hydrie.git"
+            "https://codeberg.org/tbreslein/outcome.git"
+            "https://codeberg.org/tbreslein/ringheap.rs.git"
+            "https://codeberg.org/tbreslein/tense.git"
           ];
 
-          buildDotEnv = ''
+          prePatch = ''
             cat <<EOF > .env
             UNAME_S="${
               if system == "aarch64-darwin" then "Darwin" else "Linux"
@@ -66,35 +55,34 @@
             COLOURS="gruvbox-material"
             EOF
           '';
+          postPatch = ''
+            mkdir -p $out/bin
+            cp .env $out/bin/.env
+          '';
         in {
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs;
-              [ nodePackages.pyright ruff ] ++ buildInputs;
+              [ gopls gofumpt golangci-lint just ] ++ buildInputs;
 
+            GOWORK = "off";
             # shellHook = ''
             # '';
           };
-          packages.dm = pkgs.stdenv.mkDerivation {
-            name = "dm";
-            inherit buildInputs;
+          packages.dotem = pkgs.buildGoModule {
+            pname = "dotem";
+            version = "0.0.1";
             src = ./.;
-            buildPhase = buildDotEnv;
-            installPhase = ''
-              mkdir -p $out/bin
-              cp ./scripts/dm/* $out/bin/
-              mv $out/bin/dm.py $out/bin/dm
-              cp .env $out/bin/.env
-            '';
+            modRoot = ./progs/dotem;
+            vendorHash = null;
+            inherit prePatch postPatch;
           };
           packages.bootstrap = pkgs.stdenv.mkDerivation {
             name = "bootstrap";
-            inherit buildInputs;
+            inherit buildInputs prePatch postPatch;
             src = ./.;
-            buildPhase = buildDotEnv;
             installPhase = ''
               mkdir -p $out/bin
-              cp ./scripts/bootstrap/* $out/bin/
-              cp .env $out/bin/.env
+              cp ./progs/bootstrap/* $out/bin/
             '';
           };
         };
