@@ -35,12 +35,12 @@
 
           repos = lib.concatStringsSep " " [
             "https://github.com/tbreslein/capturedlambda.git"
-            "https://codeberg.org/tbreslein/corries.git"
-            "https://codeberg.org/tbreslein/frankenrepo.git"
+            "https://github.com/tbreslein/corries.git"
+            "https://github.com/tbreslein/frankenrepo.git"
             "https://codeberg.org/tbreslein/hydrie.git"
             "https://codeberg.org/tbreslein/outcome.git"
             "https://codeberg.org/tbreslein/ringheap.rs.git"
-            "https://codeberg.org/tbreslein/tense.git"
+            "https://github.com/tbreslein/tense.git"
           ];
 
           prePatch = ''
