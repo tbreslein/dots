@@ -63,12 +63,8 @@
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs;
               [ gopls gofumpt golangci-lint just ] ++ buildInputs;
-
-            GOWORK = "off";
-            # shellHook = ''
-            # '';
           };
-          packages.dotem = pkgs.buildGoModule {
+          packages.default = pkgs.buildGoModule {
             pname = "dotem";
             version = "0.0.1";
             src = ./.;
