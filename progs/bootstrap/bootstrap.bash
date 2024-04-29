@@ -40,9 +40,7 @@ if [ ! -f /etc/hosts ]; then
     sudo bash -s "echo \"::1             localhost\" >> /etc/hosts"
 fi
 hosts=(
-    "192.168.0.92 audron"
-    "192.168.0.91 moebius"
-    "192.168.0.90 vorador"
+    "192.168.178.90 vorador"
 )
 for host in "${hosts[@]}"; do
     if ! grep -q "${host}" /etc/hosts; then
