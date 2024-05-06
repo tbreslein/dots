@@ -163,7 +163,21 @@ dm_nix() {
 dm_pkgs() {
     name="pkgs"
     __info "$name" "starting"
+    case "${_HOST}" in
+    "darwin")
+        prep_pkgs "brew"
+        brew bundle --cleanup --file "${SCRIPT_DIR}/Brewfile" install
+        ;;
+    "vorador")
+        prep_pkgs "apt"
+        ;;
+    esac
     __success "$name" "finished"
+}
+
+prep_pkgs() {
+    pkg_manager="$1"
+    echo "$pkg_manager"
 }
 
 dm_nvim() {
