@@ -129,6 +129,9 @@ dm_stow() {
 
     stows=("all" "colours/${COLOURS}" "${_HOST}")
     for r in "${ROLES[@]}"; do
+        if [[ "$r" =~ ^rbpi|wsl$ ]]; then
+            continue
+        fi
         stows+=("$r")
         if [[ "$r" == "desktop" && "${UNAME_S}" == "linux" ]]; then
             stows+=("linux-desktop")
