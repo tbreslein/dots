@@ -62,7 +62,7 @@ return {
     },
     "tpope/vim-fugitive",
     { "lewis6991/gitsigns.nvim", opts = {} },
-    { "numToStr/Comment.nvim", opts = {} },
+    -- { "numToStr/Comment.nvim", opts = {} },
     { "j-hui/fidget.nvim", opts = {} },
 
     {
