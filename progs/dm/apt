@@ -1,0 +1,5 @@
+export APT=(
+  "syncthing"
+  "git"
+  "vim"
+)

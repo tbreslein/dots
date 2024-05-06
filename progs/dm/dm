@@ -6,7 +6,7 @@ readonly BRIGHT_RED="\033[1;31m"
 readonly BRIGHT_GREEN="\033[1;32m"
 readonly BRIGHT_YELLOW="\033[1;33m"
 readonly BRIGHT_BLUE="\033[1;34m"
-readonly IFS=' '
+# readonly IFS=' '
 SCRIPT_PATH=$(realpath "$0")
 SCRIPT_DIR=$(dirname "${SCRIPT_PATH}")
 
@@ -20,6 +20,8 @@ cmd_msg=""
 cmd_location=""
 
 source "${SCRIPT_DIR}/.env"
+source "${SCRIPT_DIR}/apt"
+source "${SCRIPT_DIR}/arch"
 
 pushd() {
     command pushd "$@" >/dev/null
@@ -168,8 +170,40 @@ dm_pkgs() {
         prep_pkgs "brew"
         brew bundle --cleanup --file "${SCRIPT_DIR}/Brewfile" install
         ;;
+
     "vorador")
         prep_pkgs "apt"
+        apt_install=$(tr '\n' ' ' <"$HOME/dots/state/apt_install")
+        apt_remove=$(tr '\n' ' ' <"$HOME/dots/state/apt_remove")
+        sudo apt update
+        sudo apt upgrade
+        sudo apt install "$apt_install"
+        sudo apt remove "$apt_remove"
+        sudo apt autoremove
+        mv "$HOME/dots/state/apt_want" "$HOME/dots/state/apt_current"
+        rm "$HOME"/dots/state/apt_{install,remove}
+        ;;
+
+    "moebius" | "audron" | "moebius-win")
+        prep_pkgs "pacman"
+        pacman_install=$(tr '\n' ' ' <"$HOME/dots/state/pacman_install")
+        pacman_remove=$(tr '\n' ' ' <"$HOME/dots/state/pacman_remove")
+        prep_pkgs "aur"
+        aur_install=$(tr '\n' ' ' <"$HOME/dots/state/aur_install")
+        aur_remove=$(tr '\n' ' ' <"$HOME/dots/state/aur_remove")
+
+        sudo pacman -Syu
+        sudo pacman -S "$pacman_install"
+        sudo pacman -R "$pacman_remove"
+
+        paru
+        paru -S "$aur_install"
+        paru -R "$aur_remove"
+
+        mv "$HOME/dots/state/pacman_want" "$HOME/dots/state/pacman_current"
+        rm "$HOME"/dots/state/pacman_{install,remove}
+        mv "$HOME/dots/state/aur_want" "$HOME/dots/state/aur_current"
+        rm "$HOME"/dots/state/aur_{install,remove}
         ;;
     esac
     __success "$name" "finished"
@@ -177,7 +211,37 @@ dm_pkgs() {
 
 prep_pkgs() {
     pkg_manager="$1"
-    echo "$pkg_manager"
+    state_dir="$HOME/dots/state"
+    current_state="${state_dir}/${1}_current"
+    want="${state_dir}/${1}_want"
+    install="${state_dir}/${1}_install"
+    remove="${state_dir}/${1}_remove"
+
+    truncate -s0 "$want"
+    truncate -s0 "$install"
+    truncate -s0 "$remove"
+
+    touch "$current_state"
+    touch "$want"
+    touch "$install"
+    touch "$remove"
+
+    if [[ "$pkg_manager" == "apt" ]]; then
+        pkgs=("${APT[@]}")
+    elif [[ "$pkg_manager" == "pacman" ]]; then
+        pkgs=("${PACMAN[@]}")
+    elif [[ "$pkg_manager" == "aur" ]]; then
+        pkgs=("${AUR[@]}")
+    fi
+
+    IFS=$'\n' pkgs=($(sort -n <<<"${pkgs[*]}"))
+
+    for p in "${pkgs[@]}"; do
+        echo "$p" >>"$want"
+    done
+
+    comm -23 "$want" "$current_state" >"$install"
+    comm -13 "$want" "$current_state" >"$remove"
 }
 
 dm_nvim() {
@@ -231,7 +295,7 @@ else
     COMMANDS=("sync")
 fi
 
-read -ra ROLES <<<"$ROLES"
-read -ra REPOS <<<"$REPOS"
-
+IFS=' ' read -ra ROLES <<<"$ROLES"
+IFS=' ' read -ra REPOS <<<"$REPOS"
+prep_pkgs "pacman"
 __main
