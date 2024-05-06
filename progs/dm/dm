@@ -28,7 +28,7 @@ pushd() {
 }
 
 popd() {
-    command popd "$@" >/dev/null
+    command popd >/dev/null
 }
 __log() {
     name="$1"
@@ -50,24 +50,28 @@ __info() {
 }
 
 __warn() {
-    if [ $# -gt 0 ]; then
-        name="$1"
-        msg="$2"
-    else
-        name="$cmd_location"
-        msg="$cmd_msg"
-    fi
+    # if [ $# -gt 0 ]; then
+    #     name="$1"
+    #     msg="$2"
+    # else
+    #     name="$cmd_location"
+    #     msg="$cmd_msg"
+    # fi
+    name="$cmd_location"
+    msg="$cmd_msg"
     __log "$name" "WARN" "$BRIGHT_YELLOW" "$msg"
 }
 
 __fail() {
-    if [ $# -gt 0 ]; then
-        name="$1"
-        msg="$2"
-    else
-        name="$cmd_location"
-        msg="$cmd_msg"
-    fi
+    # if [ $# -gt 0 ]; then
+    #     name="$1"
+    #     msg="$2"
+    # else
+    #     name="$cmd_location"
+    #     msg="$cmd_msg"
+    # fi
+    name="$cmd_location"
+    msg="$cmd_msg"
     __log "$name" "FAIL" "$BRIGHT_RED" "$msg"
 }
 
@@ -300,5 +304,4 @@ fi
 
 IFS=' ' read -ra ROLES <<<"$ROLES"
 IFS=' ' read -ra REPOS <<<"$REPOS"
-prep_pkgs "pacman"
 __main
