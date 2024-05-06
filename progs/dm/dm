@@ -6,6 +6,19 @@ readonly BRIGHT_GREEN="\033[1;32m"
 readonly BRIGHT_YELLOW="\033[1;33m"
 readonly BRIGHT_BLUE="\033[1;34m"
 readonly IFS=' '
+SCRIPT_PATH=$(realpath "$0")
+SCRIPT_DIR=$(dirname "${SCRIPT_PATH}")
+
+SUCCESS=0
+SUCCESS_SKIP=1
+SUCCESS_WARN=2
+FAIL=3
+
+cmd_code=$SUCCESS
+cmd_msg=""
+cmd_location=""
+
+source "${SCRIPT_DIR}/.env"
 
 __log() {
     name="$1"
@@ -14,25 +27,64 @@ __log() {
     msg="$4"
     echo -e "${color}[ dm:${name} ] ${state} |${COLOR_RESET} ${msg}"
 }
+
 __info() {
-    name="$1"
-    msg="$2"
+    if [ $# -gt 0 ]; then
+        name="$1"
+        msg="$2"
+    else
+        name="$cmd_location"
+        msg="$cmd_msg"
+    fi
     __log "$name" "INFO" "$BRIGHT_BLUE" "$msg"
 }
+
 __warn() {
-    name="$1"
-    msg="$2"
-    __log "$name" "INFO" "$BRIGHT_YELLOW" "$msg"
+    if [ $# -gt 0 ]; then
+        name="$1"
+        msg="$2"
+    else
+        name="$cmd_location"
+        msg="$cmd_msg"
+    fi
+    __log "$name" "WARN" "$BRIGHT_YELLOW" "$msg"
 }
+
 __fail() {
-    name="$1"
-    msg="$2"
-    __log "$name" "INFO" "$BRIGHT_RED" "$msg"
+    if [ $# -gt 0 ]; then
+        name="$1"
+        msg="$2"
+    else
+        name="$cmd_location"
+        msg="$cmd_msg"
+    fi
+    __log "$name" "FAIL" "$BRIGHT_RED" "$msg"
 }
+
 __success() {
-    name="$1"
-    msg="$2"
-    __log "$name" "INFO" "$BRIGHT_GREEN" "$msg"
+    if [ $# -gt 0 ]; then
+        name="$1"
+        msg="$2"
+    else
+        name="$cmd_location"
+        msg="$cmd_msg"
+    fi
+    __log "$name" "SUCCESS" "$BRIGHT_GREEN" "$msg"
+}
+
+__handle_err() {
+    case "$cmd_code" in
+    "$SUCCESS_SKIP") __success ;;
+    "$SUCCESS_WARN") __warn ;;
+    "$FAIL")
+        __fail
+        exit $cmd_code
+        ;;
+    esac
+
+    cmd_code=$SUCCESS
+    cmd_msg=""
+    cmd_location=""
 }
 
 dm_repos() {
@@ -43,6 +95,17 @@ dm_repos() {
 
 dm_stow() {
     name="stow"
+    if [ -n "$(git status --porcelain)" ]; then
+        cmd_code=$FAIL
+        cmd_location="stow"
+        cmd_msg="cannot run stow in dirty repos"
+        return
+    fi
+    stows=("${COLOURS}")
+    for r in "${ROLES[@]}"; do
+        stows+=("$r")
+    done
+    echo "${stows[@]}"
     __info "$name" "starting"
     __success "$name" "finished"
 }
@@ -67,11 +130,22 @@ dm_nvim() {
 
 dm_sync() {
     __info "sync" "starting"
+
     dm_repos
+    __handle_err
+
     dm_stow
+    __handle_err
+
     dm_nix
+    __handle_err
+
     dm_pkgs
+    __handle_err
+
     dm_nvim
+    __handle_err
+
     __success "sync" "finished"
 }
 
@@ -85,7 +159,9 @@ __main() {
         "nvim") dm_nvim ;;
         "sync") dm_sync ;;
         esac
+        __handle_err
     done
+    __handle_err
 }
 
 COMMANDS=()
@@ -94,5 +170,7 @@ if [ $# -gt 0 ]; then
 else
     COMMANDS=("sync")
 fi
+
+read -ra ROLES <<<"$ROLES"
 
 __main

@@ -67,6 +67,7 @@
           packages.default = pkgs.stdenv.mkDerivation {
             name = "dm";
             src = ./.;
+            inherit prePatch postPatch;
             installPhase = ''
               mkdir -p $out/bin
               cp ./progs/dm/* $out/bin/
