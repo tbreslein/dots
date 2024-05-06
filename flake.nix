@@ -34,13 +34,13 @@
             "";
 
           repos = lib.concatStringsSep " " [
-            "https://github.com/tbreslein/capturedlambda.git"
-            "https://github.com/tbreslein/corries.git"
-            "https://github.com/tbreslein/frankenrepo.git"
-            "https://github.com/tbreslein/hydrie.git"
-            "https://github.com/tbreslein/outcome.git"
-            "https://github.com/tbreslein/ringheap.rs.git"
-            "https://github.com/tbreslein/tense.git"
+            "git@github.com:tbreslein/capturedlambda.git"
+            "git@github.com:tbreslein/corries.git"
+            "git@github.com:tbreslein/frankenrepo.git"
+            "git@github.com:tbreslein/hydrie.git"
+            "git@github.com:tbreslein/outcome.git"
+            "git@github.com:tbreslein/ringheap.rs.git"
+            "git@github.com:tbreslein/tense.git"
           ];
 
           prePatch = ''

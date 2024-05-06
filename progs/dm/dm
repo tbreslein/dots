@@ -21,6 +21,13 @@ cmd_location=""
 
 source "${SCRIPT_DIR}/.env"
 
+pushd() {
+    command pushd "$@" >/dev/null
+}
+
+popd() {
+    command popd "$@" >/dev/null
+}
 __log() {
     name="$1"
     state="$2"
@@ -91,6 +98,20 @@ __handle_err() {
 dm_repos() {
     name="repos"
     __info "$name" "starting"
+
+    for r in "${REPOS[@]}"; do
+        repo_name=$(echo "$r" | sed -E "s/.*tbreslein\/(.*).git$/\1/g")
+        repo_dir="$HOME/code/${repo_name}"
+        if [ -d "${repo_dir}" ]; then
+            pushd "$repo_dir"
+            git pull &
+            popd
+        else
+            git clone "$r" "$repo_dir" &
+        fi
+    done
+    wait
+
     __success "$name" "finished"
 }
 
@@ -194,5 +215,6 @@ else
 fi
 
 read -ra ROLES <<<"$ROLES"
+read -ra REPOS <<<"$REPOS"
 
 __main
