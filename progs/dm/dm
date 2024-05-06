@@ -1,1 +1,98 @@
 #!/usr/bin/env bash
+
+readonly COLOR_RESET="\033[0m"
+readonly BRIGHT_RED="\033[1;31m"
+readonly BRIGHT_GREEN="\033[1;32m"
+readonly BRIGHT_YELLOW="\033[1;33m"
+readonly BRIGHT_BLUE="\033[1;34m"
+readonly IFS=' '
+
+__log() {
+    name="$1"
+    state="$2"
+    color="$3"
+    msg="$4"
+    echo -e "${color}[ dm:${name} ] ${state} |${COLOR_RESET} ${msg}"
+}
+__info() {
+    name="$1"
+    msg="$2"
+    __log "$name" "INFO" "$BRIGHT_BLUE" "$msg"
+}
+__warn() {
+    name="$1"
+    msg="$2"
+    __log "$name" "INFO" "$BRIGHT_YELLOW" "$msg"
+}
+__fail() {
+    name="$1"
+    msg="$2"
+    __log "$name" "INFO" "$BRIGHT_RED" "$msg"
+}
+__success() {
+    name="$1"
+    msg="$2"
+    __log "$name" "INFO" "$BRIGHT_GREEN" "$msg"
+}
+
+dm_repos() {
+    name="repos"
+    __info "$name" "starting"
+    __success "$name" "finished"
+}
+
+dm_stow() {
+    name="stow"
+    __info "$name" "starting"
+    __success "$name" "finished"
+}
+
+dm_nix() {
+    name="nix"
+    __info "$name" "starting"
+    __success "$name" "finished"
+}
+
+dm_pkgs() {
+    name="pkgs"
+    __info "$name" "starting"
+    __success "$name" "finished"
+}
+
+dm_nvim() {
+    name="nvim"
+    __info "$name" "starting"
+    __success "$name" "finished"
+}
+
+dm_sync() {
+    __info "sync" "starting"
+    dm_repos
+    dm_stow
+    dm_nix
+    dm_pkgs
+    dm_nvim
+    __success "sync" "finished"
+}
+
+__main() {
+    for c in "${COMMANDS[@]}"; do
+        case "$c" in
+        "repos") dm_repos ;;
+        "stow") dm_stow ;;
+        "nix") dm_nix ;;
+        "pkgs") dm_pkgs ;;
+        "nvim") dm_nvim ;;
+        "sync") dm_sync ;;
+        esac
+    done
+}
+
+COMMANDS=()
+if [ $# -gt 0 ]; then
+    read -ra COMMANDS <<<"$@"
+else
+    COMMANDS=("sync")
+fi
+
+__main
