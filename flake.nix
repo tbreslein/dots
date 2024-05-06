@@ -64,13 +64,13 @@
             buildInputs = with pkgs;
               [ gopls gofumpt golangci-lint just ] ++ buildInputs;
           };
-          packages.default = pkgs.buildGoModule {
-            pname = "dotem";
-            version = "0.0.1";
+          packages.default = pkgs.stdenv.mkDerivation {
+            name = "dm";
             src = ./.;
-            modRoot = ./progs/dotem;
-            vendorHash = null;
-            inherit prePatch postPatch;
+            installPhase = ''
+              mkdir -p $out/bin
+              cp ./progs/dm/* $out/bin/
+            '';
           };
           packages.bootstrap = pkgs.stdenv.mkDerivation {
             name = "bootstrap";
