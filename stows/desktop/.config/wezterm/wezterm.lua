@@ -14,7 +14,7 @@ else
 end
 
 if host == "darwin" then
-    config.font_size = 18
+    config.font_size = 15
 elseif host == "moebius" then
     config.font_size = 18
 elseif host == "audron" then
