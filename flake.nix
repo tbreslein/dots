@@ -12,7 +12,7 @@
 
       perSystem = { system, pkgs, lib, ... }:
         let
-          buildInputs = with pkgs; [ go bash git stow ];
+          buildInputs = with pkgs; [ bash git stow ];
 
           hostname = if system == "aarch64-darwin" then
             "darwin"
@@ -60,10 +60,7 @@
             cp .env $out/bin/.env
           '';
         in {
-          devShells.default = pkgs.mkShell {
-            buildInputs = with pkgs;
-              [ gopls gofumpt golangci-lint just ] ++ buildInputs;
-          };
+          devShells.default = pkgs.mkShell { inherit buildInputs; };
           packages.default = pkgs.stdenv.mkDerivation {
             name = "dm";
             src = ./.;
