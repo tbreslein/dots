@@ -1,6 +1,7 @@
 tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
 tap "jstkdng/programs"
+tap "benjiwolff/neovim-nightly"
 brew "coreutils"
 brew "gnu-sed"
 brew "bash"
@@ -14,7 +15,7 @@ tap "osx-cross/arm"
 tap "osx-cross/avr"
 
 # tools, code, terminal
-brew "neovim", args: ["HEAD"]
+brew "neovim-nightly"
 brew "tmux"
 brew "tree"
 brew "tldr"
@@ -48,3 +49,4 @@ brew "zoxide"
 cask "wezterm"
 cask "amethyst"
 cask "telegram-desktop"
+cask "git-credential-manager"

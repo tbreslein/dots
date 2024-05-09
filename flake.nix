@@ -12,7 +12,7 @@
 
       perSystem = { system, pkgs, lib, ... }:
         let
-          buildInputs = with pkgs; [ bash zsh git stow ];
+          buildInputs = with pkgs; [ bash zsh ];
 
           hostname = if system == "aarch64-darwin" then
             "darwin"
