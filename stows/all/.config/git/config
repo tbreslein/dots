@@ -1,24 +1,31 @@
 [core]
-	pager = "delta"
+    pager = "delta"
 
 [interactive]
-	diffFilter = "delta --color-only"
+    diffFilter = "delta --color-only"
 
 [delta]
-	line-numbers = true
-	true-color = "always"
+    line-numbers = true
+    true-color = "always"
 
 [pull]
-	rebase = true
+    rebase = true
 
 [push]
-	autoSetupRemote = true
-	default = "simple"
+    autoSetupRemote = true
+    default = "simple"
 
 [rerere]
     enabled = true
 
+[user]
+    name = Tommy Breslein
+    email = tommy.breslein@protonmail.com
+
 [includeIf "gitdir:~/work/"]
     path = ./config-work
-[includeIf "gitdir:~/code/"]
-    path = ./config-code
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
