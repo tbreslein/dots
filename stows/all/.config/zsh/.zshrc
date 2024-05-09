@@ -77,6 +77,6 @@ twork() {
 eval "$(fzf --zsh)"
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
-# eval "$(just --completions zsh)"
+eval "$(just --completions zsh)"
 
 fastfetch
