@@ -1,7 +1,13 @@
 require("user.core")
 require("user.options")
-require("user.keymaps")
 spec("user.colorscheme")
+spec("user.treesitter")
+spec("user.lualine")
+spec("user.git")
+spec("user.neorg")
+spec("user.navigation")
+spec("user.lsp")
 
--- load this last!
+-- load these last!
 require("user.lazy")
+require("user.keymaps")
