@@ -12,7 +12,7 @@ M.config = function()
             right = "<c-l>",
             last_active = "<c-\\>",
             next = "<c-Space>",
-        }
+        },
     })
 end
 

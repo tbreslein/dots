@@ -43,7 +43,7 @@ M.config = function()
     require("treesitter-context").setup({ multiline_threshold = 2 })
 
     vim.filetype.add({
-      pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+        pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
     })
 end
 

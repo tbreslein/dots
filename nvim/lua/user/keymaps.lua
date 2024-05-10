@@ -22,19 +22,19 @@ km({ "n", "v" }, "<c-u>", "<c-u>zz", opts)
 km("n", "<leader>cj", "<cmd>cnext<cr>zz", opts)
 km("n", "<leader>ck", "<cmd>cprev<cr>zz", opts)
 km("n", "<leader>ct", function()
-                            local qf_exists = false
-                            for _, win in pairs(vim.fn.getwininfo()) do
-                                if win["quickfix"] == 1 then
-                                    qf_exists = true
-                                    break
-                                end
-                            end
-                            if qf_exists == true then
-                                return vim.cmd("cclose")
-                            end
-                            if not vim.tbl_isempty(vim.fn.getqflist()) then
-                                return vim.cmd("copen")
-                            end
+    local qf_exists = false
+    for _, win in pairs(vim.fn.getwininfo()) do
+        if win["quickfix"] == 1 then
+            qf_exists = true
+            break
+        end
+    end
+    if qf_exists == true then
+        return vim.cmd("cclose")
+    end
+    if not vim.tbl_isempty(vim.fn.getqflist()) then
+        return vim.cmd("copen")
+    end
 end, opts)
 
 km("v", "<", "<gv", opts)
@@ -56,37 +56,53 @@ km("n", "<leader>r", [["hy:%s/<c-r>h//g<left><left>]], loud_opts)
 
 -- ### NAVIGATION
 local harp = require("harpoon")
-km("n", "<m-6>", function() harp:list():select(1) end, opts)
-km("n", "<m-7>", function() harp:list():select(2) end, opts)
-km("n", "<m-8>", function() harp:list():select(3) end, opts)
-km("n", "<m-9>", function() harp:list():select(4) end, opts)
-km("n", "<m-0>", function() harp:list():select(5) end, opts)
-km("n", "<leader>a", function() harp:list():add() end, opts)
-km("n", "<leader>e", function() harp.ui:toggle_quick_menu(harp:list()) end, opts)
-km({ "n", "x", "o"}, "s", function() require("flash").jump() end, opts)
+km("n", "<m-6>", function()
+    harp:list():select(1)
+end, opts)
+km("n", "<m-7>", function()
+    harp:list():select(2)
+end, opts)
+km("n", "<m-8>", function()
+    harp:list():select(3)
+end, opts)
+km("n", "<m-9>", function()
+    harp:list():select(4)
+end, opts)
+km("n", "<m-0>", function()
+    harp:list():select(5)
+end, opts)
+km("n", "<leader>a", function()
+    harp:list():add()
+end, opts)
+km("n", "<leader>e", function()
+    harp.ui:toggle_quick_menu(harp:list())
+end, opts)
+km({ "n", "x", "o" }, "s", function()
+    require("flash").jump()
+end, opts)
 
 local builtin = require("telescope.builtin")
 km("n", "<leader>ff", function()
     vim.fn.system("git rev-parse --is-inside-work-tree")
     if vim.v.shell_error == 0 then
-        builtin.git_files(require('telescope.themes').get_dropdown({}))
+        builtin.git_files(require("telescope.themes").get_dropdown({}))
     else
-        builtin.find_files(require('telescope.themes').get_dropdown({}))
+        builtin.find_files(require("telescope.themes").get_dropdown({}))
     end
 end, opts)
-km("n", "<leader>fg", function () builtin.git_files(require('telescope.themes').get_dropdown({})) end, opts)
-km("n", "<leader>fs", function () builtin.live_grep(require('telescope.themes').get_dropdown({})) end, opts)
+km("n", "<leader>fg", function()
+    builtin.git_files(require("telescope.themes").get_dropdown({}))
+end, opts)
+km("n", "<leader>fs", function()
+    builtin.live_grep(require("telescope.themes").get_dropdown({}))
+end, opts)
 km("n", "<leader>fo", require("oil").toggle_float, opts)
 km("n", "<leader>fe", function()
-if string.sub(vim.uv.cwd(), 1, string.len(vim.g.my_dotfiles)) == vim.g.my_dotfiles then
-    require("telescope.builtin").find_files()
-else
-    vim.cmd(
-        "silent !tmux new-window -c "
-            .. vim.g.my_dotfiles
-            .. [[ nvim "+Telescope git_files"]]
-    )
-end
+    if string.sub(vim.uv.cwd(), 1, string.len(vim.g.my_dotfiles)) == vim.g.my_dotfiles then
+        require("telescope.builtin").find_files()
+    else
+        vim.cmd("silent !tmux new-window -c " .. vim.g.my_dotfiles .. [[ nvim "+Telescope git_files"]])
+    end
 end, opts)
 km("n", "<leader>u", "<cmd>Telescope undo<cr>", opts)
 

@@ -3,7 +3,6 @@ local M = {
     dependencies = { "lewis6991/gitsigns.nvim", opts = {} },
 }
 
-M.config = function()
-end
+M.config = function() end
 
 return M

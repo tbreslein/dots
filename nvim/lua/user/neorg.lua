@@ -13,10 +13,10 @@ M.config = function()
             ["core.dirman"] = {
                 config = {
                     workspaces = { notes = "~/syncthing/notes" },
-                    default_workspace = "notes"
-                }
+                    default_workspace = "notes",
+                },
             },
-        }
+        },
     })
 end
 

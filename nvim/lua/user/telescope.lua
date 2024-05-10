@@ -1,9 +1,10 @@
 local M = {
-        "nvim-telescope/telescope.nvim", dependencies = {
-            { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-            "debugloop/telescope-undo.nvim",
-            "nvim-lua/plenary.nvim",
-        }
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+        { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+        "debugloop/telescope-undo.nvim",
+        "nvim-lua/plenary.nvim",
+    },
 }
 
 M.config = function()

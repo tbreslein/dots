@@ -1,10 +1,12 @@
 require("user.core")
 require("user.options")
+
 -- UI
 spec("user.colorscheme")
 spec("user.treesitter")
 spec("user.lualine")
 spec("user.git")
+spec("user.fidget")
 
 -- navigation
 spec("user.telescope")

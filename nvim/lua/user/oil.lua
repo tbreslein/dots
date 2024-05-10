@@ -9,7 +9,7 @@ M.config = function()
             ["<c-h>"] = false,
             ["<c-v>"] = "actions.select_vsplit",
             ["<c-x>"] = "actions.select_split",
-        }
+        },
     })
 end
 
