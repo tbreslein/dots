@@ -49,7 +49,7 @@
             ROLES="${roles}"
             ALLOWED_HOSTS="darwin moebius audron moebius-win vorador"
             REPOS="${repos}"
-            COLOURS="nordic"
+            COLOURS="gruvbox-material"
             EOF
           '';
           postPatch = ''
