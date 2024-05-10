@@ -67,6 +67,7 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
+alias dm="nix run $HOME/dots# --"
 
 twork() {
     tmux new-session -ds "work" -c "$HOME/work/"
