@@ -69,13 +69,13 @@ local builtin = require("telescope.builtin")
 km("n", "<leader>ff", function()
     vim.fn.system("git rev-parse --is-inside-work-tree")
     if vim.v.shell_error == 0 then
-        builtin.git_files()
+        builtin.git_files(require('telescope.themes').get_dropdown({}))
     else
-        builtin.find_files()
+        builtin.find_files(require('telescope.themes').get_dropdown({}))
     end
 end, opts)
-km("n", "<leader>fg", builtin.git_files, opts)
-km("n", "<leader>fs", builtin.live_grep, opts)
+km("n", "<leader>fg", function () builtin.git_files(require('telescope.themes').get_dropdown({})) end, opts)
+km("n", "<leader>fs", function () builtin.live_grep(require('telescope.themes').get_dropdown({})) end, opts)
 km("n", "<leader>fo", require("oil").toggle_float, opts)
 km("n", "<leader>fe", function()
 if string.sub(vim.uv.cwd(), 1, string.len(vim.g.my_dotfiles)) == vim.g.my_dotfiles then

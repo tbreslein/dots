@@ -17,7 +17,7 @@ local M = {
 
 function M.config()
     local t = require("telescope")
-    t.setup({ defaults = { layout_config = { vertical = 0.8 } }, })
+    t.setup({ defaults = { layout_config = { vertical = 0.5 } }, })
     t.load_extension("fzf")
     t.load_extension("undo")
 
