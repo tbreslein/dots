@@ -28,9 +28,6 @@ M.config = function()
             -- python
             "black",
 
-            -- nix
-            "statix",
-
             -- web
             "eslint_d",
             "prettier",

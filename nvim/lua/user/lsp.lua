@@ -163,6 +163,8 @@ M.config = function()
     })
     require("trouble").setup()
     lspconfig.clangd.setup({ capabilities = lsp_capabilities })
+    lspconfig.neocmake.setup({ capabilities = lsp_capabilities })
+    lspconfig.nil_ls.setup({ capabilities = lsp_capabilities })
     lspconfig.zls.setup({ capabilities = lsp_capabilities })
 
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })

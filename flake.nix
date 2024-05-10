@@ -63,7 +63,7 @@
           cp .env $out/bin/.env
         '';
       in {
-        devShells.default = pkgs.mkShell {buildInputs = buildInputs ++ [pkgs.statix pkgs.alejandra];};
+        devShells.default = pkgs.mkShell {buildInputs = buildInputs ++ (with pkgs; [statix alejandra nil]);};
         packages.default = pkgs.stdenv.mkDerivation {
           name = "dm";
           src = ./.;
