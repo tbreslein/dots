@@ -33,6 +33,7 @@ function M.config()
             "yaml",
             "toml",
             "nix",
+            "hyprlang",
             "just",
         },
         highlight = { enable = true, additional_vim_regex_highlighting = true },
@@ -40,6 +41,10 @@ function M.config()
         autotag = { enable = true },
     })
     require("treesitter-context").setup({ multiline_threshold = 2 })
+
+    vim.filetype.add({
+      pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+    })
 end
 
 return M
