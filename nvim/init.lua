@@ -6,7 +6,7 @@ spec("user.lualine")
 spec("user.git")
 spec("user.neorg")
 spec("user.navigation")
-spec("user.lsp")
+spec("user.tools")
 
 -- load these last!
 require("user.lazy")
