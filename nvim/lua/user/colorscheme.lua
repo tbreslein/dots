@@ -4,7 +4,7 @@ local M = {
     priority = 1000,
 }
 
-function M.config()
+M.config = function()
     vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
     vim.g.gruvbox_material_dim_inactive_windows = 1
     vim.g.gruvbox_material_transparent_background = 1

@@ -8,7 +8,7 @@ local M = {
     build = ":TSUpdate",
 }
 
-function M.config()
+M.config = function()
     require("nvim-treesitter.configs").setup({
         ensure_installed = {
             "bash",

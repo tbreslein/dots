@@ -16,6 +16,9 @@ tap "osx-cross/avr"
 
 # tools, code, terminal
 brew "neovim-nightly"
+brew "node"
+brew "go"
+brew "luarocks"
 brew "tmux"
 brew "stow"
 brew "tree"

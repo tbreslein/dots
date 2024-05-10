@@ -63,7 +63,7 @@ km("n", "<m-9>", function() harp:list():select(4) end, opts)
 km("n", "<m-0>", function() harp:list():select(5) end, opts)
 km("n", "<leader>a", function() harp:list():add() end, opts)
 km("n", "<leader>e", function() harp.ui:toggle_quick_menu(harp:list()) end, opts)
-km({ "n", "x", "o"}, "<leader>s", function() require("flash").jump() end, opts)
+km({ "n", "x", "o"}, "s", function() require("flash").jump() end, opts)
 
 local builtin = require("telescope.builtin")
 km("n", "<leader>ff", function()

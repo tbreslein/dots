@@ -49,6 +49,10 @@ for host in "${hosts[@]}"; do
 done
 print_success "set up /etc/hosts"
 
+if [[ ${ROLES[@]} =~ code ]]; then
+    print_info "setting up role: code"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
 if [[ ${ROLES[@]} =~ gaming ]]; then
     print_info "setting up role: gaming"
     sudo groupadd gamemode

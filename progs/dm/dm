@@ -164,8 +164,8 @@ dm_stow() {
 dm_nix() {
     name="nix"
     __info "$name" "starting"
-    # nix-channel --update
-    # nix-store --gc --optimise
+    nix-channel --update
+    nix-store --gc --optimise
     __success "$name" "finished"
 }
 
@@ -182,10 +182,10 @@ dm_pkgs() {
         prep_pkgs "apt"
         apt_install=$(tr '\n' ' ' <"$HOME/dots/state/apt_install")
         apt_remove=$(tr '\n' ' ' <"$HOME/dots/state/apt_remove")
+        sudo apt remove "$apt_remove"
         sudo apt update
         sudo apt upgrade
         sudo apt install "$apt_install"
-        sudo apt remove "$apt_remove"
         sudo apt autoremove
         mv "$HOME/dots/state/apt_want" "$HOME/dots/state/apt_current"
         rm "$HOME"/dots/state/apt_{install,remove}
@@ -199,13 +199,13 @@ dm_pkgs() {
         aur_install=$(tr '\n' ' ' <"$HOME/dots/state/aur_install")
         aur_remove=$(tr '\n' ' ' <"$HOME/dots/state/aur_remove")
 
+        sudo pacman -R "$pacman_remove"
         sudo pacman -Syu
         sudo pacman -S "$pacman_install"
-        sudo pacman -R "$pacman_remove"
 
+        paru -R "$aur_remove"
         paru
         paru -S "$aur_install"
-        paru -R "$aur_remove"
 
         mv "$HOME/dots/state/pacman_want" "$HOME/dots/state/pacman_current"
         rm "$HOME"/dots/state/pacman_{install,remove}
@@ -213,6 +213,9 @@ dm_pkgs() {
         rm "$HOME"/dots/state/aur_{install,remove}
         ;;
     esac
+    if command -v rustup &> /dev/null; then
+        rustup update
+    fi
     __success "$name" "finished"
 }
 
@@ -254,7 +257,7 @@ prep_pkgs() {
 dm_nvim() {
     name="nvim"
     __info "$name" "starting"
-    # nvim --headless -c "Lazy! sync" -c "TSUpdateSync" -c "qa"
+    nvim --headless -c "Lazy! sync" -c "TSUpdateSync" -c "qa"
     __success "$name" "finished"
 }
 

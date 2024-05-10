@@ -3,7 +3,7 @@ local M = {
     dependencies = "nvim-tree/nvim-web-devicons"
 }
 
-function M.config()
+M.config = function()
     require("lualine").setup({
         options = { component_separators = "", section_separators = "" },
         sections = {

@@ -5,7 +5,7 @@ local M = {
     dependencies = { "vhyrro/luarocks.nvim", priority = 1000, opts = {} },
 }
 
-function M.config()
+M.config = function()
     require("neorg").setup({
         load = {
             ["core.defaults"] = {},

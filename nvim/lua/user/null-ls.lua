@@ -1,21 +1,13 @@
 local M = {
-    "j-hui/fidget.nvim",
-
-    "williamboman/mason.nvim",
-    {
-        "jay-babu/mason-null-ls.nvim",
-        -- event = { "BufReadPre", "BufNewFile" },
-        -- event = "VeryLazy",
-        dependencies = {
-          "nvimtools/none-ls.nvim",
-        },
-    }
+    "jay-babu/mason-null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "nvimtools/none-ls.nvim",
+    },
 }
 
-function M.config()
-    require("fidget").setup()
-
-    require("mason").setup()
+M.config = function()
     require("mason-null-ls").setup({
         ensure_installed = {
             "stylua",
