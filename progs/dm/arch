@@ -42,9 +42,12 @@ export PACMAN=(
     "htop"
     "tmux"
 
-    # compilers
+    # compilers / pkg managers
     "gcc"
     "cmake"
+    "go"
+    "luarocks"
+    "npm"
 )
 
 export AUR=(
