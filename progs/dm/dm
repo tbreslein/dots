@@ -150,7 +150,7 @@ dm_stow() {
             cmd_msg="stow dir does not exist: ${stow_dir}"
             return
         fi
-        stow --no-folding --adopt -t "${HOME}" -d "${stow_dir}" .
+        stow --restow --no-folding --adopt -t "${HOME}" -d "${stow_dir}" .
     done
     git restore .
 
