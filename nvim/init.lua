@@ -19,6 +19,7 @@ spec("user.nvim-tmux-navigation")
 spec("user.neorg")
 spec("user.mason")
 spec("user.null-ls")
+spec("user.lsp")
 
 -- load these last!
 require("user.lazy")
