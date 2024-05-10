@@ -24,3 +24,4 @@ spec("user.lsp")
 -- load these last!
 require("user.lazy")
 require("user.keymaps")
+require("user.autocmds")

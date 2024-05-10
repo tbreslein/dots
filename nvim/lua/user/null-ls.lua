@@ -27,7 +27,6 @@ M.config = function()
 
             -- python
             "black",
-            "ruff",
 
             -- nix
             "statix",
