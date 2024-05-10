@@ -73,8 +73,8 @@ M.config = function()
         },
         sources = {
             { name = "path" },
-            { name = "nvim_lsp",               keyword_length = 1 },
-            { name = "buffer",                 keyword_length = 3 },
+            { name = "nvim_lsp", keyword_length = 1 },
+            { name = "buffer", keyword_length = 3 },
             { name = "luasnip" },
             { name = "nvim_lsp_signature_help" },
         },
@@ -166,6 +166,20 @@ M.config = function()
     lspconfig.zls.setup({ capabilities = lsp_capabilities })
 
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+
+    vim.diagnostic.config({
+        signs = { active = true },
+        update_in_insert = false,
+        underline = true,
+        severity_sort = true,
+        virtual_text = false,
+        float = {
+            border = "rounded",
+            source = true,
+            header = "",
+            prefix = "",
+        },
+    })
 end
 
 return M
