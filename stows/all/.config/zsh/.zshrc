@@ -78,6 +78,6 @@ twork() {
 eval "$(fzf --zsh)"
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
-eval "$(just --completions zsh)"
+# eval "$(just --completions zsh)" # doesn't seem to properly work for zsh
 
-fastfetch
+fastfetch -l small
