@@ -257,6 +257,9 @@ prep_pkgs() {
 dm_nvim() {
     name="nvim"
     __info "$name" "starting"
+    if command -v -- "bob" >/dev/null 2>&1; then
+        bob sync
+    fi
     nvim --headless -c "MasonUpdate" -c "MasonUpdateAll" -c "Lazy! sync" -c "TSUpdateSync" -c "qa"
     __success "$name" "finished"
 }

@@ -21,7 +21,7 @@ elseif host == "audron" then
     config.font_size = 18
 end
 
-config.font = wezterm.font("Hack Nerd Font")
+config.font = wezterm.font("0xProto Nerd Font")
 config.force_reverse_video_cursor = true
 config.enable_tab_bar = false
 config.window_background_opacity = 0.9

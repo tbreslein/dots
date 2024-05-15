@@ -1,7 +1,5 @@
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
 tap "jstkdng/programs"
-tap "benjiwolff/neovim-nightly"
 brew "coreutils"
 brew "wget"
 brew "gnu-sed"
@@ -16,7 +14,6 @@ tap "osx-cross/arm"
 tap "osx-cross/avr"
 
 # tools, code, terminal
-brew "neovim-nightly"
 brew "node"
 brew "go"
 brew "luarocks"
@@ -51,7 +48,6 @@ brew "poppler"
 brew "zoxide"
 
 # GUI
+cask "alacritty"
 cask "wezterm"
-cask "amethyst"
 cask "telegram-desktop"
-cask "git-credential-manager"
