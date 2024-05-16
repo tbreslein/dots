@@ -1,6 +1,7 @@
 tap "homebrew/bundle"
 tap "jstkdng/programs"
 brew "coreutils"
+brew "keyring"
 brew "wget"
 brew "gnu-sed"
 brew "bash"
