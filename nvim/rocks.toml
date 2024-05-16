@@ -48,3 +48,8 @@ neorg = "8.4.0"
 "harpoon" = { git = "ThePrimeagen/harpoon", branch = "harpoon2" }
 "oil.nvim" = "2.8.0"
 "tmux.nvim" = "scm"
+
+"mason.nvim" = "1.10.0"
+"mason-lspconfig.nvim" = "1.29.0"
+"mason-tool-installer.nvim" = "scm"
+"mason-nvim-dap.nvim" = "2.2.2"
