@@ -124,10 +124,12 @@ dm_repos() {
 dm_stow() {
     name="stow"
     __info "$name" "starting"
+    pushd "$HOME/dots"
     if [ "$(git status --porcelain)" != "" ]; then
         cmd_code=$FAIL
         cmd_location="stow"
         cmd_msg="cannot run stow in dirty repos"
+        popd
         return
     fi
 
@@ -148,11 +150,13 @@ dm_stow() {
             cmd_code=$FAIL
             cmd_location="stow"
             cmd_msg="stow dir does not exist: ${stow_dir}"
+            popd
             return
         fi
         stow --restow --no-folding --adopt -t "$HOME" -d "$stow_dir" .
     done
     git restore .
+    popd
 
     if [ ! -d "${HOME}/.config/nvim" ]; then
         ln -s "${HOME}/dots/nvim" "${HOME}/.config/"
