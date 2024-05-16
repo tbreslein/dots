@@ -183,10 +183,10 @@ dm_pkgs() {
         apt_install=$(tr '\n' ' ' <"$HOME/dots/state/apt_install")
         apt_remove=$(tr '\n' ' ' <"$HOME/dots/state/apt_remove")
         sudo apt remove "$apt_remove"
+        sudo apt autoremove
         sudo apt update
         sudo apt upgrade
         sudo apt install "$apt_install"
-        sudo apt autoremove
         mv "$HOME/dots/state/apt_want" "$HOME/dots/state/apt_current"
         rm "$HOME"/dots/state/apt_{install,remove}
         ;;
