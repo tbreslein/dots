@@ -1,5 +1,3 @@
-# List of non-Neovim rocks.
-# This includes things like `toml` or other lua packages.
 [rocks]
 
 [plugins]
@@ -36,3 +34,17 @@ gruvbox-material = { git = "sainnhe/gruvbox-material" }
 "heirline.nvim" = "1.0.3"
 "heirline-components.nvim" = { git = "Zeioth/heirline-components.nvim" }
 nvim-web-devicons = "0.100"
+
+"which-key.nvim" = { git = "folke/which-key.nvim" }
+
+"vim-fugitive" = { git = "tpope/vim-fugitive" }
+"gitsigns.nvim" = { git = "lewis6991/gitsigns.nvim" }
+
+neorg = "8.4.0"
+"telescope.nvim" = "scm"
+"telescope-undo.nvim" = "scm"
+"telescope-zf-native.nvim" = { git = "natecraddock/telescope-zf-native.nvim" }
+"leap.nvim" = { git = "ggandor/leap.nvim" }
+"harpoon" = { git = "ThePrimeagen/harpoon", branch = "harpoon2" }
+"oil.nvim" = "2.8.0"
+"tmux.nvim" = "scm"
