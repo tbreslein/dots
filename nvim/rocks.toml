@@ -53,3 +53,13 @@ neorg = "8.4.0"
 "mason-lspconfig.nvim" = "1.29.0"
 "mason-tool-installer.nvim" = "scm"
 "mason-nvim-dap.nvim" = "2.2.2"
+
+"efmls-configs-nvim" = { git = "creativenull/efmls-configs-nvim" }
+nvim-lspconfig = "0.1.7"
+nvim-cmp = "0.0.1"
+cmp-path = "scm"
+cmp-nvim-lsp = "scm"
+cmp-buffer = "scm"
+cmp-cmdline = "scm"
+cmp_luasnip = "scm"
+luasnip = "2.3.0"

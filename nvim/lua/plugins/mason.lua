@@ -4,16 +4,21 @@ require("mason-tool-installer").setup({
         "efm",
 
         "cmakelint",
+        "gersemi", -- cmake formatter
         "clang-format",
 
-        "golangci-lint",
         "gopls",
+        "golangci-lint",
+        "gofumpt",
 
         "black",
+        "ruff",
 
+        "tsserver",
         "eslint_d",
         "prettier",
 
+        "dockerls",
         "jq",
         "hadolint",
         "yamllint",
@@ -23,8 +28,8 @@ require("mason-tool-installer").setup({
         "shellharden", -- can format
 
         "lua-language-server",
-        "stylua",
         "luacheck",
+        "stylua",
     },
-    integrations = { ["mason-null-ls"] = false }
+    integrations = { ["mason-null-ls"] = false },
 })
