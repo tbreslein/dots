@@ -50,9 +50,7 @@ neorg = "8.4.0"
 "tmux.nvim" = "scm"
 
 "mason.nvim" = "1.10.0"
-"mason-lspconfig.nvim" = "1.29.0"
 "mason-tool-installer.nvim" = "scm"
-"mason-nvim-dap.nvim" = "2.2.2"
 
 "efmls-configs-nvim" = { git = "creativenull/efmls-configs-nvim" }
 nvim-lspconfig = "scm"
@@ -67,3 +65,8 @@ luasnip = "2.3.0"
 rustaceanvim = "4.23.1"
 "otter.nvim" = "1.15.0"
 "trouble.nvim" = "2.10.0"
+
+nvim-dap = "0.7.0"
+nvim-dap-ui = "4.0.0"
+nvim-dap-python = "scm"
+nvim-dap-virtual-text = "scm"

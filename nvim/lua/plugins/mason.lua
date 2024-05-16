@@ -14,11 +14,11 @@ require("mason-tool-installer").setup({
         "black",
         "ruff",
 
-        "tsserver",
+        "typescript-language-server",
         "eslint_d",
         "prettier",
 
-        "dockerls",
+        "dockerfile-language-server",
         "jq",
         "hadolint",
         "yamllint",

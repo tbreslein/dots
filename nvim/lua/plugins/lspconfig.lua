@@ -58,6 +58,7 @@ cmp.setup({
         { name = "buffer", keyword_length = 3 },
         { name = "luasnip" },
         { name = "nvim_lsp_signature_help" },
+        { name = "otter" },
     },
 })
 local cmp_cmdline_mappings = {
