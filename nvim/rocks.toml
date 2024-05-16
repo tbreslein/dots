@@ -1,14 +1,38 @@
-# This is your rocks.nvim plugins declaration file.
-# Here is a small yet pretty detailed example on how to use it:
-#
-# [plugins]
-# nvim-treesitter = "semver_version"  # e.g. "1.0.0"
-
 # List of non-Neovim rocks.
 # This includes things like `toml` or other lua packages.
 [rocks]
 
-# List of Neovim plugins to install alongside their versions.
-# If the plugin name contains a dot then you must add quotes to the key name!
 [plugins]
-"rocks.nvim" = "2.27.0" # rocks.nvim can also manage itself :D
+"rocks.nvim" = "2.27.0"
+"rocks-config.nvim" = "1.5.0"
+"rocks-git.nvim" = "1.5.0"
+
+nvim-treesitter = "scm"
+nvim-treesitter-context = "scm"
+tree-sitter-just = { git = "indianboy42/tree-sitter-just" }
+tree-sitter-bash = "scm"
+tree-sitter-vim = "scm"
+tree-sitter-vimdoc = "scm"
+tree-sitter-lua = "scm"
+tree-sitter-markdown = "scm"
+tree-sitter-python = "scm"
+tree-sitter-c = "scm"
+tree-sitter-cpp = "scm"
+tree-sitter-rust = "scm"
+tree-sitter-go = "scm"
+tree-sitter-zig = "scm"
+tree-sitter-astro = "scm"
+tree-sitter-html = "scm"
+tree-sitter-json = "scm"
+tree-sitter-javascript = "scm"
+tree-sitter-typescript = "scm"
+tree-sitter-css = "scm"
+tree-sitter-scss = "scm"
+tree-sitter-yaml = "scm"
+tree-sitter-toml = "scm"
+tree-sitter-hyprlang = "scm"
+
+gruvbox-material = { git = "sainnhe/gruvbox-material" }
+"heirline.nvim" = "1.0.3"
+"heirline-components.nvim" = { git = "Zeioth/heirline-components.nvim" }
+nvim-web-devicons = "0.100"
