@@ -16,6 +16,7 @@ tap "osx-cross/arm"
 tap "osx-cross/avr"
 
 # tools, code, terminal
+brew "bob"
 brew "node"
 brew "go"
 brew "luarocks"
