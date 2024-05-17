@@ -10,7 +10,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 fzf-git-branch() {
     git rev-parse HEAD >/dev/null 2>&1 || return
-
     git branch --color=always --all --sort=-committerdate |
         grep -v HEAD |
         fzf --height 50% --ansi --no-multi --preview-window right:65% \
@@ -19,17 +18,12 @@ fzf-git-branch() {
 }
 fzf-git-checkout() {
     git rev-parse HEAD >/dev/null 2>&1 || return
-
     local branch
     branch=$(fzf-git-branch)
     if [[ "$branch" = "" ]]; then
         echo "No branch selected."
         return
     fi
-
-    # If branch name starts with 'remotes/' then it is a remote branch. By
-    # using --track and a remote branch name, it is the same as:
-    # git checkout -b branchName --track origin/branchName
     if [[ "$branch" = 'remotes/'* ]]; then
         git checkout --track "$branch"
     else
@@ -40,18 +34,18 @@ alias gb="fzf-git-branch"
 alias gco="fzf-git-checkout"
 
 alias g="git"
-alias gs="git status"
-alias gsw="git switch"
+alias gg="git status"
+alias gs="git switch"
 alias ga="git add"
 alias gaa="git add ."
 alias gc="git commit"
 alias gca="git commit -a"
 alias gcam="git commit --amend --no-edit"
 alias gcaam="git commit -a --amend --no-edit"
-alias gl="git pull"
-alias gp="git push origin"
-alias gpf="git push --force-with-lease"
-alias gpu="git push --set-upstream"
+alias gp="git pull"
+alias gP="git push origin"
+alias gPF="git push --force-with-lease"
+alias gPU="git push --set-upstream"
 alias lg="lazygit"
 alias v="nvim"
 alias ls="eza --icons=always"
