@@ -2,13 +2,11 @@ require("trouble").setup()
 local lspconfig = require("lspconfig")
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local cmp = require("cmp")
-local luasnip = require("luasnip")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup({
     snippet = {
         expand = function(args)
-            -- require("luasnip").lsp_expand(args.body)
             vim.snippet.expand(args.body)
         end,
     },
@@ -22,20 +20,20 @@ cmp.setup({
         ["<c-l>"] = cmp.mapping.confirm({ select = true }),
         ["<c-n>"] = cmp.mapping(cmp.mapping.scroll_docs(-4)),
         ["<c-m>"] = cmp.mapping(cmp.mapping.scroll_docs(4)),
-        ["<Del>"] = cmp.mapping(function(fallback)
-            if luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-            else
-                fallback()
-            end
-        end, { "i", "s" }),
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
-        end, { "i", "s" }),
+        -- ["<Del>"] = cmp.mapping(function(fallback)
+        --     if luasnip.expand_or_jumpable() then
+        --         luasnip.expand_or_jump()
+        --     else
+        --         fallback()
+        --     end
+        -- end, { "i", "s" }),
+        -- ["<Tab>"] = cmp.mapping(function(fallback)
+        --     if luasnip.jumpable(-1) then
+        --         luasnip.jump(-1)
+        --     else
+        --         fallback()
+        --     end
+        -- end, { "i", "s" }),
     }),
     enabled = function()
         return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
@@ -56,7 +54,7 @@ cmp.setup({
         { name = "path" },
         { name = "nvim_lsp", keyword_length = 1 },
         { name = "buffer", keyword_length = 3 },
-        { name = "luasnip" },
+        -- { name = "luasnip" },
         { name = "nvim_lsp_signature_help" },
         { name = "otter" },
     },
@@ -140,4 +138,28 @@ vim.diagnostic.config({
         header = "",
         prefix = "",
     },
+})
+
+require("which-key").register({
+    gl = { vim.diagnostic.open_float, "open float" },
+    ["[d"] = { "<cmd>lua vim.diagnostic.goto_prev({float = true})<cr>", "prev diag" },
+    ["]d"] = { "<cmd>lua vim.diagnostic.goto_next({float = true})<cr>", "next diag" },
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    desc = "LSP actions",
+    callback = function(event)
+        require("which-key").register({
+            K = { vim.lsp.buf.hover, "lsp hover" },
+            gd = { vim.lsp.buf.definition, "goto definition" },
+            gD = { vim.lsp.buf.declaration, "goto declaration" },
+            gi = { vim.lsp.buf.implementation, "goto implementation" },
+            go = { vim.lsp.buf.type_definition, "goto type definition" },
+            gr = { "<cmd>Trouble lsp_references", "lsp hover" },
+            gs = { vim.lsp.buf.signature_help, "signature help" },
+            ["<leader>R"] = { vim.lsp.buf.rename, "lsp rename" },
+            ["<leader>A"] = { vim.lsp.buf.code_action, "code actions" },
+            ["<F3>"] = { "<cmd> lua vim.lsp.buf.format({async = false})<cr>", "lsp format" },
+        }, { buffer = event.buf })
+    end,
 })
