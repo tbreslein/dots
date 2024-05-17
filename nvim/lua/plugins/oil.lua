@@ -1,8 +1,3 @@
-local M = {
-    "stevearc/oil.nvim",
-}
-
-M.config = function()
     require("oil").setup({
         keymaps = {
             ["<c-s>"] = false,
@@ -11,6 +6,7 @@ M.config = function()
             ["<c-x>"] = "actions.select_split",
         },
     })
-end
 
-return M
+require("which-key").register({
+    ["<leader>fo"] = { "<cmd>Oil<cr>", "open oil"},
+})

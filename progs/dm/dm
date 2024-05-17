@@ -19,8 +19,13 @@ cmd_code=$SUCCESS
 cmd_msg=""
 cmd_location=""
 
+# shellcheck source=/dev/null
 source "${SCRIPT_DIR}/.env"
+
+# shellcheck source=apt
 source "${SCRIPT_DIR}/apt"
+
+# shellcheck source=arch
 source "${SCRIPT_DIR}/arch"
 
 pushd() {
@@ -217,7 +222,7 @@ dm_pkgs() {
         rm "$HOME"/dots/state/aur_{install,remove}
         ;;
     esac
-    if command -v rustup &> /dev/null; then
+    if command -v rustup &>/dev/null; then
         rustup update
     fi
     __success "$name" "finished"
@@ -264,7 +269,13 @@ dm_nvim() {
     if command -v -- "bob" >/dev/null 2>&1; then
         bob sync
     fi
-    nvim --headless -c "MasonUpdate" -c "MasonUpdateAll" -c "Lazy! sync" -c "TSUpdateSync" -c "qa"
+    nvim --headless \
+        -c "MasonUpdate" \
+        -c "MasonToolsUpdateSync" \
+        -c "Rocks! sync" \
+        -c "Rocks! update" \
+        -c "TSUpdateSync" \
+        -c "qa"
     __success "$name" "finished"
 }
 
@@ -290,6 +301,14 @@ dm_sync() {
 }
 
 __main() {
+    for c in "${COMMANDS[@]}"; do
+        if [[ ! "$VALID_COMMANDS" =~ [[:space:]]$c[[:space:]] ]]; then
+            cmd_code=$FAIL
+            cmd_location="main"
+            cmd_msg="$c is not a valid dm command; valid commands:$VALID_COMMANDS"
+        fi
+    done
+    __handle_err
     mkdir -p ~/.config ~/.local/bin ~/dots/state
     for c in "${COMMANDS[@]}"; do
         case "$c" in
@@ -306,6 +325,7 @@ __main() {
 }
 
 COMMANDS=()
+VALID_COMMANDS=" repos stow nix pkgs nvim sync "
 if [ $# -gt 0 ]; then
     read -ra COMMANDS <<<"$@"
 else

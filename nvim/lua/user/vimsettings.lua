@@ -33,7 +33,8 @@ vim.opt.autoread = true
 vim.g.netrw_banner = 0
 vim.g.netrw_mouse = 2
 
-vim.g.my_obsidian_vault = os.getenv("HOME") .. "/syncthing/notes/vault"
+vim.g.my_notes = os.getenv("HOME") .. "/notes"
+vim.g.my_obsidian_vault = os.getenv("HOME") .. "/notes/vault"
 vim.g.my_dotfiles = os.getenv("HOME") .. "/dots"
 vim.fn.setenv("CC", "gcc")
 vim.fn.setenv("CXX", "g++")
