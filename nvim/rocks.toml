@@ -51,8 +51,9 @@ neorg = "8.4.0"
 
 "mason.nvim" = "1.10.0"
 "mason-tool-installer.nvim" = "scm"
+"formatter.nvim" = "scm"
+nvim-lint = "scm"
 
-"efmls-configs-nvim" = { git = "creativenull/efmls-configs-nvim" }
 nvim-lspconfig = "scm"
 nvim-cmp = "scm"
 cmp-path = "scm"
