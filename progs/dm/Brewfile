@@ -53,5 +53,5 @@ brew "zoxide"
 
 # GUI
 cask "alacritty"
-cask "wezterm"
+cask "amethyst"
 cask "telegram-desktop"
