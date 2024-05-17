@@ -1,11 +1,11 @@
 [rocks]
 
 [plugins]
-"rocks.nvim" = "2.27.0"
+"rocks.nvim" = "2.28.0"
 "rocks-config.nvim" = "1.5.0"
 "rocks-git.nvim" = "1.5.0"
 
-nvim-treesitter = "scm"
+nvim-treesitter = "0.9.2"
 nvim-treesitter-context = "scm"
 tree-sitter-just = { git = "indianboy42/tree-sitter-just" }
 tree-sitter-bash = "scm"
@@ -46,7 +46,7 @@ neorg = "8.4.0"
 "telescope-zf-native.nvim" = { git = "natecraddock/telescope-zf-native.nvim" }
 "leap.nvim" = { git = "ggandor/leap.nvim" }
 "harpoon" = { git = "ThePrimeagen/harpoon", branch = "harpoon2" }
-"oil.nvim" = "2.8.0"
+"oil.nvim" = "2.9.0"
 "tmux.nvim" = "scm"
 
 "mason.nvim" = "1.10.0"
@@ -54,7 +54,7 @@ neorg = "8.4.0"
 "formatter.nvim" = "scm"
 nvim-lint = "scm"
 
-nvim-lspconfig = "scm"
+nvim-lspconfig = "0.1.7"
 nvim-cmp = "scm"
 cmp-path = "scm"
 cmp-nvim-lsp = "scm"
@@ -63,7 +63,7 @@ cmp-cmdline = "scm"
 cmp_luasnip = "scm"
 luasnip = "2.3.0"
 "lspkind.nvim" = "scm"
-rustaceanvim = "4.23.1"
+rustaceanvim = "4.23.2"
 "otter.nvim" = "1.15.0"
 "trouble.nvim" = "2.10.0"
 

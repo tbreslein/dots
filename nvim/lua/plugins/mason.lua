@@ -1,8 +1,6 @@
 require("mason").setup()
 require("mason-tool-installer").setup({
     ensure_installed = {
-        "efm",
-
         "cmakelint",
         "gersemi", -- cmake formatter
         "clang-format",
@@ -24,8 +22,8 @@ require("mason-tool-installer").setup({
         "yamllint",
 
         "bash-language-server",
+        "shfmt",
         "shellcheck",
-        "shellharden", -- can format
 
         "lua-language-server",
         "luacheck",
