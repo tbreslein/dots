@@ -19,6 +19,7 @@ nvim-web-devicons = "0.100"
 "gitsigns.nvim" = { git = "lewis6991/gitsigns.nvim" }
 
 neorg = "8.4.0"
+vim-table-mode = { git = "dhruvasagar/vim-table-mode" }
 "telescope.nvim" = "scm"
 "telescope-undo.nvim" = "scm"
 "telescope-zf-native.nvim" = { git = "natecraddock/telescope-zf-native.nvim" }
