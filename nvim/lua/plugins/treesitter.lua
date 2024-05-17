@@ -39,8 +39,10 @@ require("nvim-treesitter.configs").setup({
         "haskell",
         "dockerfile",
 
+        "norg",
         "markdown",
         "markdown_inline",
+
         "astro",
         "angular",
         "html",
