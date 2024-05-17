@@ -56,7 +56,7 @@ require("nvim-treesitter.configs").setup({
         "toml",
         "hyprlang",
     },
-    highlight = { enable = true, additional_vim_regex_highlighting = true, disable = { "json" } },
+    highlight = { enable = true, additional_vim_regex_highlighting = false, disable = { "json" } },
     indent = { enable = true },
     autotag = { enable = true },
 })
