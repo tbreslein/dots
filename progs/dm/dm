@@ -222,7 +222,7 @@ dm_pkgs() {
         rm "$HOME"/dots/state/aur_{install,remove}
         ;;
     esac
-    if command -v rustup &> /dev/null; then
+    if command -v rustup &>/dev/null; then
         rustup update
     fi
     __success "$name" "finished"
@@ -301,6 +301,14 @@ dm_sync() {
 }
 
 __main() {
+    for c in "${COMMANDS[@]}"; do
+        if [[ ! "$VALID_COMMANDS" =~ [[:space:]]$c[[:space:]] ]]; then
+            cmd_code=$FAIL
+            cmd_location="main"
+            cmd_msg="$c is not a valid dm command; valid commands:$VALID_COMMANDS"
+        fi
+    done
+    __handle_err
     mkdir -p ~/.config ~/.local/bin ~/dots/state
     for c in "${COMMANDS[@]}"; do
         case "$c" in
@@ -317,6 +325,7 @@ __main() {
 }
 
 COMMANDS=()
+VALID_COMMANDS=" repos stow nix pkgs nvim sync "
 if [ $# -gt 0 ]; then
     read -ra COMMANDS <<<"$@"
 else
