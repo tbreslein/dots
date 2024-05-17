@@ -92,8 +92,6 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
         "bemenu-wayland"
         "wl-clipboard"
         "wlsunset"
-        "grim"
-        "slurp"
         "dunst"
         "libnotify"
         "waybar"
@@ -119,8 +117,8 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
         "noto-fonts-extra"
     )
     AUR+=(
+        "pyprland"
         "webcord"
-        "hyprshot"
         "satty-bin"
         "wdisplays"
         "proton-ge-custom-bin"
