@@ -50,6 +50,7 @@ require("nvim-treesitter.configs").setup({
         "dockerfile",
 
         "norg",
+        "norg_meta",
         "markdown",
         "markdown_inline",
 
