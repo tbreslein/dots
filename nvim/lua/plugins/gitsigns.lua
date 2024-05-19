@@ -7,6 +7,13 @@ require("which-key").register({
         G = { ":Telescope git_status<cr>", "Telescope status" },
         ["p<space>"] = { ":Git pull<space>", "pull ...", silent = false },
         p = { ":Git pull<cr>", "pull" },
+        c = {
+            name = "+commit",
+            ["<space>"] = { ":Git commit<space>", "...", silent = false },
+            c = { ":Git commit<cr>", "pull" },
+            a = { ":Git commit --all<cr>", "pull" },
+            A = { ":Git commit --all --amend --no-edit<cr>", "pull" },
+        },
         P = {
             name = "+push",
             ["<space>"] = { ":Git push<space>", "...", silent = false },
