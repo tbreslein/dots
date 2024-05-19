@@ -17,7 +17,8 @@ wk.register({
     Y = { "yg$", "which_key_ignore" },
     J = { "mzJ`z", "which_key_ignore" },
 
-    ["<leader>w"] = { "<cmd>w<cr>", "which_key_ignore", silent = false },
+    ["<leader>w"] = { ":w<cr>", "which_key_ignore", silent = false },
+    ["<leader>W"] = { ":wq<cr>", "which_key_ignore", silent = false },
     ["<leader>r"] = { [["hy:%s/<c-r>h//g<left><left>]], "search+replace", silent = false },
 })
 
