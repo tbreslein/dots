@@ -274,8 +274,7 @@ dm_nvim() {
         -c "MasonToolsUpdateSync" \
         -c "Rocks! sync" \
         -c "Rocks! update" \
-        -c "TSUpdateSync" \
-        -c "qa"
+        -c "TSUpdateSync"
     __success "$name" "finished"
 }
 
