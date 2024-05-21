@@ -178,21 +178,18 @@ function M.config()
   vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
     callback = function(event)
-      require("which-key").register({
-        K = { vim.lsp.buf.hover, "lsp hover" },
-        gd = { vim.lsp.buf.definition, "goto definition" },
-        gD = { vim.lsp.buf.declaration, "goto declaration" },
-        gi = { vim.lsp.buf.implementation, "goto implementation" },
-        go = { vim.lsp.buf.type_definition, "goto type definition" },
-        gr = { "<cmd>Trouble lsp_references", "lsp hover" },
-        gs = { vim.lsp.buf.signature_help, "signature help" },
-        ["<leader>R"] = { vim.lsp.buf.rename, "lsp rename" },
-        ["<leader>A"] = { vim.lsp.buf.code_action, "code actions" },
-        ["<F3>"] = {
-          "<cmd> lua vim.lsp.buf.format({async = false})<cr>",
-          "lsp format",
-        },
-      }, { buffer = event.buf })
+      kmap("n", "K", vim.lsp.buf.hover, { buffer = event.buf })
+      kmap("n", "gd", vim.lsp.buf.definition, { buffer = event.buf })
+      kmap("n", "gD", vim.lsp.buf.declaration, { buffer = event.buf })
+      kmap("n", "gi", vim.lsp.buf.implementation, { buffer = event.buf })
+      kmap("n", "go", vim.lsp.buf.type_definition, { buffer = event.buf })
+      kmap("n", "gr", ":Trouble lsp_references", { buffer = event.buf })
+      kmap("n", "gs", vim.lsp.buf.signature_help, { buffer = event.buf })
+      kmap("n", "<leader>R", vim.lsp.buf.rename, { buffer = event.buf })
+      kmap("n", "<leader>A", vim.lsp.buf.code_action, { buffer = event.buf })
+      kmap("n", "<F8>", function()
+        vim.lsp.buf.format { async = false }
+      end, { buffer = event.buf })
     end,
   })
 end
