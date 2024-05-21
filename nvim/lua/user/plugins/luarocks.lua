@@ -1,11 +1,7 @@
 local M = {
-    "vhyrro/luarocks.nvim",
-    priority = 1000,
+  "vhyrro/luarocks.nvim",
+  priority = 1000,
+  config = true,
 }
-
-
-function M.config()
-  require "luarocks".setup()
-end
 
 return M
