@@ -30,6 +30,9 @@ function M.config()
     builtin.live_grep(dropdown)
   end)
   kmap("n", "<leader>u", ":Telescope undo<cr>")
+  kmap("n", "<leader>gs", function()
+    builtin.git_branches(dropdown)
+  end)
 end
 
 return M
