@@ -1,7 +1,6 @@
 local telescope = require("telescope")
 local builtin = require("telescope.builtin")
-local dropdown
-require("telescope.themes").get_dropdown({})
+local dropdown = require("telescope.themes").get_dropdown({})
 telescope.setup()
 telescope.load_extension("undo")
 telescope.load_extension("zf-native")
