@@ -1,6 +1,7 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
-  dependencies = "nvim-treesitter/nvim-treesitter-context"
+  dependencies = { "nvim-treesitter/nvim-treesitter-context", "nvim-neorg/neorg" },
+  build = "TSUpdate"
 }
 
 function M.config()

@@ -2,6 +2,7 @@ require "user.core"
 require "user.options"
 
 spec "luarocks" -- neorg needs this
+spec "neorg"
 spec "colorscheme"
 spec "treesitter"
 spec "telescope"
