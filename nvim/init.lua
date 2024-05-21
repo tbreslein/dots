@@ -6,7 +6,7 @@ spec "luarocks" -- neorg needs this
 spec "neorg"
 spec "colorscheme"
 spec "treesitter"
-spec "heirline"
+spec "lualine"
 
 spec "telescope"
 spec "tmux"
