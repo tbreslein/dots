@@ -62,9 +62,7 @@ if [[ "${ROLES[@]}" =~ "code" ]]; then
         "git-delta"
         "hyperfine"
         "tokei"
-    )
-    AUR+=(
-        "neovim-git"
+        "neovim"
     )
 fi
 
