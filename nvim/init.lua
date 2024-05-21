@@ -17,6 +17,8 @@ spec "leap"
 spec "mason"
 spec "formatter"
 spec "lint"
+spec "dap"
+spec "lsp"
 
 spec "gitsigns"
 spec "diffview"
