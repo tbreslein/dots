@@ -1,5 +1,6 @@
 require "user.core"
 require "user.options"
+require "user.keymaps"
 
 spec "luarocks" -- neorg needs this
 spec "neorg"
