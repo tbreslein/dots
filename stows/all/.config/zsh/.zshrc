@@ -62,6 +62,8 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias dm="nix run $HOME/dots# --"
 
+alias rip_nvim="rip ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/dots/nvim/lazy-lock.json"
+
 twork() {
     tmux new-session -ds "work" -c "$HOME/work/"
     tmux send-keys -t "work" "just toggle_moco" C-m

@@ -1,4 +1,9 @@
-require("lint").linters_by_ft = {
+local M = {
+  "mfussenegger/nvim-lint",
+}
+
+function M.config()
+  require("lint").linters_by_ft = {
     c = { "cppcheck" },
     cpp = { "cppcheck" },
     cmake = { "cmakelint" },
@@ -19,10 +24,13 @@ require("lint").linters_by_ft = {
     typescriptreact = { "eslint" },
     svelte = { "eslint" },
     yaml = { "yamllint" },
-}
+  }
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     callback = function()
-        require("lint").try_lint()
+      require("lint").try_lint()
     end,
-})
+  })
+end
+
+return M
