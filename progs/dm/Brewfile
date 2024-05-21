@@ -53,5 +53,6 @@ brew "zoxide"
 
 # GUI
 cask "alacritty"
+cask "font-hack-nerd-font"
 cask "amethyst"
 cask "telegram-desktop"
