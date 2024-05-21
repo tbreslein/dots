@@ -8,6 +8,8 @@ spec "treesitter"
 spec "telescope"
 spec "oil"
 spec "harpoon"
+spec "mason"
+spec "formatter"
 
 -- require these last
 require "user.lazy"

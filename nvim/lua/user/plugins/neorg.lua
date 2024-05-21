@@ -6,14 +6,16 @@ local M = {
 }
 
 function M.config()
-  require("neorg").setup({
+  require("neorg").setup {
     load = {
       ["core.defaults"] = {},
       ["core.concealer"] = {},
       -- ["core.completion"] = {
       --   config = { engine = "nvim-cmp" },
       -- },
-      ["core.esupports.metagen"] = { config = { type = "auto", undojoin_updates = false } },
+      ["core.esupports.metagen"] = {
+        config = { type = "auto", undojoin_updates = false },
+      },
       -- ["core.integrations.nvim-cmp"] = {},
       ["core.summary"] = {},
       ["core.dirman"] = {
@@ -25,7 +27,7 @@ function M.config()
         },
       },
     },
-  })
+  }
 end
 
 return M

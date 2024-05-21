@@ -1,7 +1,10 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
-  dependencies = { "nvim-treesitter/nvim-treesitter-context", "nvim-neorg/neorg" },
-  build = "TSUpdate"
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter-context",
+    "nvim-neorg/neorg",
+  },
+  build = "TSUpdate",
 }
 
 function M.config()
@@ -24,7 +27,7 @@ function M.config()
     maintainers = { "@faldor20" },
   }
 
-  require("nvim-treesitter.configs").setup({
+  require("nvim-treesitter.configs").setup {
     ensure_installed = {
       "c",
       "cpp",
@@ -76,16 +79,20 @@ function M.config()
       "toml",
       "hyprlang",
     },
-    highlight = { enable = true, additional_vim_regex_highlighting = false, disable = { "json" } },
+    highlight = {
+      enable = true,
+      additional_vim_regex_highlighting = false,
+      disable = { "json" },
+    },
     indent = { enable = true },
     autotag = { enable = true },
-  })
+  }
 
-  vim.filetype.add({
+  vim.filetype.add {
     pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
-  })
+  }
 
-  require("treesitter-context").setup({ multiline_threshold = 2 })
+  require("treesitter-context").setup { multiline_threshold = 2 }
 end
 
 return M
