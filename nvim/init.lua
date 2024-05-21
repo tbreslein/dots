@@ -17,5 +17,8 @@ spec "mason"
 spec "formatter"
 spec "lint"
 
+spec "gitsigns"
+spec "diffview"
+
 -- require these last
 require "user.lazy"
