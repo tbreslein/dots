@@ -41,4 +41,3 @@ export DIRENV_LOG_FORMAT=
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
-# eval "$(just --completions zsh)" # doesn't seem to properly work for zsh
