@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-selected=$(just --list | fzf)
-just_command=$(echo "$selected" | awk '{print $1;}')
-just "$just_command"

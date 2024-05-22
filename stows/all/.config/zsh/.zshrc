@@ -28,6 +28,7 @@ zle -N edit-command-line
 
 bindkey -s '^z' 'zi^M'
 bindkey '^e' edit-command-line
+bindkey -s '^x' 'jf^M'
 
 twork() {
     tmux new-session -ds "work" -c "$HOME/work/"
