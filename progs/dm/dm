@@ -314,18 +314,6 @@ __main() {
     mkdir -p ~/.config ~/.local/bin ~/dots/state
     for c in "${COMMANDS[@]}"; do
         eval "dm_${c}"
-        # case "$c" in
-        # "repos") dm_repos ;;
-        # "stow") dm_stow ;;
-        # "nix") dm_nix ;;
-        # "pkgs") dm_pkgs ;;
-        # "nvim") dm_nvim ;;
-        # "sync") dm_sync ;;
-        # "zap")
-        #     foo="zap"
-        #     eval "dm_${foo}"
-        #     ;;
-        # esac
         __handle_err
     done
     __handle_err
