@@ -1,9 +1,5 @@
-format = "$battery$directory$nix_shell$line_break$character"
+format = "$battery$directory$nix_shell$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$line_break$character"
 command_timeout = 2000
-right_format = "$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch"
-
-[git_branch]
-format = '[$symbol$branch(:$remote_branch)]($style) '
 
 [character]
 error_symbol = "[λ](bold red)"
