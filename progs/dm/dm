@@ -277,6 +277,10 @@ dm_nvim() {
     __success "$name" "finished"
 }
 
+dm_zap() {
+    zsh -c "source $HOME/.local/share/zap/zap.zsh && zap update all"
+}
+
 dm_sync() {
     __info "sync" "starting"
 
@@ -309,21 +313,26 @@ __main() {
     __handle_err
     mkdir -p ~/.config ~/.local/bin ~/dots/state
     for c in "${COMMANDS[@]}"; do
-        case "$c" in
-        "repos") dm_repos ;;
-        "stow") dm_stow ;;
-        "nix") dm_nix ;;
-        "pkgs") dm_pkgs ;;
-        "nvim") dm_nvim ;;
-        "sync") dm_sync ;;
-        esac
+        eval "dm_${c}"
+        # case "$c" in
+        # "repos") dm_repos ;;
+        # "stow") dm_stow ;;
+        # "nix") dm_nix ;;
+        # "pkgs") dm_pkgs ;;
+        # "nvim") dm_nvim ;;
+        # "sync") dm_sync ;;
+        # "zap")
+        #     foo="zap"
+        #     eval "dm_${foo}"
+        #     ;;
+        # esac
         __handle_err
     done
     __handle_err
 }
 
 COMMANDS=()
-VALID_COMMANDS=" repos stow nix pkgs nvim sync "
+VALID_COMMANDS=" repos stow nix pkgs nvim sync zap "
 if [ $# -gt 0 ]; then
     read -ra COMMANDS <<<"$@"
 else
