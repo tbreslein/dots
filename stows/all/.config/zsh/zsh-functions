@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+
+fzf-git-branch() {
+    git rev-parse HEAD >/dev/null 2>&1 || return
+    git branch --color=always --all --sort=-committerdate |
+        grep -v HEAD |
+        fzf --height 50% --ansi --no-multi |
+        sed "s/.* //"
+}
+fzf-git-checkout() {
+    git rev-parse HEAD >/dev/null 2>&1 || return
+    local branch
+    branch=$(fzf-git-branch)
+    if [[ "$branch" = "" ]]; then
+        echo "No branch selected."
+        return
+    fi
+    if [[ "$branch" = 'remotes/'* ]]; then
+        git checkout --track "$branch"
+    else
+        git checkout "$branch"
+    fi
+}
+alias gb="fzf-git-branch"
+alias gco="fzf-git-checkout"
+
+twork() {
+    tmux new-session -ds "work" -c "$HOME/work/"
+    tmux send-keys -t "work" "just toggle_moco" C-m
+    tmux a -t "work"
+}
