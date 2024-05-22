@@ -16,13 +16,14 @@ export MANWIDTH=999
 
 source "$ZDOTDIR/zsh-functions"
 source "$ZDOTDIR/zsh-aliases"
+source "$ZDOTDIR/zsh-plugins"
 
-export PLUGINDIR="$HOME/.local/share/zsh/plugins"
-export PLUGINS=()
-mkdir -p "$PLUGINDIR"
-zsh_source_plugins
+# Load and initialise completion system
+autoload -Uz compinit
+compinit
 
 eval "$(fzf --zsh)"
+export DIRENV_LOG_FORMAT=
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 # eval "$(just --completions zsh)" # doesn't seem to properly work for zsh
