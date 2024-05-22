@@ -272,8 +272,7 @@ dm_nvim() {
     nvim --headless \
         -c "MasonUpdate" \
         -c "MasonToolsUpdateSync" \
-        -c "Rocks! sync" \
-        -c "Rocks! update" \
+        -c "Lazy! sync" \
         -c "TSUpdateSync"
     __success "$name" "finished"
 }
