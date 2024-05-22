@@ -9,3 +9,4 @@ fi
 plug "zsh-users/zsh-autosuggestions"
 plug "zsh-users/zsh-syntax-highlighting"
 plug "zsh-users/zsh-completions"
+plug "Aloxaf/fzf-tab"

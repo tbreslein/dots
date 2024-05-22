@@ -14,26 +14,26 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 
-source "$ZDOTDIR/zsh-functions"
 source "$ZDOTDIR/zsh-aliases"
 source "$ZDOTDIR/zsh-plugins"
 
 # Load and initialise completion system
-autoload -Uz compinit
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-zstyle ':completion:*' menu select
-zmodload zsh/complist
-_comp_options+=(globdots)
-compinit
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu no
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*:git-checkout:*' sort false
 
 autoload edit-command-line
 zle -N edit-command-line
 
 bindkey -s '^z' 'zi^M'
 bindkey '^e' edit-command-line
+
+twork() {
+    tmux new-session -ds "work" -c "$HOME/work/"
+    tmux send-keys -t "work" "just toggle_moco" C-m
+    tmux a -t "work"
+}
 
 eval "$(fzf --zsh)"
 export DIRENV_LOG_FORMAT=
