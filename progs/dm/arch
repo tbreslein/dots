@@ -41,6 +41,7 @@ export PACMAN=(
     "tldr"
     "htop"
     "tmux"
+    "zoxide"
 
     # compilers / pkg managers
     "gcc"

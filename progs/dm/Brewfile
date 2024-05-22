@@ -42,6 +42,7 @@ brew "hyperfine"
 brew "just"
 brew "starship"
 brew "fastfetch"
+brew "zoxide"
 brew "editorconfig"
 
 # yazi

@@ -20,12 +20,22 @@ source "$ZDOTDIR/zsh-plugins"
 
 # Load and initialise completion system
 autoload -Uz compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+_comp_options+=(globdots)
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
 compinit
+
+bindkey -s '^z' 'zi^M'
 
 eval "$(fzf --zsh)"
 export DIRENV_LOG_FORMAT=
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
 # eval "$(just --completions zsh)" # doesn't seem to properly work for zsh
 
 fastfetch -l small
