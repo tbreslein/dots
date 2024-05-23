@@ -9,8 +9,6 @@ kmap({ "n", "x", "v" }, "<leader>p", [["+p]])
 kmap("n", "Y", "yg$")
 kmap("n", "J", "mzJ`z")
 
-kmap("n", "<leader>w", ":w<cr>")
-kmap("n", "<leader>W", ":wq<cr>")
 kmap("v", "<leader>r", [["hy:%s/<c-r>h//g<left><left>]])
 
 kmap("n", "n", "nzz")
