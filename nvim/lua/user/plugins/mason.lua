@@ -27,6 +27,8 @@ function M.config()
       "hadolint",
       "yamllint",
 
+      "marksman",
+
       "bash-language-server",
       "shfmt",
       "shellcheck",
