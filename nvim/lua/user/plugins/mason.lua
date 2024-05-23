@@ -33,6 +33,10 @@ function M.config()
       "shfmt",
       "shellcheck",
 
+      -- "nil",
+      -- "alejandra",
+      -- "statix",
+
       "lua-language-server",
       "luacheck",
       "stylua",

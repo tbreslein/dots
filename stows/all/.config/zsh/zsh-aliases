@@ -2,6 +2,7 @@
 
 alias g="git"
 alias gg="git status"
+alias gd="git diff"
 alias gs="git checkout"
 alias ga="git add"
 alias gA="git add -A"

@@ -189,6 +189,7 @@ function M.config()
       kmap("n", "gs", vim.lsp.buf.signature_help, { buffer = event.buf })
       kmap("n", "<leader>R", vim.lsp.buf.rename, { buffer = event.buf })
       kmap("n", "<leader>A", vim.lsp.buf.code_action, { buffer = event.buf })
+      kmap("n", "<leader>T", vim.cmd.TroubleToggle, { buffer = event.buf })
       kmap("n", "<F8>", function()
         vim.lsp.buf.format { async = false }
       end, { buffer = event.buf })
