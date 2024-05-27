@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 
 alias g="git"
-alias gg="git status"
+alias gg="git status -s"
+alias ggg="git status"
 alias gd="git diff"
 alias gs="git checkout"
 alias ga="git add"
