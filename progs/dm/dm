@@ -174,7 +174,8 @@ dm_nix() {
     name="nix"
     __info "$name" "starting"
     nix-channel --update
-    nix-store --gc --optimise
+    nix-store --gc
+    nix-store --optimise
     __success "$name" "finished"
 }
 
