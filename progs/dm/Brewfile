@@ -16,7 +16,6 @@ tap "osx-cross/arm"
 tap "osx-cross/avr"
 
 # tools, code, terminal
-brew "chapel"
 brew "neovim"
 brew "node"
 brew "go"
