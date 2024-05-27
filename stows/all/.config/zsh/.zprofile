@@ -11,3 +11,9 @@ export BROWSER=brave
 [ -d "/nix/var/nix/profiles/default/bin/" ] && export PATH="$PATH:/nix/var/nix/profiles/default/bin/"
 [ -f "$HOME/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh" ] &&
     source "$HOME/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh"
+
+if [[ "$HOSTNAME" =~ ^(moebius|audron)$ ]]; then
+    if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+        startx
+    fi
+fi

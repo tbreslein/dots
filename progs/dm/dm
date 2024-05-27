@@ -144,9 +144,6 @@ dm_stow() {
             continue
         fi
         stows+=("$r")
-        if [[ "$r" == "desktop" && "$UNAME_S" == "linux" ]]; then
-            stows+=("linux-desktop")
-        fi
     done
 
     for s in "${stows[@]}"; do

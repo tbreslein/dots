@@ -30,10 +30,10 @@
           else if hostname == "vorador"
           then "linux rbpi"
           else if hostname == "moebius"
-          then "linux desktop code gaming"
+          then "linux desktop x11 code gaming"
           else if hostname == "audron"
-          then "linux desktop laptop code"
-          else if hostname == "mebius-win"
+          then "linux desktop x11 laptop code"
+          else if hostname == "moebius-win"
           then "linux wsl code"
           else "";
 
@@ -42,6 +42,7 @@
           "git@github.com:tbreslein/frankenrepo.git"
           "git@github.com:tbreslein/hydrolzigs.git"
           "git@github.com:tbreslein/ringheap.rs.git"
+          "git@github.com:tbreslein/dwm.git"
         ];
 
         prePatch = ''

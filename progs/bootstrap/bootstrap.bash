@@ -96,18 +96,28 @@ if [[ ${ROLES[@]} =~ linux ]]; then
         sudo systemctl enable paccache.timer
         sudo systemctl start paccache.timer
     elif [[ ${_HOST} =~ ^(moebius|audron)$ ]]; then
-        sudo pacman -S --needed greetd
-        if [ ! -f /etc/greetd/config.toml ]; then
-            sudo mkdir -p /etc/greetd
-            sudo teouch /etc/greetd/config.toml
+        if [[ ${ROLES[@]} =~ x11 ]]; then
+            mkdir -p "$HOME/code"
+            git clone "https://www.github.com/tbreslein/dwm.git" "$HOME/code/dwm"
+            pushd "$HOME/code/dwm"
+            git remote remove origin
+            git remote add origin git@github.com:tbreslein/dwm.git
+            sudo make clean install
+            popd
+        elif [[ ${ROLES[@]} =~ wayland ]]; then
+            sudo pacman -S --needed greetd
+            if [ ! -f /etc/greetd/config.toml ]; then
+                sudo mkdir -p /etc/greetd
+                sudo teouch /etc/greetd/config.toml
+            fi
+            autologin="[initial_session]
+            command = \"Hyprland --config /etc/greetd/hyprland.conf\"
+            user = \"tommy\""
+            if [[ $(</etc/greetd/config.toml) = *"${autologin}"* ]]; then
+                sudo bash -c "echo ${autologin} > /etc/greetd/config.toml"
+            fi
+            sudo systemctl --enable greetd.service
         fi
-        autologin="[initial_session]
-    command = \"Hyprland --config /etc/greetd/hyprland.conf\"
-    user = \"tommy\""
-        if [[ $(</etc/greetd/config.toml) = *"${autologin}"* ]]; then
-            sudo bash -c "echo ${autologin} > /etc/greetd/config.toml"
-        fi
-        sudo systemctl --enable greetd.service
     else
         sudo apt install -y syncthing
     fi
