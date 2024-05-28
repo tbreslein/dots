@@ -183,20 +183,46 @@ function M.config()
 
   vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
-    callback = function(event)
-      kmap("n", "K", vim.lsp.buf.hover, { buffer = event.buf })
-      kmap("n", "gd", vim.lsp.buf.definition, { buffer = event.buf })
-      kmap("n", "gD", vim.lsp.buf.declaration, { buffer = event.buf })
-      kmap("n", "gi", vim.lsp.buf.implementation, { buffer = event.buf })
-      kmap("n", "go", vim.lsp.buf.type_definition, { buffer = event.buf })
-      kmap("n", "gr", ":Trouble lsp_references", { buffer = event.buf })
-      kmap("n", "gs", vim.lsp.buf.signature_help, { buffer = event.buf })
-      kmap("n", "<leader>R", vim.lsp.buf.rename, { buffer = event.buf })
-      kmap("n", "<leader>A", vim.lsp.buf.code_action, { buffer = event.buf })
-      kmap("n", "<leader>T", vim.cmd.TroubleToggle, { buffer = event.buf })
+    callback = function(e)
+      kmap("n", "K", vim.lsp.buf.hover, { buffer = e.buf })
+      kmap("n", "gd", ":Trouble lsp_definitions toggle<cr>", { buffer = e.buf })
+      kmap(
+        "n",
+        "gD",
+        ":Trouble lsp_declarations toggle<cr>",
+        { buffer = e.buf }
+      )
+      kmap(
+        "n",
+        "gi",
+        ":Trouble lsp_implementations toggle<cr>",
+        { buffer = e.buf }
+      )
+      kmap(
+        "n",
+        "go",
+        ":Trouble type_definitions toggle<cr>",
+        { buffer = e.buf }
+      )
+      kmap("n", "gr", ":Trouble lsp_references toggle<cr>", { buffer = e.buf })
+      kmap("n", "gs", vim.lsp.buf.signature_help, { buffer = e.buf })
+      kmap("n", "<leader>R", vim.lsp.buf.rename, { buffer = e.buf })
+      kmap("n", "<leader>A", vim.lsp.buf.code_action, { buffer = e.buf })
+      kmap(
+        "n",
+        "<leader>td",
+        ":Trouble diagnostics toggle<cr>",
+        { buffer = e.buf }
+      )
+      kmap(
+        "n",
+        "<leader>te",
+        ":Trouble diagnostics toggle filter.severity=vim.diagnostic.severity.ERROR<cr>",
+        { buffer = e.buf }
+      )
       kmap("n", "<F8>", function()
         vim.lsp.buf.format { async = false }
-      end, { buffer = event.buf })
+      end, { buffer = e.buf })
     end,
   })
 end
