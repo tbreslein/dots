@@ -38,5 +38,8 @@ vim.g.netrw_mouse = 2
 
 vim.g.my_notes = os.getenv "HOME" .. "/notes"
 vim.g.my_dotfiles = os.getenv "HOME" .. "/dots"
-vim.fn.setenv("CC", "gcc")
-vim.fn.setenv("CXX", "g++")
+
+if vim.loop.os_uname().sysname == "Darwin" then
+  vim.fn.setenv("CC", "gcc-14")
+  vim.fn.setenv("CXX", "g++-14")
+end
