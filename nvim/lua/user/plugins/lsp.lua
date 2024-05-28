@@ -185,25 +185,10 @@ function M.config()
     desc = "LSP actions",
     callback = function(e)
       kmap("n", "K", vim.lsp.buf.hover, { buffer = e.buf })
-      kmap("n", "gd", ":Trouble lsp_definitions toggle<cr>", { buffer = e.buf })
-      kmap(
-        "n",
-        "gD",
-        ":Trouble lsp_declarations toggle<cr>",
-        { buffer = e.buf }
-      )
-      kmap(
-        "n",
-        "gi",
-        ":Trouble lsp_implementations toggle<cr>",
-        { buffer = e.buf }
-      )
-      kmap(
-        "n",
-        "go",
-        ":Trouble type_definitions toggle<cr>",
-        { buffer = e.buf }
-      )
+      kmap("n", "gd", vim.lsp.buf.definition, { buffer = e.buf })
+      kmap("n", "gD", vim.lsp.buf.declaration, { buffer = e.buf })
+      kmap("n", "gi", vim.lsp.buf.implementation, { buffer = e.buf })
+      kmap("n", "go", vim.lsp.buf.type_definition, { buffer = e.buf })
       kmap("n", "gr", ":Trouble lsp_references toggle<cr>", { buffer = e.buf })
       kmap("n", "gs", vim.lsp.buf.signature_help, { buffer = e.buf })
       kmap("n", "<leader>R", vim.lsp.buf.rename, { buffer = e.buf })
