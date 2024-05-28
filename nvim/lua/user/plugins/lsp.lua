@@ -9,13 +9,17 @@ local M = {
     "onsails/lspkind.nvim",
     "mrcjkb/rustaceanvim",
     "jmbuhr/otter.nvim",
-    "folke/trouble.nvim",
+    { "folke/trouble.nvim", branch = "dev" },
     "j-hui/fidget.nvim",
   },
 }
 
 function M.config()
-  require("trouble").setup()
+  require("trouble").setup {
+    keys = {
+      ["<c-x>"] = "jump_split",
+    },
+  }
   require("fidget").setup()
   local lspconfig = require "lspconfig"
   local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
