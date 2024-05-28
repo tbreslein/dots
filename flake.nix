@@ -55,11 +55,10 @@
               "git@github.com:tbreslein/frankenrepo.git"
               "git@github.com:tbreslein/hydrolzigs.git"
               "git@github.com:tbreslein/ringheap.rs.git"
-              "git@github.com:tbreslein/dwm.git"
             ]
           }"
 
-          X11_WM="dwm"
+          X11_WM="awesomewm"
           WAYLAND_WM="hyprland"
 
           COLOURS="gruvbox-material"
