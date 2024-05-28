@@ -97,13 +97,15 @@ if [[ ${ROLES[@]} =~ linux ]]; then
         sudo systemctl start paccache.timer
     elif [[ ${_HOST} =~ ^(moebius|audron)$ ]]; then
         if [[ ${ROLES[@]} =~ x11 ]]; then
-            mkdir -p "$HOME/code"
-            git clone "https://www.github.com/tbreslein/dwm.git" "$HOME/code/dwm"
-            pushd "$HOME/code/dwm"
-            git remote remove origin
-            git remote add origin git@github.com:tbreslein/dwm.git
-            sudo make clean install
-            popd
+            if [[ "$X11_WM" == "dwm" ]]; then
+                mkdir -p "$HOME/code"
+                git clone "https://www.github.com/tbreslein/dwm.git" "$HOME/code/dwm"
+                pushd "$HOME/code/dwm"
+                git remote remove origin
+                git remote add origin git@github.com:tbreslein/dwm.git
+                sudo make clean install
+                popd
+            fi
         elif [[ ${ROLES[@]} =~ wayland ]]; then
             sudo pacman -S --needed greetd
             if [ ! -f /etc/greetd/config.toml ]; then

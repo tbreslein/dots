@@ -13,4 +13,4 @@ xautolock -time 10 -locker slock
 [ -f /home/tommy/.fehbg ] && /home/tommy/.fehbg
 #blueman-applet
 
-exec /home/tommy/.local/bin/startdwm
+exec /home/tommy/.local/bin/startwm

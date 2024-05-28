@@ -23,28 +23,6 @@
           then "darwin"
           else builtins.readFile /etc/hostname;
 
-        # all roles: desktop laptop linux wsl rbpi code gaming
-        roles =
-          if system == "aarch64-darwin"
-          then "desktop code"
-          else if hostname == "vorador"
-          then "linux rbpi"
-          else if hostname == "moebius"
-          then "linux desktop x11 code gaming"
-          else if hostname == "audron"
-          then "linux desktop x11 laptop code"
-          else if hostname == "moebius-win"
-          then "linux wsl code"
-          else "";
-
-        repos = lib.concatStringsSep " " [
-          "git@github.com:tbreslein/capturedlambdav2.git"
-          "git@github.com:tbreslein/frankenrepo.git"
-          "git@github.com:tbreslein/hydrolzigs.git"
-          "git@github.com:tbreslein/ringheap.rs.git"
-          "git@github.com:tbreslein/dwm.git"
-        ];
-
         prePatch = ''
           cat <<EOF > .env
           UNAME_S="${
@@ -52,10 +30,38 @@
             then "Darwin"
             else "Linux"
           }"
+
           _HOST="${hostname}"
-          ROLES="${roles}"
+
+          ROLES="${
+            if system == "aarch64-darwin"
+            then "desktop code"
+            else if hostname == "vorador"
+            then "linux rbpi"
+            else if hostname == "moebius"
+            then "linux desktop x11 code gaming"
+            else if hostname == "audron"
+            then "linux desktop x11 laptop code"
+            else if hostname == "moebius-win"
+            then "linux wsl code"
+            else ""
+          }"
+
           ALLOWED_HOSTS="darwin moebius audron moebius-win vorador"
-          REPOS="${repos}"
+
+          REPOS="${
+            lib.concatStringsSep " " [
+              "git@github.com:tbreslein/capturedlambdav2.git"
+              "git@github.com:tbreslein/frankenrepo.git"
+              "git@github.com:tbreslein/hydrolzigs.git"
+              "git@github.com:tbreslein/ringheap.rs.git"
+              "git@github.com:tbreslein/dwm.git"
+            ]
+          }"
+
+          X11_WM="dwm"
+          WAYLAND_WM="hyprland"
+
           COLOURS="gruvbox-material"
           EOF
         '';

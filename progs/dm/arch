@@ -108,12 +108,16 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
         "microsoft-edge-stable-bin"
     )
     if [[ "${ROLES[@]}" =~ "wayland" ]]; then
+        if [[ "$WAYLAND_WM" == "hyprland" ]]; then
+            PACMAN+=(
+                "hyprland"
+                "hyprpaper"
+                "hypridle"
+                "hyprlock"
+                "xdg-desktop-portal-hyprland"
+            )
+        fi
         PACMAN+=(
-            "hyprland"
-            "hyprpaper"
-            "hypridle"
-            "hyprlock"
-            "xdg-desktop-portal-hyprland"
             "bemenu-wayland"
             "wl-clipboard"
             "wlsunset"
@@ -127,18 +131,27 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
             "pyprland"
             "satty-bin"
             "wdisplays"
-            "proton-ge-custom-bin"
-            "brave-bin"
-            "microsoft-edge-stable-bin"
         )
     fi
     if [[ "${ROLES[@]}" =~ "x11" ]]; then
+        if [[ "$X11_WM" == "dwm" ]]; then
+            PACMAN+=(
+                "xorg-server"
+                "xorg-init"
+                "xorg-xsetroot"
+                "libx11"
+                "libxinerama"
+            )
+        elif [[ "$X11_WM" =~ "i3" ]]; then
+            PACMAN+=(
+                "i3"
+            )
+        elif [[ "$X11_WM" == "qtile" ]]; then
+            PACMAN+=(
+                "qtile"
+            )
+        fi
         PACMAN+=(
-            "xorg-server"
-            "xorg-init"
-            "xorg-xsetroot"
-            "libx11"
-            "libxinerama"
             "feh"
             "dmenu"
             "redshift"

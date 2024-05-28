@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+while true; do
+    if [[ "$X11_WM" == "dwm" ]]; then
+        dwm 2>~/.x11_wm.log
+        #dwm >/dev/null 2>&1
+    elif [[ "$X11_WM" == "qtile" ]]; then
+        qtile 2>~/.x11_wm.log
+        #qtile >/dev/null 2>&1
+    elif [[ "$X11_WM" =~ "i3" ]]; then
+        i3wm 2>~/.x11_wm.log
+        #i3wm >/dev/null 2>&1
+    else
+        echo "WARNING! \$X11_WM is set to an invalid value: $X11_WM"
+    fi
+done
