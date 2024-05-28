@@ -11,5 +11,6 @@ while true; do
         #i3wm >/dev/null 2>&1
     else
         echo "WARNING! \$X11_WM is set to an invalid value: $X11_WM"
+        exit 1
     fi
 done
