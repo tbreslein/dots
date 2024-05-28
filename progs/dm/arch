@@ -137,11 +137,11 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
         if [[ "$X11_WM" == "awesome" ]]; then
             PACMAN+=(
                 "awesome"
+                "vicious"
             )
         elif [[ "$X11_WM" == "dwm" ]]; then
             PACMAN+=(
                 "xorg-server"
-                "xorg-init"
                 "xorg-xsetroot"
                 "libx11"
                 "libxinerama"
@@ -156,6 +156,7 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
             )
         fi
         PACMAN+=(
+            "xorg-init"
             "feh"
             "dmenu"
             "redshift"
