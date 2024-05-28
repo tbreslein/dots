@@ -251,7 +251,7 @@ prep_pkgs() {
         pkgs=("${AUR[@]}")
     fi
 
-    IFS=$'\n' pkgs=("$(sort -n <<<"${pkgs[*]}")")
+    IFS=$'\n' pkgs=("$(sort --unique -n <<<"${pkgs[*]}")")
 
     for p in "${pkgs[@]}"; do
         echo "$p" >>"$want"
