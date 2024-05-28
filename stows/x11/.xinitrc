@@ -1,8 +1,10 @@
-# Statusbar loop
-while true; do
-   xsetroot -name "$( date +"%F %R" )"
-   sleep 30    # Update time every minute
-done &
+# Statusbar loop for dwm
+if [[ "$X11_WM" == "dwm" ]]; then
+    while true; do
+       xsetroot -name "$( date +"%F %R" )"
+       sleep 30    # Update time every minute
+    done &
+fi
 
 # autostarts
 dunst &
