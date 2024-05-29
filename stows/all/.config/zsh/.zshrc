@@ -31,9 +31,18 @@ bindkey '^e' edit-command-line
 bindkey -s '^x' 'jf^M'
 
 twork() {
-    tmux new-session -ds "work" -c "$HOME/work/"
-    tmux send-keys -t "work" "just toggle_moco" C-m
-    tmux a -t "work"
+    if [ -n "$TMUX" ]; then
+        pushd "$HOME/work"
+        just toggle_moco
+        popd
+        if ! tmux has-session -t work; then
+            tmux new-session -ds "work" -c "$HOME/work"
+        fi
+    else
+        tmux new-session -ds "work" -c "$HOME/work/"
+        tmux send-keys -t "work" "just toggle_moco" C-m
+        tmux a -t "work"
+    fi
 }
 
 eval "$(fzf --zsh)"
@@ -41,3 +50,7 @@ export DIRENV_LOG_FORMAT=
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+
+if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+    exec tmux new-session -A -s home
+fi
