@@ -8,8 +8,11 @@ readonly BOLD_BLUE='\033[1;34m'
 readonly NC='\033[0m'
 readonly SCRIPTPATH="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
-./refresh_env
+${SCRIPTPATH}/refresh_env
 source "${SCRIPTPATH}/.env"
+
+mkdir -p ~/.local/bin
+ln -s ~/dots/dm ~/.local/bin/dm
 
 print_section() {
     echo -e "\n${BOLD_GREEN}[ $1 ]${NC}\n"
