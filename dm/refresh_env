@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+UNAME_S="$(uname -s)"
+_HOST=""
+ALLOWED_HOSTS="darwin moebius audron vorador"
+
+case "${UNAME_S}" in
+"Darwin")
+    _HOST="darwin"
+    ;;
+*)
+    _HOST=$(cat /etc/hostname)
+    ;;
+esac
+
+if [[ ! "${ALLOWED_HOSTS}" =~ ${_HOST} ]]; then
+    echo "ERROR: Host \"${_HOST}\" not supported."
+    exit 1
+fi
+
+ROLES=""
+
+case "${_HOST}" in
+"darwin")
+    ROLES="desktop code"
+    ;;
+"moebius")
+    ROLES="linux desktop x11 code gaming"
+    ;;
+"audron")
+    ROLES="linux desktop x11 code laptop"
+    ;;
+"vorador")
+    ROLES="linux rbpi"
+    ;;
+esac
+
+X11_WM="awesomewm"
+WAYLAND_WM="hyprland"
+COLOURS="gruvbox-material"
+REPOS=(
+    "git@github.com:tbreslein/capturedlambdav2.git"
+    "git@github.com:tbreslein/frankenrepo.git"
+    "git@github.com:tbreslein/hydrolzigs.git"
+    "git@github.com:tbreslein/ringheap.rs.git"
+)
+
+REPOS_STRING=$(
+    IFS=" "
+    echo "${REPOS[*]}"
+)
+
+{
+    echo "UNAME_S=\"${UNAME_S}\""
+    echo "_HOST=\"${_HOST}\""
+    echo "ROLES=\"${ROLES}\""
+    echo "X11_WM=\"${X11_WM}\""
+    echo "WAYLAND_WM=\"${WAYLAND_WM}\""
+    echo "COLOURS=\"${COLOURS}\""
+    echo "REPOS=\"${REPOS_STRING}\""
+} >.env

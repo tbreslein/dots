@@ -1,0 +1,207 @@
+export PACMAN=(
+    # system
+    "base"
+    "base-devel"
+    "linux"
+    "linux-firmware"
+    "sudo"
+    "man-db"
+    "man-pages"
+
+    # networking
+    "networkmanager"
+    "openssh"
+    "ufw"
+    "wget"
+    "curl"
+
+    # utils
+    "moreutils"
+    "git"
+    "less"
+    "tree"
+    "sed"
+    "awk"
+    "parallel"
+    "p7zip"
+    "texinfo"
+    "syncthing"
+    "vim"
+    "eza"
+    "fd"
+    "ripgrep"
+    "bat"
+    "fzf"
+    "lazygit"
+    "yazi"
+    "jq"
+    "just"
+    "starship"
+    "fastfetch"
+    "tldr"
+    "htop"
+    "tmux"
+    "zoxide"
+
+    # compilers / pkg managers
+    "gcc"
+    "cmake"
+    "go"
+    "luarocks"
+    "npm"
+)
+
+export AUR=(
+    "ueberzugpp"
+    "rm-improved"
+)
+
+if [[ "${ROLES[@]}" =~ "code" ]]; then
+    PACMAN+=(
+        "direnv"
+        "editorconfig-core-c"
+        "git-delta"
+        "hyperfine"
+        "tokei"
+        "neovim"
+    )
+fi
+
+if [[ "${ROLES[@]}" =~ "desktop" ]]; then
+    PACMAN+=(
+        "imv"
+        "mpv"
+        "alacritty"
+        "vlc"
+        "thunar"
+        "obsidian"
+        "ttf-hack-nerd"
+        "telegram-desktop"
+        "grub"
+        "grub-btrfs"
+        "efibootmgr"
+        "btrfs-progs"
+        "snapper"
+        "network-manager-applet"
+        "dunst"
+        "libnotify"
+        "playerctl"
+        "pavucontrol"
+        "brightnessctl"
+        "polkit-kde-agent"
+        "pipewire"
+        "wireplumber"
+        "pipewire-alsa"
+        "pipewire-jack"
+        "pipewire-pulse"
+        "zathura"
+        "zathura-ps"
+        "zathura-pdf-mupdf"
+        "noto-fonts"
+        "noto-fonts-cjk"
+        "noto-fonts-emoji"
+        "noto-fonts-extra"
+    )
+    AUR+=(
+        "proton-ge-custom-bin"
+        "brave-bin"
+        "microsoft-edge-stable-bin"
+    )
+    if [[ "${ROLES[@]}" =~ "wayland" ]]; then
+        if [[ "$WAYLAND_WM" == "hyprland" ]]; then
+            PACMAN+=(
+                "hyprland"
+                "hyprpaper"
+                "hypridle"
+                "hyprlock"
+                "xdg-desktop-portal-hyprland"
+            )
+        fi
+        PACMAN+=(
+            "bemenu-wayland"
+            "wl-clipboard"
+            "wlsunset"
+            "greetd"
+            "qt5-wayland"
+            "qt6-wayland"
+            "waybar"
+        )
+        AUR+=(
+            "webcord"
+            "pyprland"
+            "satty-bin"
+            "wdisplays"
+        )
+    fi
+    if [[ "${ROLES[@]}" =~ "x11" ]]; then
+        if [[ "$X11_WM" == "awesome" ]]; then
+            PACMAN+=(
+                "awesome"
+                "vicious"
+            )
+        elif [[ "$X11_WM" == "dwm" ]]; then
+            PACMAN+=(
+                "xorg-server"
+                "xorg-xsetroot"
+                "libx11"
+                "libxinerama"
+            )
+        elif [[ "$X11_WM" =~ "i3" ]]; then
+            PACMAN+=(
+                "i3"
+            )
+        elif [[ "$X11_WM" == "qtile" ]]; then
+            PACMAN+=(
+                "qtile"
+            )
+        fi
+        PACMAN+=(
+            "xorg-init"
+            "feh"
+            "dmenu"
+            "redshift"
+            "slock"
+            "xautolock"
+            "discord"
+            "picom"
+            "xorg-xrandr"
+            "arandr"
+        )
+        #AUR+=(
+        #)
+    fi
+fi
+
+if [[ "${ROLES[@]}" =~ "laptop" ]]; then
+    PACMAN+=(
+        "tlp"
+    )
+    #AUR+=(
+    #)
+fi
+
+if [[ "${ROLES[@]}" =~ "gaming" ]]; then
+    PACMAN+=(
+        "steam"
+        "gamemode"
+        "lib32-gamemode"
+    )
+    #AUR+=(
+    #)
+fi
+
+if [[ "${_HOST}" == "moebius" ]]; then
+    PACMAN+=(
+        "os-prober"
+        "mesa"
+        "vulkan-radeon"
+        "libva-mesa-driver"
+        "mesa-vdpau"
+        "lib32-mesa"
+        "lib32-vulkan-radeon"
+        "lib32-libva-mesa-driver"
+        "lib32-mesa-vdpau"
+    )
+    #AUR+=(
+    #)
+fi
