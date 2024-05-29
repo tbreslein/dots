@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+SCRIPT_PATH=$(realpath "$0")
+SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+
 UNAME_S="$(uname -s)"
 _HOST=""
 ALLOWED_HOSTS="darwin moebius audron vorador"
@@ -58,4 +61,4 @@ REPOS_STRING=$(
     echo "WAYLAND_WM=\"${WAYLAND_WM}\""
     echo "COLOURS=\"${COLOURS}\""
     echo "REPOS=\"${REPOS_STRING}\""
-} >.env
+} >"${SCRIPT_DIR}/.env"
