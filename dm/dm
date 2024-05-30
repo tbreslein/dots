@@ -21,6 +21,8 @@ cmd_location=""
 
 ${SCRIPT_DIR}/refresh_env
 
+echo "$SCRIPT_DIR"
+
 # shellcheck source=/dev/null
 source "${SCRIPT_DIR}/.env"
 
@@ -142,7 +144,7 @@ dm_stow() {
 
     stows=("all" "colours/${COLOURS}" "$_HOST")
     for r in "${ROLES[@]}"; do
-        if [[ "$r" =~ ^rbpi|wsl$ ]]; then
+        if [[ "$r" =~ ^rbpi|wsl|linux$ ]]; then
             continue
         fi
         stows+=("$r")
@@ -202,19 +204,39 @@ dm_pkgs() {
 
     "moebius" | "audron" | "moebius-win")
         prep_pkgs "pacman"
-        pacman_install=$(tr '\n' ' ' <"$HOME/dots/state/pacman_install")
-        pacman_remove=$(tr '\n' ' ' <"$HOME/dots/state/pacman_remove")
+        pacman_install="$HOME/dots/state/pacman_install"
+        pacman_remove="$HOME/dots/state/pacman_remove"
         prep_pkgs "aur"
-        aur_install=$(tr '\n' ' ' <"$HOME/dots/state/aur_install")
-        aur_remove=$(tr '\n' ' ' <"$HOME/dots/state/aur_remove")
+        aur_install="$HOME/dots/state/aur_install"
+        aur_remove="$HOME/dots/state/aur_remove"
 
-        sudo pacman -R "$pacman_remove"
+        if [ -s "$pacman_remove" ]; then
+	    sudo pacman -R $(awk '{print $1}' $pacman_remove)
+	else
+            __info "$name" "pacman has nothing to remove"
+	fi
+
         sudo pacman -Syu
-        sudo pacman -S "$pacman_install"
 
-        paru -R "$aur_remove"
-        paru
-        paru -S "$aur_install"
+        if [ -s "$pacman_install" ]; then
+	    sudo pacman --needed -S $(awk '{print $1}' $pacman_install)
+	else
+            __info "$name" "pacman has nothing to install"
+	fi
+
+        if [ -s "$aur_remove" ]; then
+	    paru --aur -R $(awk '{print $1}' $aur_remove)
+	else
+            __info "$name" "aur helper has nothing to remove"
+	fi
+
+	paru --aur -Syu
+
+        if [ -s "$aur_install" ]; then
+	    paru --aur --needed -S $(awk '{print $1}' $aur_install)
+	else
+            __info "$name" "aur helper has nothing to install"
+	fi
 
         mv "$HOME/dots/state/pacman_want" "$HOME/dots/state/pacman_current"
         rm "$HOME"/dots/state/pacman_{install,remove}
@@ -253,7 +275,7 @@ prep_pkgs() {
         pkgs=("${AUR[@]}")
     fi
 
-    IFS=$'\n' pkgs=("$(sort --unique -n <<<"${pkgs[*]}")")
+    IFS=$'\n' pkgs=($(sort --unique <<<"${pkgs[*]}"))
 
     for p in "${pkgs[@]}"; do
         echo "$p" >>"$want"
