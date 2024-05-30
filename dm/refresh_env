@@ -38,7 +38,7 @@ case "${_HOST}" in
     ;;
 esac
 
-X11_WM="awesomewm"
+X11_WM="awesome"
 WAYLAND_WM="hyprland"
 COLOURS="gruvbox-material"
 REPOS=(
