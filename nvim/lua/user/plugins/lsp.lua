@@ -9,7 +9,7 @@ local M = {
     "onsails/lspkind.nvim",
     "mrcjkb/rustaceanvim",
     "jmbuhr/otter.nvim",
-    { "folke/trouble.nvim", branch = "dev" },
+    "folke/trouble.nvim",
     "j-hui/fidget.nvim",
   },
 }
