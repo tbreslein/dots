@@ -12,7 +12,9 @@ ${SCRIPTPATH}/refresh_env
 source "${SCRIPTPATH}/.env"
 
 mkdir -p ~/.local/bin
-ln -s ~/dots/dm ~/.local/bin/dm
+if [ ! -L "$HOME/.local/bin/dm" ]; then
+    ln -s ~/dots/dm ~/.local/bin/dm
+fi
 
 print_section() {
     echo -e "\n${BOLD_GREEN}[ $1 ]${NC}\n"
@@ -32,11 +34,6 @@ print_error() {
 
 print_section bootstrap
 print_info "script path: $SCRIPTPATH"
-
-if [[ ! ${ALLOWED_HOSTS} =~ $_HOST ]]; then
-    print_error "_HOST ${_HOST} not in ALLOWED_HOSTS ${ALLOWED_HOSTS}"
-    exit 1
-fi
 
 print_info "setting up /etc/hosts"
 if [ ! -f /etc/hosts ]; then
@@ -74,33 +71,19 @@ fi
 
 if [[ ${ROLES[@]} =~ linux ]]; then
     print_info "setting up role: linux"
-    if [[ ! ${_HOST} == "vorador" ]]; then
-        sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
-        sudo sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
-        sudo sed -i 's/^#VerbosePkgLists/VerbosePkgLists/' /etc/pacman.conf
-        sudo sed -i 's/^#Color/Color/' /etc/pacman.conf
-        sudo pacman -Syu
-
+    if [[ ${_HOST} =~ ^(moebius|audron)$ ]]; then
         sudo pacman -S --needed base-devel syncthing stow networkmanager pacman-contrib
         systemctl --user enable syncthing.service
         systemctl --user start syncthing.service
 
-        git clone https://aur.archlinux.org/paru.git ~/paru
-        push ~/paru
-        makepkgs -si
+        # git clone https://aur.archlinux.org/paru.git ~/paru
+        pushd ~/paru
+        makepkg -si
         popd
-
-        sudo systemctl enable NetworkManager.service
-        sudo systemctl start NetworkManager.service
-
-        sudo bash -s "echo 'NTP=0.arch.pool.ntp.org 1.arch.pool.ntp.org 2.arch.pool.ntp.org 3.arch.pool.ntp.org' >> /etc/systemd/timesyncd.conf"
-        sudo bash -s "echo 'FallbackNTP=0.pool.ntp.org 1.pool.ntp.org 0.fr.pool.ntp.org' >> /etc/systemd/timesyncd.conf"
-        sudo systemctl enable systemd-timesyncd.service
-        sudo systemctl start systemd-timesyncd.service
 
         sudo systemctl enable paccache.timer
         sudo systemctl start paccache.timer
-    elif [[ ${_HOST} =~ ^(moebius|audron)$ ]]; then
+
         if [[ ${ROLES[@]} =~ x11 ]]; then
             if [[ "$X11_WM" == "dwm" ]]; then
                 mkdir -p "$HOME/code"
@@ -125,7 +108,7 @@ if [[ ${ROLES[@]} =~ linux ]]; then
             fi
             sudo systemctl --enable greetd.service
         fi
-    else
+    elif [[ ${_HOST} == "vorador" ]]; then
         sudo apt install -y syncthing
     fi
 
