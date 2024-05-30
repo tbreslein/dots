@@ -65,7 +65,7 @@ export PACMAN=(
 
 export AUR=(
     "ueberzugpp"
-    "rm-improved"
+    #"rm-improved"
 )
 
 if [[ "${ROLES[@]}" =~ "code" ]]; then
@@ -90,7 +90,6 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
         "telegram-desktop"
         "snapper"
         "network-manager-applet"
-        "dunst"
         "libnotify"
         "playerctl"
         "pavucontrol"
@@ -112,7 +111,6 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
     AUR+=(
         "proton-ge-custom-bin"
         "brave-bin"
-        "microsoft-edge-stable-bin"
     )
     if [[ "${ROLES[@]}" =~ "wayland" ]]; then
         if [[ "$WAYLAND_WM" == "hyprland" ]]; then
@@ -126,6 +124,7 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
         fi
         PACMAN+=(
             "bemenu-wayland"
+            "dunst"
             "wl-clipboard"
             "wlsunset"
             "greetd"
@@ -148,6 +147,8 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
             )
         elif [[ "$X11_WM" == "dwm" ]]; then
             PACMAN+=(
+                "dunst"
+                "dmenu"
                 "xorg-server"
                 "xorg-xsetroot"
                 "libx11"
@@ -156,16 +157,19 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
         elif [[ "$X11_WM" =~ "i3" ]]; then
             PACMAN+=(
                 "i3"
+                "dunst"
+                "dmenu"
             )
         elif [[ "$X11_WM" == "qtile" ]]; then
             PACMAN+=(
                 "qtile"
+                "dunst"
+                "dmenu"
             )
         fi
         PACMAN+=(
-            "xorg-init"
+            "xorg-xinit"
             "feh"
-            "dmenu"
             "redshift"
             "slock"
             "xautolock"
