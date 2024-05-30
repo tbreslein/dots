@@ -1,16 +1,28 @@
+# these are installed during the system install and won't be touched here
+#"base"
+#"base-devel"
+#"linux"
+#"linux-firmware"
+#"man-db"
+#"man-pages"
+#"cryptsetup"
+#"grub"
+#"efibootmgr"
+#"grub-btrfs"
+#"btrfs-progs"
+#"openssh"
+#"gcc"
+
 export PACMAN=(
     # system
-    "base"
-    "base-devel"
-    "linux"
-    "linux-firmware"
+    "pacman-contrib"
     "sudo"
-    "man-db"
-    "man-pages"
+    "pkgfile"
+    "reflector"
+    "zsh"
 
     # networking
     "networkmanager"
-    "openssh"
     "ufw"
     "wget"
     "curl"
@@ -27,6 +39,7 @@ export PACMAN=(
     "texinfo"
     "syncthing"
     "vim"
+    "neovim"
     "eza"
     "fd"
     "ripgrep"
@@ -44,7 +57,6 @@ export PACMAN=(
     "zoxide"
 
     # compilers / pkg managers
-    "gcc"
     "cmake"
     "go"
     "luarocks"
@@ -63,7 +75,6 @@ if [[ "${ROLES[@]}" =~ "code" ]]; then
         "git-delta"
         "hyperfine"
         "tokei"
-        "neovim"
     )
 fi
 
@@ -77,10 +88,6 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
         "obsidian"
         "ttf-hack-nerd"
         "telegram-desktop"
-        "grub"
-        "grub-btrfs"
-        "efibootmgr"
-        "btrfs-progs"
         "snapper"
         "network-manager-applet"
         "dunst"
@@ -192,6 +199,7 @@ fi
 
 if [[ "${_HOST}" == "moebius" ]]; then
     PACMAN+=(
+        "amd-ucode"
         "os-prober"
         "mesa"
         "vulkan-radeon"
