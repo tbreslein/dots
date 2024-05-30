@@ -149,7 +149,6 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
             PACMAN+=(
                 "dunst"
                 "dmenu"
-                "xorg-server"
                 "xorg-xsetroot"
                 "libx11"
                 "libxinerama"
@@ -168,6 +167,7 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
             )
         fi
         PACMAN+=(
+            "xorg-server"
             "xorg-xinit"
             "feh"
             "redshift"
