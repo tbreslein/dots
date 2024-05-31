@@ -170,7 +170,10 @@ reboot # just see that everything works and that wifi connects automatically
 ```
 
 ```sh
-~/dots/dm/dm repos stow nix
+~/dots/dm/dm stow nix pkgs
+
+# re-login, then startx, setup brave, extensions, bitwarden, syncthing...
+dm # sync
 ```
 
 ## links:
