@@ -211,32 +211,32 @@ dm_pkgs() {
         aur_remove="$HOME/dots/state/aur_remove"
 
         if [ -s "$pacman_remove" ]; then
-	    sudo pacman -R $(awk '{print $1}' $pacman_remove)
-	else
+            sudo pacman -R $(awk '{print $1}' $pacman_remove)
+        else
             __info "$name" "pacman has nothing to remove"
-	fi
+        fi
 
         sudo pacman -Syu
 
         if [ -s "$pacman_install" ]; then
-	    sudo pacman --needed -S $(awk '{print $1}' $pacman_install)
-	else
+            sudo pacman --needed -S $(awk '{print $1}' $pacman_install)
+        else
             __info "$name" "pacman has nothing to install"
-	fi
+        fi
 
         if [ -s "$aur_remove" ]; then
-	    paru --aur -R $(awk '{print $1}' $aur_remove)
-	else
+            paru --aur -R $(awk '{print $1}' $aur_remove)
+        else
             __info "$name" "aur helper has nothing to remove"
-	fi
+        fi
 
-	paru --aur -Syu
+        paru --aur -Syu
 
         if [ -s "$aur_install" ]; then
-	    paru --aur --needed -S $(awk '{print $1}' $aur_install)
-	else
+            paru --aur --needed -S $(awk '{print $1}' $aur_install)
+        else
             __info "$name" "aur helper has nothing to install"
-	fi
+        fi
 
         mv "$HOME/dots/state/pacman_want" "$HOME/dots/state/pacman_current"
         rm "$HOME"/dots/state/pacman_{install,remove}
@@ -310,24 +310,6 @@ dm_sync() {
         eval "dm_${c}"
         __handle_err
     done
-
-    # dm_repos
-    # __handle_err
-    #
-    # dm_stow
-    # __handle_err
-    #
-    # dm_nix
-    # __handle_err
-    #
-    # dm_pkgs
-    # __handle_err
-    #
-    # dm_nvim
-    # __handle_err
-    #
-    # dm_zap
-    # __handle_err
 
     __success "sync" "finished"
 }
