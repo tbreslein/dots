@@ -144,20 +144,13 @@ dm_stow() {
 
     stows=("all" "colours/${COLOURS}" "$_HOST")
     for r in "${ROLES[@]}"; do
-        if [[ "$r" =~ ^rbpi|wsl|linux$ ]]; then
-            continue
-        fi
         stows+=("$r")
     done
 
     for s in "${stows[@]}"; do
         stow_dir="${HOME}/dots/stows/${s}"
         if [ ! -d "$stow_dir" ]; then
-            cmd_code=$FAIL
-            cmd_location="stow"
-            cmd_msg="stow dir does not exist: ${stow_dir}"
-            popd
-            return
+            continue
         fi
         stow --restow --no-folding --adopt -t "$HOME" -d "$stow_dir" .
     done
@@ -187,6 +180,11 @@ dm_pkgs() {
     "darwin")
         prep_pkgs "brew"
         brew bundle --cleanup --file "${SCRIPT_DIR}/Brewfile" install
+
+        if git status --porcelain | grep "Brewfile.lock.json"; then
+            git add dm/Brewfile.lock.json
+            git commit -m "update Brewfile.lock"
+        fi
         ;;
 
     "vorador")
@@ -202,7 +200,7 @@ dm_pkgs() {
         rm "$HOME"/dots/state/apt_{install,remove}
         ;;
 
-    "moebius" | "audron" | "moebius-win")
+    "moebius" | "audron")
         prep_pkgs "pacman"
         pacman_install="$HOME/dots/state/pacman_install"
         pacman_remove="$HOME/dots/state/pacman_remove"
