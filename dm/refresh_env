@@ -22,16 +22,28 @@ if [[ ! "${ALLOWED_HOSTS}" =~ ${_HOST} ]]; then
 fi
 
 ROLES=""
+REPOS=()
+COLOURS="gruvbox-material"
 
 case "${_HOST}" in
 "darwin")
     ROLES="desktop code"
+    REPOS+=("git@github.com:tbreslein/ringheap.rs.git")
     ;;
 "moebius")
     ROLES="linux desktop x11 code gaming"
+    REPOS+=("git@github.com:tbreslein/capturedlambdav2.git")
+    REPOS+=("git@github.com:tbreslein/frankenrepo.git")
+    REPOS+=("git@github.com:tbreslein/hydrolzigs.git")
+    REPOS+=("git@github.com:tbreslein/hydrie.git")
+    REPOS+=("git@github.com:tbreslein/ringheap.rs.git")
     ;;
 "audron")
     ROLES="linux desktop x11 code laptop"
+    REPOS+=("git@github.com:tbreslein/capturedlambdav2.git")
+    REPOS+=("git@github.com:tbreslein/frankenrepo.git")
+    REPOS+=("git@github.com:tbreslein/hydrolzigs.git")
+    REPOS+=("git@github.com:tbreslein/ringheap.rs.git")
     ;;
 "vorador")
     ROLES="linux rbpi"
@@ -40,13 +52,6 @@ esac
 
 X11_WM="awesome"
 WAYLAND_WM="hyprland"
-COLOURS="gruvbox-material"
-REPOS=(
-    "git@github.com:tbreslein/capturedlambdav2.git"
-    "git@github.com:tbreslein/frankenrepo.git"
-    "git@github.com:tbreslein/hydrolzigs.git"
-    "git@github.com:tbreslein/ringheap.rs.git"
-)
 
 REPOS_STRING=$(
     IFS=" "
