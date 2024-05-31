@@ -304,20 +304,30 @@ dm_zap() {
 dm_sync() {
     __info "sync" "starting"
 
-    dm_repos
-    __handle_err
+    IFS=' ' read -ra __commands <<<"$VALID_COMMANDS"
+    for c in "${__commands[@]}"; do
+        [[ $c == "sync" ]] && continue
+        eval "dm_${c}"
+        __handle_err
+    done
 
-    dm_stow
-    __handle_err
-
-    dm_nix
-    __handle_err
-
-    dm_pkgs
-    __handle_err
-
-    dm_nvim
-    __handle_err
+    # dm_repos
+    # __handle_err
+    #
+    # dm_stow
+    # __handle_err
+    #
+    # dm_nix
+    # __handle_err
+    #
+    # dm_pkgs
+    # __handle_err
+    #
+    # dm_nvim
+    # __handle_err
+    #
+    # dm_zap
+    # __handle_err
 
     __success "sync" "finished"
 }
