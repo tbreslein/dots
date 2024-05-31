@@ -85,7 +85,6 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
         "alacritty"
         "vlc"
         "thunar"
-        "obsidian"
         "ttf-hack-nerd"
         "telegram-desktop"
         "snapper"
