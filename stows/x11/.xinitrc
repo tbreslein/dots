@@ -10,6 +10,7 @@
 #fi
 #
 
+xrdg ~/.Xresources
 /home/tommy/.local/bin/dm/refresh_env
 source /home/tommy/.local/bin/dm/.env
 if [[ "$X11_WM" == "awesome" ]]; then
