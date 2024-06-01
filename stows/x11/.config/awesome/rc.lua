@@ -550,4 +550,4 @@ end)
 -- }}}
 
 -- awful.spawn.with_shell("~/.config/awesome/autorun.zsh")
-awful.spawn.with_shell("/home/tommy/.config/awesome/autorun.zsh")
+awful.spawn.with_shell("/home/tommy/.config/awesome/autorun.bash")

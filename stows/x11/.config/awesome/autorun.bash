@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 run() {
     if ! pgrep -f "$1"; then
