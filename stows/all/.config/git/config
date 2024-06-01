@@ -1,5 +1,6 @@
 [core]
     pager = "delta"
+    editor = "nvim -c 'startinsert'"
 
 [interactive]
     diffFilter = "delta --color-only"
@@ -25,7 +26,7 @@
 [includeIf "gitdir:~/work/"]
     path = ./config-work
 [credential]
-	helper = 
+	helper =
 	helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
 	useHttpPath = true
