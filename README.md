@@ -176,6 +176,102 @@ reboot # just see that everything works and that wifi connects automatically
 dm # sync
 ```
 
+### first snapshot
+
+when everything is up and running, it's time to configure btrfs snapshots
+
+```sh
+sudo pacman -S snapper snap-pac
+
+# snapper assumes that the snapshots subvolume is not mounted when creating the
+# config
+sudo umount /.snapshots
+sudo rm -fr /.snapshots # BE VERY CAREFUL NOT TO MISTYPE THIS ONE!
+sudo snapper -c root create-config /
+
+sudo btrfs subvolume list /
+# as you can see, it created a new subvolume called .snapshots, but we want our
+# subvolume from earlier
+sudo btrfs subvolume delete /.snapshots
+sudo mkdir /.snapshots
+sudo mount /.snapshots # mount config still exists if /etc/fstab after all
+sudo chmod 750 /.snapshots
+sudo chown :wheel /.snapshots
+
+# create the first snapshot
+sudo snapper -c root create -d "**BASE INSTALL**"
+
+sudo vim /etc/snapper/configs/root
+# ALLOW_USERS="tommy"
+# ...
+# TIMELINE_MIN_AGE="1800"
+# TIMELINE_LIMIT_HOURLY="5"
+# TIMELINE_LIMIT_DAILY="7"
+# TIMELINE_LIMIT_WEEKLY="0"
+# TIMELINE_LIMIT_MONTHLY="0"
+# TIMELINE_LIMIT_YEARLY="0"
+
+sudo systemctl enable snapper-timeline.timer
+sudo systemctl enable snapper-cleanup.timer
+
+# EXAMPLES
+snapper -c root list # list all current snapshots
+
+sudo pacman -S md-tui
+
+# should now list a pre and post snapshot for the pacman command, thanks to the
+# snap-pac pacman hooks
+snapper -c root list
+
+sudo btrfs subvolume list / # now also lists our snapshots
+```
+
+now, set up grub-btrfs
+
+```sh
+sudo pacman -S grub-btrfs
+
+# in case your grub config does not live in /boot/grub...
+sudo vim /etc/default/grub-btrfs/config
+# #edit GRUB_BTRFS_GRUB_DIRNAME to point at the correct directory
+
+# this enables automatically adding snapshots to the boot menu
+sudo systemctl enable --now grub-btrfsd.service
+```
+
+### in case of emergency
+
+when you cannot boot into your system due to an update and want to roll back,
+boot into an old snapshot using grub and see if it works.
+Take note of the snapshot number, you need it for later!
+
+Then boot into a live usb and...
+
+```sh
+cryptsetup open /dev/nvme1n1p2 crypt
+
+# mount WITHOUT the @
+mount -t btrfs -o subvol=/ /dev/mapper/crypt /mnt
+
+# check whether any snapper-unit.timer services are running and stop them!
+
+# move the broken subvolume out of the way (that's why we didn't include the @)
+mv /mnt/@ /mnt/@borked
+
+# search for the snapshot you wanted to boot into in /.snapshots/
+# you can look through their info.xml files to find the snapshot you are looking
+# for, if you didn't remember the snapshot number from earlier.
+# let's say the snapshot number is 69
+
+# snapshot that snapshot into place
+btrfs subvolume snapshot /mnt/@snapshots/69/snapshot /mnt/@
+
+umount -R /mnt
+reboot
+
+# and after the reboot, if everything worked, remember to remove @borked
+```
+
 ## links:
 
 ### setup with grub
