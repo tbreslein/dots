@@ -5,7 +5,7 @@
 
   "modules-left": ["hyprland/workspaces", "hyprland/window"],
   "modules-center": ["clock"],
-  "modules-right": ["network", "pulseaudio", "battery", "tray"],
+  "modules-right": ["pulseaudio", "battery", "tray"],
 
   "tray": {
     "icon-size": 18,
@@ -35,7 +35,7 @@
   },
 
   "network": {
-    "interface": "wlp4s0",
+    //"interface": "wlp4s0",
     "format-wifi": "   WiFi-On",
     "format-disconnected": "睊   Disconnected",
     "interval": 60,
