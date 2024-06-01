@@ -10,9 +10,15 @@
 #fi
 #
 
-xrdg ~/.Xresources
+
 /home/tommy/.local/bin/dm/refresh_env
 source /home/tommy/.local/bin/dm/.env
+
+xrdb ~/.Xresources
+if [[ "$_HOST" == "moebius" ]]; then
+    xrandr --output DP-1 --mode 3840x2160 --rate 144 --scale 0.75
+fi
+
 if [[ "$X11_WM" == "awesome" ]]; then
     exec awesome
 elif [[ "$X11_WM" == "dwm" ]]; then
