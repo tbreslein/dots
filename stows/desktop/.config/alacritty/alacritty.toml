@@ -9,4 +9,4 @@ shape = "Block"
 [window]
 blur = true
 dynamic_padding = true
-opacity = 0.94
+opacity = 0.90

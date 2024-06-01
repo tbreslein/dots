@@ -33,6 +33,7 @@ function M.config()
         require("formatter.filetypes.typescriptreact").prettier,
       },
       json = { require("formatter.filetypes.json").prettier },
+      jsonc = { require("formatter.filetypes.json").prettier },
       markdown = { require("formatter.filetypes.markdown").prettier },
       svelte = { require("formatter.filetypes.svelte").prettier },
       yaml = { require("formatter.filetypes.yaml").prettier },

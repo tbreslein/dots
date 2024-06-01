@@ -1,0 +1,70 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 27,
+
+  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["clock"],
+  "modules-right": ["network", "pulseaudio", "battery", "tray"],
+
+  "tray": {
+    "icon-size": 18,
+    "spacing": 15,
+  },
+
+  "clock": {
+    "format": "{:%R}",
+    "interval": 30,
+  },
+
+  "battery": {
+    "bat": "BAT0",
+    "states": {
+      "full": 99,
+      "good": 98,
+      "normal": 98,
+      "warning": 20,
+      "critical": 20,
+    },
+
+    "format": "{icon}   {capacity}%",
+    "format-good": "{icon}   {capacity}%",
+    "format-full": "   {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "interval": 30,
+  },
+
+  "network": {
+    "interface": "wlp4s0",
+    "format-wifi": "   WiFi-On",
+    "format-disconnected": "睊   Disconnected",
+    "interval": 60,
+  },
+
+  "temperature": {
+    "thermal-zone": 0,
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": [""],
+    "interval": 30,
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon}  {percent}%  ",
+    "format-icons": ["", "", "", ""],
+    "interval": 60,
+  },
+
+  "pulseaudio": {
+    "format": "{icon}  {volume}%  ",
+    "format-bluetooth": "  {volume}%  ",
+    "format-muted": "婢  Mute  ",
+    "interval": 60,
+
+    "format-icons": {
+      "default": [""],
+    },
+
+    "on-click": "blueman-manager",
+  },
+}

@@ -118,7 +118,6 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
                 "hyprpaper"
                 "hypridle"
                 "hyprlock"
-                "hyprshot"
                 "xdg-desktop-portal-hyprland"
             )
         fi
