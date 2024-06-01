@@ -1,10 +1,20 @@
 #!/usr/bin/env bash
 # stolen from https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/bin/tmux-sessionizer
 
+folders=("$HOME")
+add_dir() {
+    [ -d "$HOME/$1" ] && folders+=("$HOME/$1")
+}
+
+add_dir "code"
+add_dir "notes"
+add_dir "work"
+add_dir "work/repos"
+
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/code ~/syncthing/notes ~/work ~/work/repos ~ -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find $(echo "${folders[@]}") -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then
