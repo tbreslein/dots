@@ -88,6 +88,8 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
         "ttf-hack-nerd"
         "telegram-desktop"
         "snapper"
+        "snap-pac"
+        "grub-btrfs"
         "network-manager-applet"
         "libnotify"
         "playerctl"
