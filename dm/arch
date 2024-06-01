@@ -118,6 +118,7 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
                 "hyprpaper"
                 "hypridle"
                 "hyprlock"
+                "hyprshot"
                 "xdg-desktop-portal-hyprland"
             )
         fi
@@ -130,6 +131,8 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
             "qt5-wayland"
             "qt6-wayland"
             "waybar"
+            "grim"
+            "slurp"
         )
         AUR+=(
             "webcord"
