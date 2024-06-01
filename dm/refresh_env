@@ -31,7 +31,7 @@ case "${_HOST}" in
     REPOS+=("git@github.com:tbreslein/ringheap.rs.git")
     ;;
 "moebius")
-    ROLES="linux desktop x11 code gaming"
+    ROLES="linux desktop wayland code gaming"
     REPOS+=("git@github.com:tbreslein/capturedlambdav2.git")
     REPOS+=("git@github.com:tbreslein/frankenrepo.git")
     REPOS+=("git@github.com:tbreslein/hydrolzigs.git")
