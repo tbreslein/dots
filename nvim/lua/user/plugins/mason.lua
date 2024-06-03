@@ -8,8 +8,8 @@ function M.config()
   require("mason-tool-installer").setup {
     ensure_installed = {
       "cmakelint",
-      "gersemi", -- cmake formatter
       "clang-format",
+      "cmake-language-server",
 
       "gopls",
       "golangci-lint",

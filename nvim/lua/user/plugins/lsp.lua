@@ -153,7 +153,7 @@ function M.config()
     },
   }
   lspconfig.clangd.setup { capabilities = lsp_capabilities }
-  lspconfig.neocmake.setup { capabilities = lsp_capabilities }
+  lspconfig.cmake.setup { capabilities = lsp_capabilities }
   lspconfig.nil_ls.setup { capabilities = lsp_capabilities }
   lspconfig.zls.setup { capabilities = lsp_capabilities }
 

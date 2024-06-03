@@ -1,3 +1,5 @@
+corner_radius=5
+
 [global]
 background="#2e3440"
 font="Noto Sans 11"

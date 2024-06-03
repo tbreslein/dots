@@ -137,7 +137,6 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
         )
         AUR+=(
             "webcord"
-            "pyprland"
             "satty-bin"
             "wdisplays"
         )
