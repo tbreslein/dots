@@ -1,2 +1,4 @@
 font.size = 15
 window.option_as_alt = "OnlyLeft"
+window.decorations = "Buttonless"
+window.opacity = 0.6
