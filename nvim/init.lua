@@ -5,6 +5,7 @@ require "user.keymaps"
 spec "luarocks" -- neorg needs this
 spec "neorg"
 spec "colorscheme"
+spec "todo-comments"
 spec "treesitter"
 spec "lualine"
 
