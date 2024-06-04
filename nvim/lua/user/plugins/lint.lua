@@ -3,7 +3,10 @@ local M = {
 }
 
 function M.config()
-  require("lint").linters_by_ft = {
+  local lint = require "lint"
+  table.insert(lint.linters.cppcheck.args, "--enable=all")
+  table.insert(lint.linters.cppcheck.args, "--suppress=missingIncludeSystem")
+  lint.linters_by_ft = {
     c = { "cppcheck" },
     cpp = { "cppcheck" },
     cmake = { "cmakelint" },
