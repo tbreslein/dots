@@ -33,16 +33,15 @@ case "${_HOST}" in
 "moebius")
     ROLES="linux desktop wayland code gaming"
     REPOS+=("git@github.com:tbreslein/capturedlambdav2.git")
-    REPOS+=("git@github.com:tbreslein/frankenrepo.git")
-    REPOS+=("git@github.com:tbreslein/hydrolzigs.git")
-    REPOS+=("git@github.com:tbreslein/hydrie.git")
+    REPOS+=("git@github.com:tbreslein/devl.git")
+    REPOS+=("git@github.com:tbreslein/shyr.git")
     REPOS+=("git@github.com:tbreslein/ringheap.rs.git")
     ;;
 "audron")
-    ROLES="linux desktop x11 code laptop"
+    ROLES="linux desktop wayland code laptop"
     REPOS+=("git@github.com:tbreslein/capturedlambdav2.git")
-    REPOS+=("git@github.com:tbreslein/frankenrepo.git")
-    REPOS+=("git@github.com:tbreslein/hydrolzigs.git")
+    REPOS+=("git@github.com:tbreslein/devl.git")
+    REPOS+=("git@github.com:tbreslein/shyr.git")
     REPOS+=("git@github.com:tbreslein/ringheap.rs.git")
     ;;
 "vorador")
