@@ -3,6 +3,7 @@ local M = {
 }
 
 function M.config()
+  local util = require "formatter.util"
   require("formatter").setup {
     logging = true,
     log_level = vim.log.levels.WARN,
@@ -22,6 +23,19 @@ function M.config()
       sh = { require("formatter.filetypes.sh").shfmt },
       zsh = { require("formatter.filetypes.sh").shfmt },
 
+      astro = {
+        function()
+          return {
+            exe = "prettier",
+            args = {
+              "--stdin-filepath",
+              util.escape_path(util.get_current_buffer_file_path()),
+            },
+            stdin = true,
+            try_node_modules = true,
+          }
+        end,
+      },
       css = { require("formatter.filetypes.css").prettier },
       html = { require("formatter.filetypes.html").prettier },
       javascript = { require("formatter.filetypes.javascript").prettier },
