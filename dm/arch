@@ -45,7 +45,7 @@ export PACMAN=(
     "ripgrep"
     "bat"
     "fzf"
-    "lazygit"
+    "tig"
     "yazi"
     "jq"
     "just"
