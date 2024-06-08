@@ -7,6 +7,14 @@
   "modules-center": ["clock"],
   "modules-right": ["pulseaudio", "battery", "tray"],
 
+  "hyprland/window": {
+    "format": "👉 {}",
+    "rewrite": {
+      "(.*) — Brave": "Brave",
+    },
+    "separate-outputs": true,
+  },
+
   "tray": {
     "icon-size": 18,
     "spacing": 15,
