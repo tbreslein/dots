@@ -292,6 +292,7 @@ dm_nvim() {
         -c "Lazy! sync" \
         -c "TSUpdateSync" \
         -c "qa"
+    echo "" # because for some reason the last nvim output does not have a \n
     __success "$name" "finished"
 }
 
