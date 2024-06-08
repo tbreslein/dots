@@ -13,7 +13,7 @@ indent_size=2
 [*.{json,js,jsx,ts,tsx,cjs,mjs}]
 indent_size=2
 
-[*.{yml,yaml,ml,mli,hl,md,mdx,html}]
+[*.{yml,yaml,ml,mli,hl,md,mdx,html,astro}]
 indent_size=2
 
 [CMakeLists.txt]
