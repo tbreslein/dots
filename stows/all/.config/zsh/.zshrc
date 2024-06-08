@@ -48,7 +48,7 @@ twork() {
 eval "$(fzf --zsh)"
 export DIRENV_LOG_FORMAT=
 eval "$(direnv hook zsh)"
-eval "$(starship init zsh)"
+eval "$(oh-my-posh init zsh --config ~/.config/omp.toml)"
 eval "$(zoxide init zsh)"
 
 if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
