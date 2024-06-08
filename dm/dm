@@ -313,6 +313,9 @@ dm_sync() {
 }
 
 __main() {
+    pushd ~/dots
+    git pull
+    popd
     for c in "${COMMANDS[@]}"; do
         if [[ ! "$VALID_COMMANDS" =~ [[:space:]]$c[[:space:]] ]]; then
             cmd_code=$FAIL
