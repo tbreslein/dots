@@ -19,5 +19,5 @@ indent_size=2
 [CMakeLists.txt]
 indent_size=2
 
-[Makefile]
+[{m,M}akefile]
 indent_style=tab
