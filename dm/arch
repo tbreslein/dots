@@ -59,6 +59,8 @@ export PACMAN=(
 
     # compilers / pkg managers
     "cmake"
+    "meson"
+    "ninja"
     "go"
     "luarocks"
     "npm"
