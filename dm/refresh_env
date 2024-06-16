@@ -36,6 +36,7 @@ case "${_HOST}" in
     REPOS+=("git@github.com:tbreslein/devl.git")
     REPOS+=("git@github.com:tbreslein/shyr.git")
     REPOS+=("git@github.com:tbreslein/sest.git")
+    REPOS+=("git@github.com:tbreslein/gosm.git")
     REPOS+=("git@github.com:tbreslein/ringheap.rs.git")
     ;;
 "audron")
@@ -44,6 +45,7 @@ case "${_HOST}" in
     REPOS+=("git@github.com:tbreslein/devl.git")
     REPOS+=("git@github.com:tbreslein/shyr.git")
     REPOS+=("git@github.com:tbreslein/sest.git")
+    REPOS+=("git@github.com:tbreslein/gosm.git")
     REPOS+=("git@github.com:tbreslein/ringheap.rs.git")
     ;;
 "vorador")
