@@ -102,6 +102,7 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
         "pipewire-alsa"
         "pipewire-jack"
         "pipewire-pulse"
+        "discord"
         "zathura"
         "zathura-ps"
         "zathura-pdf-mupdf"
@@ -137,7 +138,6 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
             "slurp"
         )
         AUR+=(
-            "webcord"
             "satty-bin"
             "wdisplays"
         )
@@ -176,7 +176,6 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
             "redshift"
             "slock"
             "xautolock"
-            "discord"
             "picom"
             "xorg-xrandr"
             "arandr"
