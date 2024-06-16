@@ -8,7 +8,7 @@
   "modules-right": ["pulseaudio", "battery", "tray"],
 
   "hyprland/window": {
-    "format": "👉 {}",
+    "format": "{}",
     "rewrite": {
       "(.*) — Brave": "Brave",
     },
