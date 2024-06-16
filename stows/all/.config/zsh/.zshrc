@@ -49,10 +49,11 @@ eval "$(fzf --zsh)"
 export DIRENV_LOG_FORMAT=
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
-# if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-#     eval "$(oh-my-posh init zsh --config ~/.config/omp.toml)"
-# fi
+if [[ "$_HOST" == "darwin" ]]; then
+    eval "$(starship init zsh)"
+else
+    eval "$(oh-my-posh init zsh --config ~/.config/omp.toml)"
+fi
 
 if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
     exec tmux new-session -A -s home
