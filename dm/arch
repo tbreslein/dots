@@ -62,6 +62,7 @@ export PACMAN=(
     "go"
     "luarocks"
     "npm"
+    "clang"
 )
 
 export AUR=(
