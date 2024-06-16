@@ -8,6 +8,7 @@ function M.config()
   require("mason-tool-installer").setup {
     ensure_installed = {
       "cmakelint",
+      "clangd",
       "clang-format",
       "cmake-language-server",
 
