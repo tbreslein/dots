@@ -63,6 +63,7 @@ export PACMAN=(
     "luarocks"
     "npm"
     "clang"
+    "bear"
 )
 
 export AUR=(
