@@ -120,6 +120,7 @@ function M.config()
   lspconfig.bashls.setup { capabilities = lsp_capabilities }
   lspconfig.dockerls.setup { capabilities = lsp_capabilities }
   lspconfig.gopls.setup { capabilities = lsp_capabilities }
+  lspconfig.hyprls.setup { capabilities = lsp_capabilities }
   lspconfig.marksman.setup { capabilities = lsp_capabilities }
   lspconfig.tsserver.setup { capabilities = lsp_capabilities }
   lspconfig.pyright.setup {

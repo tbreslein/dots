@@ -7,10 +7,10 @@ function M.config()
   require("mason").setup()
   require("mason-tool-installer").setup {
     ensure_installed = {
-      "cmakelint",
       "clangd",
-      "clang-format",
       "cmake-language-server",
+      "cmakelint",
+      "clang-format",
 
       "gopls",
       "golangci-lint",
@@ -28,6 +28,7 @@ function M.config()
       "hadolint",
       "yamllint",
 
+      "hyprls",
       "marksman",
 
       "bash-language-server",
