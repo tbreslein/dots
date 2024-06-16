@@ -139,6 +139,7 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
         )
         AUR+=(
             "satty-bin"
+            "webcord"
             "wdisplays"
         )
     fi
