@@ -70,7 +70,6 @@ export PACMAN=(
 
 export AUR=(
     "ueberzugpp"
-    "oh-my-posh"
 )
 
 if [[ "${ROLES[@]}" =~ "code" ]]; then
