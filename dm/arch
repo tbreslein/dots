@@ -58,14 +58,17 @@ export PACMAN=(
     "zoxide"
 
     # compilers / pkg managers
-    "cmake"
-    "meson"
-    "ninja"
     "go"
     "luarocks"
     "npm"
+
+    # C/C++
+    "cmake"
+    "meson"
+    "ninja"
     "clang"
     "bear"
+    "cppcheck"
 )
 
 export AUR=(
