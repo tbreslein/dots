@@ -123,6 +123,7 @@ function M.config()
   lspconfig.hyprls.setup { capabilities = lsp_capabilities }
   lspconfig.marksman.setup { capabilities = lsp_capabilities }
   lspconfig.tsserver.setup { capabilities = lsp_capabilities }
+  lspconfig.ruff.setup { capabilities = lsp_capabilities }
   lspconfig.pyright.setup {
     capabilities = lsp_capabilities,
     on_new_config = function(config, root_dir)

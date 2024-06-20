@@ -17,6 +17,7 @@ function M.config()
       go = { require("formatter.filetypes.go").gofumpt },
       haskell = { require("formatter.filetypes.haskell").stylish_haskell },
       python = { require("formatter.filetypes.python").black },
+      -- python = { require("formatter.filetypes.python").ruff },
       nix = { require("formatter.filetypes.nix").alejandra },
       lua = { require("formatter.filetypes.lua").stylua },
       bash = { require("formatter.filetypes.sh").shfmt },
