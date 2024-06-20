@@ -121,6 +121,7 @@ if [[ "${ROLES[@]}" =~ "desktop" ]]; then
     AUR+=(
         "proton-ge-custom-bin"
         "brave-bin"
+        "onlyoffice-bin"
     )
     if [[ "${ROLES[@]}" =~ "wayland" ]]; then
         if [[ "$WAYLAND_WM" == "hyprland" ]]; then

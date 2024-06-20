@@ -2098,6 +2098,12 @@
         "options": {
           "full_name": "telegram-desktop"
         }
+      },
+      "onlyoffice": {
+        "version": "8.0.1",
+        "options": {
+          "full_name": "onlyoffice"
+        }
       }
     }
   },
