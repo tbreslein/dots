@@ -56,6 +56,7 @@ export PACMAN=(
     "tmux"
     "zellij"
     "zoxide"
+    "valgrind"
 
     # compilers / pkg managers
     "go"
