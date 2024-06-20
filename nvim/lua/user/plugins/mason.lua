@@ -18,6 +18,7 @@ function M.config()
 
       "black",
       "ruff",
+      "pyright",
 
       "typescript-language-server",
       "eslint_d",
