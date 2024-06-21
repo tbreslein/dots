@@ -33,7 +33,7 @@ bindkey -s '^x' 'jf^M'
 twork() {
     if [ -n "$TMUX" ]; then
         pushd "$HOME/work"
-        just toggle_moco
+        make toggle_moco
         popd
         if ! tmux has-session -t work; then
             tmux new-session -ds "work" -c "$HOME/work"
