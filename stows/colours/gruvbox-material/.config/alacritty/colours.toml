@@ -1,33 +1,95 @@
+# # Kanagawa Paper Alacritty Colors
+# colors:
+#   primary:
+#     background: '#1F1F28'
+#     foreground: '#DCD7BA'
+#
+#   normal:
+#     black:   '#0d0c0c'
+#     red:     '#c4746e'
+#     green:   '#8a9a7b'
+#     yellow:  '#c4b28a'
+#     blue:    '#8ba4b0'
+#     magenta: '#a292a3'
+#     cyan:    '#8ea4a2'
+#     white:   '#C8C093'
+#
+#   bright:
+#     black:   '#a6a69c'
+#     red:     '#E46876'
+#     green:   '#87a987'
+#     yellow:  '#E6C384'
+#     blue:    '#7FB4CA'
+#     magenta: '#938AA9'
+#     cyan:    '#7AA89F'
+#     white:   '#c5c9c5'
+#
+#   selection:
+#     background: '#658594'
+#     foreground: '#C8C093'
+#
+#   indexed_colors:
+#     - { index: 16, color: '#b6927b' }
+#     - { index: 17, color: '#ff5d62' }
+
 [colors.primary]
-background = "#1d2021"
-foreground = "#d4be98"
+background = "#1f1f28"
+foreground = "#dcd7ba"
 
 [colors.normal]
-black = "#32302f"
-red = "#ea6962"
-green = "#a9b665"
-yellow = "#d8a657"
-blue = "#7daea3"
-magenta = "#d3869b"
-cyan = "#89b482"
-white = "#d4be98"
+black = "#0d0c0c"
+red = "#c4746e"
+green = "#8a9a7b"
+yellow = "#c4b28a"
+blue = "#8ba4b0"
+magenta = "#a292a3"
+cyan = "#8ea4a2"
+white = "#c8c093"
 
 [colors.bright]
-black = "#32302f"
-red = "#ea6962"
-green = "#a9b665"
-yellow = "#d8a657"
-blue = "#7daea3"
-magenta = "#d3869b"
-cyan = "#89b482"
-white = "#d4be98"
+black = "#a6a69c"
+red = "#e46876"
+green = "#87a987"
+yellow = "#e6c384"
+blue = "#7fb4ca"
+magenta = "#938aa9"
+cyan = "#7aa89f"
+white = "#c5c9c5"
 
-[colors.dim]
-black = "#32302f"
-red = "#ea6962"
-green = "#a9b665"
-yellow = "#d8a657"
-blue = "#7daea3"
-magenta = "#d3869b"
-cyan = "#89b482"
-white = "#d4be98"
+[colors.selection]
+background = "#658594"
+foreground = "#c8c093"
+
+# [colors.primary]
+# background = "#1d2021"
+# foreground = "#d4be98"
+#
+# [colors.normal]
+# black = "#32302f"
+# red = "#ea6962"
+# green = "#a9b665"
+# yellow = "#d8a657"
+# blue = "#7daea3"
+# magenta = "#d3869b"
+# cyan = "#89b482"
+# white = "#d4be98"
+#
+# [colors.bright]
+# black = "#32302f"
+# red = "#ea6962"
+# green = "#a9b665"
+# yellow = "#d8a657"
+# blue = "#7daea3"
+# magenta = "#d3869b"
+# cyan = "#89b482"
+# white = "#d4be98"
+#
+# [colors.dim]
+# black = "#32302f"
+# red = "#ea6962"
+# green = "#a9b665"
+# yellow = "#d8a657"
+# blue = "#7daea3"
+# magenta = "#d3869b"
+# cyan = "#89b482"
+# white = "#d4be98"
