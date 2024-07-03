@@ -2,7 +2,7 @@
   description = "my dots";
 
   inputs = {
-    nixpkgs.url = "nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -15,20 +15,25 @@
     home-manager,
     ...
   } @ inputs: let
-    mkHomeConfig = machineModule: system:
+    mkHomeConfig = hostModule: system: let
+      pkgs-unstable = import inputs.nixpkgs-unstable {inherit system;};
+      pkgs-stable = import inputs.nixpkgs {inherit system;};
+    in
       home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          inherit system;
-        };
-
+        pkgs = pkgs-unstable;
         modules = [
+          # shared defaults
           ./hosts/home.nix
-          ./modules/default.nix
-          machineModule
+
+          # modules exposing options
+          ./modules/coding.nix
+
+          # host specific config
+          hostModule
         ];
 
         extraSpecialArgs = {
-          inherit inputs system userSettings;
+          inherit inputs system userSettings pkgs-stable;
         };
       };
 
@@ -42,9 +47,11 @@
         "aarch64-darwin"
       ] (system: function nixpkgs.legacyPackages.${system});
   in {
-    homeConfigurations."${userSettings.userName}" = mkHomeConfig ./hosts/mpb.nix "aarch64-darwin";
-    # homeConfigurations."${userSettings.userName}@moebius" = mkHomeConfig ./machine/laptop.nix "x86_64-linux";
-    # homeConfigurations."${userSettings.userName}@audron" = mkHomeConfig ./machine/work.nix "x86_64-linux";
+    homeConfigurations = {
+      "${userSettings.userName}" = mkHomeConfig ./hosts/mpb.nix "aarch64-darwin";
+      "${userSettings.userName}@moebius" = mkHomeConfig ./hosts/moebius.nix "x86_64-linux";
+      "${userSettings.userName}@audron" = mkHomeConfig ./hosts/audron.nix "x86_64-linux";
+    };
 
     devShells = forAllSystems (pkgs: {
       default = pkgs.mkShell {
