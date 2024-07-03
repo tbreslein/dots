@@ -1,5 +1,5 @@
 {
-  description = "Srid's NixOS / nix-darwin configuration";
+  description = "my dots";
 
   inputs = {
     # Principle inputs
@@ -19,7 +19,11 @@
     };
   };
 
-  outputs = inputs @ {self, ...}:
+  outputs = inputs @ {self, ...}: let
+    userSettings = {
+      userName = "tommy";
+    };
+  in
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "aarch64-darwin"];
       # imports = [
@@ -30,15 +34,11 @@
       # ];
 
       flake = {
-        # Configuration for my Macbook (using nix-darwin)
-        # darwinConfigurations.appreciate =
-        #   self.nixos-flake.lib.mkMacosSystem
-        #     ./systems/darwin.nix;
-
-        # # Hetzner dedicated
-        # nixosConfigurations.immediacy =
-        #   self.nixos-flake.lib.mkLinuxSystem
-        #     ./systems/ax41.nix;
+        homeConfigurations = {
+          "${userSettings.userName}@tommys_mbp" = {
+            pkgs = import inputs.nixpkgs {system = "aarch64-darwin";};
+          };
+        };
       };
 
       perSystem = {
@@ -56,9 +56,6 @@
             alejandra
           ];
         };
-        # _module.args.pkgs = import inputs.nixpkgs {
-        #   inherit system;
-        # };
       };
     };
 }
