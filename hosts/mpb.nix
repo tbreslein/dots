@@ -1,0 +1,3 @@
+{config, ...}: {
+  roles.enableCoding = true;
+}

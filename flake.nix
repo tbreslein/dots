@@ -2,60 +2,59 @@
   description = "my dots";
 
   inputs = {
-    # Principle inputs
+    nixpkgs.url = "nixpkgs";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/24.05";
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs @ {self, ...}: let
+  outputs = {
+    nixpkgs,
+    home-manager,
+    ...
+  } @ inputs: let
+    mkHomeConfig = machineModule: system:
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          inherit system;
+        };
+
+        modules = [
+          ./hosts/home.nix
+          ./modules/default.nix
+          machineModule
+        ];
+
+        extraSpecialArgs = {
+          inherit inputs system userSettings;
+        };
+      };
+
     userSettings = {
       userName = "tommy";
     };
-  in
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["x86_64-linux" "aarch64-darwin"];
-      # imports = [
-      #   ./users
-      #   ./home
-      #   ./nixos
-      #   ./nix-darwin
-      # ];
 
-      flake = {
-        homeConfigurations = {
-          "${userSettings.userName}@tommys_mbp" = {
-            pkgs = import inputs.nixpkgs {system = "aarch64-darwin";};
-          };
-        };
-      };
+    forAllSystems = function:
+      nixpkgs.lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ] (system: function nixpkgs.legacyPackages.${system});
+  in {
+    homeConfigurations."${userSettings.userName}" = mkHomeConfig ./hosts/mpb.nix "aarch64-darwin";
+    # homeConfigurations."${userSettings.userName}@moebius" = mkHomeConfig ./machine/laptop.nix "x86_64-linux";
+    # homeConfigurations."${userSettings.userName}@audron" = mkHomeConfig ./machine/work.nix "x86_64-linux";
 
-      perSystem = {
-        self',
-        inputs',
-        pkgs,
-        system,
-        config,
-        ...
-      }: {
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            nil
-            statix
-            alejandra
-          ];
-        };
+    devShells = forAllSystems (pkgs: {
+      default = pkgs.mkShell {
+        packages = [
+          pkgs.nil
+          pkgs.statix
+          pkgs.alejandra
+          pkgs.home-manager
+        ];
       };
-    };
+    });
+  };
 }
