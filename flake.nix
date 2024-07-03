@@ -26,6 +26,12 @@
           ./hosts/home.nix
 
           # modules exposing options
+          ./modules/darwin.nix
+          ./modules/linux.nix
+          ./modules/desktop.nix
+          ./modules/laptop.nix
+          ./modules/gaming.nix
+          ./modules/wayland.nix
           ./modules/coding.nix
 
           # host specific config
@@ -37,6 +43,7 @@
         };
       };
 
+    # ROLES="darwin linux desktop wayland code gaming laptop"
     userSettings = {
       userName = "tommy";
     };
