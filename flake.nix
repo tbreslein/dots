@@ -46,6 +46,17 @@
     # ROLES="darwin linux desktop wayland code gaming laptop"
     userSettings = {
       userName = "tommy";
+      sessionPath = [
+        "$HOME/bin"
+        "$HOME/.local/bin"
+        "/opt/homebrew/bin"
+        "/opt/homebrew/sbin"
+      ];
+      sessionVariables = rec {
+        EDITOR = "nvim";
+        VISUAL = EDITOR;
+        BROWSER = "brave";
+      };
     };
 
     forAllSystems = function:
