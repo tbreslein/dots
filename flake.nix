@@ -57,6 +57,42 @@
         VISUAL = EDITOR;
         BROWSER = "brave";
       };
+      colors = {
+        primary = {
+          background = "#1d2021";
+          foreground = "#d4be98";
+        };
+        normal = {
+          black = "#32302f";
+          red = "#ea6962";
+          green = "#a9b665";
+          yellow = "#d8a657";
+          blue = "#7daea3";
+          magenta = "#d3869b";
+          cyan = "#89b482";
+          white = "#d4be98";
+        };
+        bright = {
+          black = "#32302f";
+          red = "#ea6962";
+          green = "#a9b665";
+          yellow = "#d8a657";
+          blue = "#7daea3";
+          magenta = "#d3869b";
+          cyan = "#89b482";
+          white = "#d4be98";
+        };
+        dim = {
+          black = "#32302f";
+          red = "#ea6962";
+          green = "#a9b665";
+          yellow = "#d8a657";
+          blue = "#7daea3";
+          magenta = "#d3869b";
+          cyan = "#89b482";
+          white = "#d4be98";
+        };
+      };
     };
 
     forAllSystems = function:
@@ -66,7 +102,7 @@
       ] (system: function nixpkgs.legacyPackages.${system});
   in {
     homeConfigurations = {
-      "${userSettings.userName}" = mkHomeConfig ./hosts/mpb.nix "aarch64-darwin";
+      "${userSettings.userName}" = mkHomeConfig ./hosts/mbp.nix "aarch64-darwin";
       "${userSettings.userName}@moebius" = mkHomeConfig ./hosts/moebius.nix "x86_64-linux";
       "${userSettings.userName}@audron" = mkHomeConfig ./hosts/audron.nix "x86_64-linux";
     };

@@ -4,17 +4,17 @@
   pkgs,
   pkgs-stable,
   ...
-}:
-# let
-#   cfg = config.coding;
-# in
-{
+}: let
+  cfg = config.coding;
+in {
   options = {
-    roles.enableCoding = lib.mkEnableOption "Enable coding role";
-    coding.customTmuxConfig = lib.mkEnableOption "Use custom tmux config";
+    coding = {
+      enable = lib.mkEnableOption "Enable coding role";
+      customTmuxConfig = lib.mkEnableOption "Use custom tmux config";
+    };
   };
 
-  config = lib.mkIf config.roles.enableCoding {
+  config = lib.mkIf cfg.enable {
     home.packages = (with pkgs-stable; [tmux jq jqp]) ++ (with pkgs; [neovim]);
 
     editorconfig = {
