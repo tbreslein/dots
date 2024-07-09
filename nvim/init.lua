@@ -11,7 +11,7 @@ spec "lualine"
 
 -- spec "telescope"
 spec "fzf-lua"
-spec "tmux"
+-- spec "tmux"
 spec "oil"
 spec "harpoon"
 spec "leap"

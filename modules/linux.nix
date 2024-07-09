@@ -29,5 +29,8 @@ in {
         serif = ["Noto Serif"];
       };
     };
+    programs = {
+      imv.enable = true;
+    };
   };
 }

@@ -131,5 +131,13 @@
       ];
     };
     htop.enable = true;
+    lazygit.enable = true;
+    less.enable = true;
+    man.enable = true;
+    ripgrep.enable = true;
+    tealdeer = {
+      enable = true;
+      settings.updates.auto_update = true;
+    };
   };
 }

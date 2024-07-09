@@ -5,6 +5,7 @@
       enable = true;
       customTmuxConfig = true;
     };
+    darwin.enable = true;
     desktop = {
       enable = true;
       terminal = {
