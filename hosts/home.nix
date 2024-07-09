@@ -1,4 +1,5 @@
 {
+  config,
   userSettings,
   pkgs,
   ...
@@ -97,6 +98,37 @@
       enableBashIntegration = true;
       enableFishIntegration = true;
       enableZshIntegration = true;
+    };
+    git = {
+      enable = true;
+      delta = {
+        enable = true;
+        options = {
+          line-numbers = true;
+          true-color = "always";
+        };
+      };
+      extraConfig = {
+        core = {
+          editor = "nvim -c 'startinsert'";
+        };
+        pull.rebase = true;
+        push = {
+          autoSetupRemote = true;
+          default = "simple";
+        };
+        rerere.enabled = true;
+        user = {
+          name = "Tommy Breslein";
+          email = "tommy.breslein@protonmail.com";
+        };
+      };
+      includes = [
+        {
+          condition = "gitdir:~/work/";
+          contents.user.email = "tommy.breslein@pailot.com";
+        }
+      ];
     };
   };
 }
