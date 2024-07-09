@@ -6,14 +6,13 @@
   userSettings,
   ...
 }: let
-  cfg = config.linux;
+  cfg = config.myConf.linux;
 in {
   options = {
-    roles.enableLinux = lib.mkEnableOption "Enable linux role";
-    # linux.defaultTmuxConfig = lib.mkEnableOption "Use default tmux, instead of custom config";
+    myConf.linux.enable = lib.mkEnableOption "Enable linux role";
   };
 
-  config = lib.mkIf config.roles.enableLinux {
+  config = lib.mkIf cfg.enable {
     home = {
       homeDirectory = "/home/${userSettings.userName}";
       packages = with pkgs-stable; [

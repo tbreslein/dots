@@ -5,10 +5,10 @@
   pkgs-stable,
   ...
 }: let
-  cfg = config.coding;
+  cfg = config.myConf.coding;
 in {
   options = {
-    coding = {
+    myConf.coding = {
       enable = lib.mkEnableOption "Enable coding role";
       customTmuxConfig = lib.mkEnableOption "Use custom tmux config";
     };

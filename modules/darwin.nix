@@ -1,18 +1,18 @@
 {
   config,
   lib,
+  userSettings,
   pkgs,
   pkgs-stable,
   ...
 }: let
-  cfg = config.darwin;
+  cfg = config.myConf.darwin;
 in {
   options = {
-    roles.enableDarwin = lib.mkEnableOption "Enable darwin role";
-    # darwin.defaultTmuxConfig = lib.mkEnableOption "Use default tmux, instead of custom config";
+    myConf.darwin.enable = lib.mkEnableOption "Enable darwin role";
   };
 
-  # config = lib.mkIf config.roles.enableCoding {
-  #   home.packages = (with pkgs-stable; [tmux jq jqp]) ++ (with pkgs; [neovim]);
-  # };
+  config = lib.mkIf cfg.enable {
+    home.homeDirectory = "/Users/${userSettings.userName}";
+  };
 }

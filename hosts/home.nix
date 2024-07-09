@@ -5,7 +5,6 @@
 }: {
   home = {
     username = "${userSettings.userName}";
-    homeDirectory = "/Users/tommy";
     stateVersion = "24.05";
     inherit (userSettings) sessionPath;
     inherit (userSettings) sessionVariables;

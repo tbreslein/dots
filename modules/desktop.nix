@@ -4,10 +4,10 @@
   userSettings,
   ...
 }: let
-  cfg = config.desktop;
+  cfg = config.myConf.desktop;
 in {
   options = {
-    desktop = {
+    myConf.desktop = {
       enable = lib.mkEnableOption "Enable desktop role";
       terminal = {
         fontSize = lib.mkOption {
