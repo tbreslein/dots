@@ -36,7 +36,6 @@
       rm = "rm -i";
       mv = "mv -i";
       mkdir = "mkdir -p";
-      jf = "just --chooser \"fzf --layout=reverse --height\" --choose";
       m = "make";
       mw = "make -C $HOME/work";
       rip_nvim = "rm -fr $HOME/.local/share/nvim/ $HOME/.local/state/nvim $HOME/.cache/nvim $HOME/dots/nvim/lazy-lock.json";
@@ -93,5 +92,11 @@
       ];
     };
     fd.enable = true;
+    fzf = {
+      enable = true;
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+      enableZshIntegration = true;
+    };
   };
 }
