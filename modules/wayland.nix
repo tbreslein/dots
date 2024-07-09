@@ -1,18 +1,33 @@
 {
   config,
   lib,
-  pkgs,
-  pkgs-stable,
+  userSettings,
   ...
 }: let
-  cfg = config.wayland;
+  cfg = config.myConf.wayland;
 in {
   options = {
-    roles.enableWayland = lib.mkEnableOption "Enable wayland role";
-    wayland.defaultTmuxConfig = lib.mkEnableOption "Use default tmux, instead of custom config";
+    myConf.wayland = {
+      enable = lib.mkEnableOption "Enable wayland role";
+    };
   };
 
-  # config = lib.mkIf config.roles.enableCoding {
-  #   home.packages = (with pkgs-stable; [tmux jq jqp]) ++ (with pkgs; [neovim]);
-  # };
+  config = lib.mkIf cfg.enable {
+    programs.bemenu = {
+      enable = true;
+      settings = {
+        ignorecase = true;
+        prompt = "";
+        fn = "Hack";
+        fb = "#${userSettings.colors.primary.background}";
+        ff = "#${userSettings.colors.primary.foreground}";
+        nb = "#${userSettings.colors.primary.background}";
+        nf = "#${userSettings.colors.primary.foreground}";
+        ab = "#${userSettings.colors.primary.background}";
+        af = "#${userSettings.colors.primary.foreground}";
+        hb = "#${userSettings.colors.primary.background}";
+        hf = "#${userSettings.colors.primary.accent}";
+      };
+    };
+  };
 }

@@ -2,8 +2,6 @@
   config,
   lib,
   userSettings,
-  pkgs,
-  pkgs-stable,
   ...
 }: let
   cfg = config.myConf.darwin;

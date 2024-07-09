@@ -61,5 +61,14 @@
   programs = {
     home-manager.enable = true;
     bat.enable = true;
+    direnv = {
+      enable = true;
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+      silent = true;
+    };
+    eza.enable = true;
   };
 }

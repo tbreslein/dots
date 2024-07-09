@@ -41,7 +41,22 @@ in {
           option_as_alt = "OnlyLeft";
           opacity = cfg.terminal.windowOpacity;
         };
-        inherit (userSettings) colors;
+        colors = {
+          primary = {
+            background = "#${userSettings.colors.primary.background}";
+            foreground = "#${userSettings.colors.primary.foreground}";
+          };
+          normal = {
+            black = "#${userSettings.colors.normal.black}";
+            red = "#${userSettings.colors.normal.red}";
+            green = "#${userSettings.colors.normal.green}";
+            yellow = "#${userSettings.colors.normal.yellow}";
+            blue = "#${userSettings.colors.normal.blue}";
+            magenta = "#${userSettings.colors.normal.magenta}";
+            cyan = "#${userSettings.colors.normal.cyan}";
+            white = "#${userSettings.colors.normal.white}";
+          };
+        };
       };
     };
   };
