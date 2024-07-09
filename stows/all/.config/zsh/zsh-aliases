@@ -43,5 +43,6 @@ alias mkdir="mkdir -p"
 alias jf="just --chooser \"fzf --layout=reverse --height=40\" --choose"
 alias m="make"
 alias mw="make -C $HOME/work"
+alias hm="home-manager --extra-experimental-features nix-command --extra-experimental-features flakes --flake $HOME/dots"
 
 alias rip_nvim="rip ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/dots/nvim/lazy-lock.json"
