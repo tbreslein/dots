@@ -92,5 +92,6 @@
         "break"
       ];
     };
+    fd.enable = true;
   };
 }
