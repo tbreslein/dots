@@ -69,6 +69,28 @@
       nix-direnv.enable = true;
       silent = true;
     };
-    eza.enable = true;
+    eza = {
+      enable = true;
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+      enableZshIntegration = true;
+    };
+    fastfetch = {
+      enable = true;
+      settings.modules = [
+        "title"
+        "separator"
+        "os"
+        "kernel"
+        "packages"
+        "shell"
+        "wm"
+        "theme"
+        "cpu"
+        "gpu"
+        "memory"
+        "break"
+      ];
+    };
   };
 }
