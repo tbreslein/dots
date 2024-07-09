@@ -1,8 +1,0 @@
-[global]
-background="#1d2021"
-font="Noto Sans 11"
-foreground="#d4be98"
-frame_color="#d8a657"
-
-[urgency_critical]
-frame_color="#ea6962"

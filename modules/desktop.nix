@@ -81,6 +81,18 @@ in {
           nix_shell.format = "[$symbol]($style)";
         };
       };
+      yazi = {
+        enable = true;
+        enableBashIntegration = true;
+        enableFishIntegration = true;
+        enableZshIntegration = true;
+      };
+      zoxide = {
+        enable = true;
+        enableBashIntegration = true;
+        enableFishIntegration = true;
+        enableZshIntegration = true;
+      };
     };
   };
 }

@@ -66,6 +66,168 @@ in {
           ];
         };
       };
+      waybar = {
+        enable = true;
+        settings = {
+          mainBar = {
+            layer = "top";
+            position = "top";
+            height = 27;
+            modules-left = ["hyprland/workspaces" "hyprland/window"];
+            modules-center = ["clock"];
+            modules-right = lib.mkMerge [
+              ["pulseaudio"]
+              (lib.mkIf config.myConf.laptop.enable ["battery"])
+              ["tray"]
+            ];
+            "hyprland/window" = {
+              format = "{}";
+              rewrite = {
+                "(.*) - Brave" = "Brave";
+              };
+              separate-outputs = true;
+            };
+            tray = {
+              icon-size = 18;
+              spacing = 15;
+            };
+            clock = {
+              format = "{:%R}";
+              interval = 30;
+            };
+            battery = {
+              bat = "BAT0";
+              states = {
+                full = 90;
+                good = 70;
+                normal = 50;
+                warning = 30;
+                critical = 15;
+              };
+              format = "{icon}   {capacity}%";
+              format-good = "{icon}   {capacity}%";
+              format-full = "   {capacity}%";
+              format-icons = ["" "" "" "" ""];
+              interval = 30;
+            };
+            pulseaudio = {
+              format = "{icon}  {volume}%  ";
+              format-bluetooth = "  {volume}%  ";
+              format-muted = "婢  Mute  ";
+              interval = 60;
+              format-icons = {
+                default = [""];
+              };
+            };
+          };
+        };
+        style =
+          /*
+          css
+          */
+          ''
+            * {
+              font-family: "Hack Nerd Font";
+              font-size: 16px;
+            }
+
+            window#waybar {
+              background-color: #1d2021;
+              color: #d4be98;
+            }
+
+            #workspaces {
+            }
+
+            #workspaces button {
+              padding: 0px 11px 0px 11px;
+              min-width: 1px;
+              color: #888888;
+            }
+
+            #workspaces button.active {
+              padding: 0px 11px 0px 11px;
+              background-color: #32302f;
+              color: #d8a657;
+            }
+
+            #window {
+              color: #d4be98;
+              padding: 0px 10px 0px 10px;
+            }
+
+            window#waybar.empty #window {
+              background-color: transparent;
+              color: transparent;
+            }
+
+            window#waybar.empty {
+              background-color: #323232;
+            }
+
+            #network,
+            #temperature,
+            #backlight,
+            #pulseaudio,
+            #battery {
+              padding: 0px 15px 0px 15px;
+            }
+
+            #clock {
+              margin: 0px 15px 0px 15px;
+            }
+
+            #tray {
+              padding: 0px 8px 0px 5px;
+              margin: 0px 5px 0px 5px;
+            }
+
+            #battery.critical {
+              color: #ff5555;
+            }
+
+            #network.disconnected {
+              color: #ff5555;
+            }
+          '';
+      };
+    };
+    services = {
+      hypridle = {
+        enable = true;
+        settings = {
+          listener = [
+            {
+              timeout = 60;
+              on-timeout = "brightnessctl -s && brightnessctl s 10%";
+              on-resume = "brightnessctl -r";
+            }
+            {
+              timeout = 300;
+              on-timeout = "hyprlock";
+              on-resume = "notify-send \"hi there\"";
+            }
+            {
+              timeout = 900;
+              on-timeout = "hyprctl dispatch dpms off";
+              on-resume = "hyprctl dispatch dpms on";
+            }
+          ];
+        };
+      };
+      hyprpaper = {
+        enable = true;
+        settings = {
+          preload = ["${config.home.homeDirectory}/wallpapers/gruvbox/wallhaven-7p6g99.png"];
+          wallpaper = [",${config.home.homeDirectory}/wallpapers/gruvbox/wallhaven-7p6g99.png"];
+          ipc = "off";
+          splash = false;
+        };
+      };
+    };
+    wayland.windowManager.hyprland = {
+      enable = true;
+      settings = {};
     };
   };
 }
