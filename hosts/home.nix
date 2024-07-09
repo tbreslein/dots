@@ -125,10 +125,11 @@
       };
       includes = [
         {
-          condition = "gitdir:~/work/";
+          condition = "gitdir:${config.home.homeDirectory}/work/";
           contents.user.email = "tommy.breslein@pailot.com";
         }
       ];
     };
+    htop.enable = true;
   };
 }
