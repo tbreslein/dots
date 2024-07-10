@@ -172,9 +172,6 @@
           export MANPAGER='nvim +Man!'
           export MANWIDTH=999
 
-          source "$ZDOTDIR/zsh-aliases"
-          source "$ZDOTDIR/zsh-plugins"
-
           # Load and initialise completion system
           autoload -Uz compinit && compinit
           zstyle ':completion:*' menu no
@@ -244,7 +241,7 @@
             owner = "zsh-users";
             repo = "zsh-autosuggestions";
             rev = "v0.7.0";
-            # sha256 = "0z6i9wjjklb4lvr7zjhbphibsyx51psv50gm07mbb0kj9058j6kc";
+            sha256 = "sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=";
           };
         }
         {
@@ -252,8 +249,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "zsh-users";
             repo = "zsh-syntax-highlighting";
-            rev = "v0.8.0";
-            # sha256 = "0z6i9wjjklb4lvr7zjhbphibsyx51psv50gm07mbb0kj9058j6kc";
+            rev = "0.8.0";
+            sha256 = "sha256-iJdWopZwHpSyYl5/FQXEW7gl/SrKaYDEtTH9cGP7iPo=";
           };
         }
         {
@@ -261,8 +258,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "zsh-users";
             repo = "zsh-completions";
-            rev = "v0.35.0";
-            # sha256 = "0z6i9wjjklb4lvr7zjhbphibsyx51psv50gm07mbb0kj9058j6kc";
+            rev = "0.35.0";
+            sha256 = "sha256-GFHlZjIHUWwyeVoCpszgn4AmLPSSE8UVNfRmisnhkpg=";
           };
         }
       ];
