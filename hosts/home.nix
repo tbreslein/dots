@@ -10,7 +10,7 @@ in {
   options = {
     myConf.home.repos = lib.mkOption {
       default = [];
-      type = with lib.types; listOf (attrsOf inferred);
+      type = with lib.types; listOf attrs;
     };
   };
 
@@ -56,22 +56,22 @@ in {
       activation = {
         syncRepos =
           lib.hm.dag.entryAfter ["writeBoundary"]
-          (lib.lists.concatMap (r:
-            /*
-            bash
-            */
-            ''
-              repo_dir=${config.home.homeDirectory}/${r.target}
-              if [ -d "$repo_dir" ]; then
-                pushd "$repo_dir"
-                git pull &
-                popd
-              else
-                git clone ${r.remote} "$repo_dir" &
-              fi
-            '')
-          ++ "\nwait &")
-          cfg.home.repos;
+          ((lib.strings.concatMapStrings (r:
+              /*
+              bash
+              */
+              ''
+                repo_dir=${config.home.homeDirectory}/${r.target}
+                if [ -d "$repo_dir" ]; then
+                  pushd "$repo_dir"
+                  git pull &
+                  popd
+                else
+                  git clone ${r.remote} "$repo_dir" &
+                fi
+              '')
+            cfg.repos)
+            + "wait &");
       };
     };
     manual = {

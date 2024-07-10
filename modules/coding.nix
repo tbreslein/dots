@@ -63,7 +63,7 @@ in {
         '';
       };
       activation = {
-        syncRepos =
+        updateNvim =
           lib.hm.dag.entryAfter ["writeBoundary"]
           /*
           bash
