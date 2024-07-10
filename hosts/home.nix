@@ -205,10 +205,10 @@
           gco() {
               my_branch=$(git branch -a --no-color | sort | uniq | tr -d " " | fzf --select-1 --ansi --preview 'git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" {} 2>/dev/null')
               if echo $my_branch | grep -q "remotes/origin"; then
-                  my_branch=\$\{my_branch##remotes/origin/}
+                  my_branch=''${my_branch##remotes/origin/}
               fi
               if echo "$my_branch" | grep -q -P --regexp='\*'; then
-                  my_branch=\$\{my_branch##\*}
+                  my_branch=''${my_branch##\*}
               fi
 
               git checkout $my_branch
@@ -232,9 +232,9 @@
           source "$HOME/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh"
 
           if [ -d "$HOME/.local/bin/dm" ]; then
-          export PATH="$HOME/.local/bin/dm:$PATH"
-          $HOME/.local/bin/dm/refresh_env
-          source $HOME/.local/bin/dm/.env
+            export PATH="$HOME/.local/bin/dm:$PATH"
+            $HOME/.local/bin/dm/refresh_env
+            source $HOME/.local/bin/dm/.env
           fi
         '';
       plugins = [
