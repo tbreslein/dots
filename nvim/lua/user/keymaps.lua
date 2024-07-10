@@ -27,6 +27,11 @@ kmap("v", "K", ":m '<-2<cr>gv=gv")
 kmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 kmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
+kmap("n", "<c-h>", "<c-w>h")
+kmap("n", "<c-j>", "<c-w>j")
+kmap("n", "<c-k>", "<c-w>k")
+kmap("n", "<c-l>", "<c-w>l")
+
 kmap("n", "]c", ":cnext<cr>zz")
 kmap("n", "[c", ":cprev<cr>zz")
 kmap("n", "<leader>C", function()

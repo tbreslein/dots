@@ -16,10 +16,7 @@
     linux.enable = true;
     wayland = {
       enable = true;
-      extraHyprlandConf = {
-        input.kb_options = "grp:alt_space_toggle";
-        monitor = ["DP-1,3840x2160@144,0x0,1.5"];
-      };
+      extraHyprlandConf.input.kb_options = "grp:alt_space_toggle,ctrl:nocaps";
     };
   };
 }

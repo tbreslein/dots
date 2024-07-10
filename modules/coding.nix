@@ -55,7 +55,14 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [pkgs-stable.jqp pkgs.neovim tmux_sessionizer];
+    home = {
+      packages = [pkgs-stable.jqp pkgs.neovim tmux_sessionizer];
+      file.".luacheckrc" = {
+        text = ''
+          globals = { "vim", "LAZY_PLUGIN_SPEC", "spec", "kmap" }
+        '';
+      };
+    };
 
     editorconfig = {
       enable = true;
