@@ -11,7 +11,7 @@ in {
       enable = lib.mkEnableOption "Enable wayland role";
       extraHyprlandConf = lib.mkOption {
         default = {};
-        type = lib.types.deferredModule;
+        type = with lib.types; attrsOf inferred;
       };
     };
   };

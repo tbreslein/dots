@@ -62,6 +62,25 @@ in {
           globals = { "vim", "LAZY_PLUGIN_SPEC", "spec", "kmap" }
         '';
       };
+      activation = {
+        syncRepos =
+          lib.hm.dag.entryAfter ["writeBoundary"]
+          /*
+          bash
+          */
+          ''
+            if [ ! -d ${config.home.homeDirectory}/.config/nvim ]; then
+              ln -s "${config.home.homeDirectory}/dots/nvim" "${config.home.homeDirectory}/.config/"
+            else
+              nvim --headless \
+                -c "MasonUpdate" \
+                -c "MasonToolsUpdateSync" \
+                -c "Lazy! sync" \
+                -c "TSUpdateSync" \
+                -c "qa"
+            fi
+          '';
+      };
     };
 
     editorconfig = {

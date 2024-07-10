@@ -13,5 +13,11 @@
         windowOpacity = 0.6;
       };
     };
+    home.repos = [
+      {
+        remote = "git@github.com:tbreslein/ringheap.rs.git";
+        target = "code/ringheap.rs";
+      }
+    ];
   };
 }
