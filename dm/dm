@@ -110,6 +110,39 @@ __handle_err() {
     cmd_location=""
 }
 
+dm_repos() {
+    name="repos"
+    __info "$name" "starting"
+
+    for r in "${REPOS[@]}"; do
+        repo_name=$(echo "$r" | sed -E "s/.*tbreslein\/(.*).git$/\1/g")
+        repo_dir="$HOME/code/${repo_name}"
+        if [ -d "$repo_dir" ]; then
+            pushd "$repo_dir"
+            git pull &
+            popd
+        else
+            git clone "$r" "$repo_dir" &
+        fi
+    done
+    wait
+
+    __success "$name" "finished"
+}
+
+dm_nix() {
+    name="nix"
+    __info "$name" "starting"
+    pushd "$HOME/dots"
+    nix-channel --update
+    nix-store --gc
+    nix-store --optimise
+    nix flake update
+    home-manager --extra-experimental-features nix-command --extra-experimental-features flakes --flake "$HOME/dots" switch
+    __success "$name" "finished"
+    popd
+}
+
 dm_pkgs() {
     name="pkgs"
     __info "$name" "starting"
@@ -220,6 +253,19 @@ prep_pkgs() {
     comm -13 "$want" "$current_state" >"$remove"
 }
 
+dm_nvim() {
+    name="nvim"
+    __info "$name" "starting"
+    nvim --headless \
+        -c "MasonUpdate" \
+        -c "MasonToolsUpdateSync" \
+        -c "Lazy! sync" \
+        -c "TSUpdateSync" \
+        -c "qa"
+    echo "" # because for some reason the last nvim output does not have a \n
+    __success "$name" "finished"
+}
+
 dm_sync() {
     __info "sync" "starting"
 
@@ -254,7 +300,7 @@ __main() {
 }
 
 COMMANDS=()
-VALID_COMMANDS=" pkgs sync "
+VALID_COMMANDS=" repos nix pkgs nvim sync "
 if [ $# -gt 0 ]; then
     read -ra COMMANDS <<<"$@"
 else

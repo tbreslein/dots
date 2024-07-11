@@ -53,26 +53,26 @@ in {
         hm = "home-manager --extra-experimental-features nix-command --extra-experimental-features flakes --flake $HOME/dots";
         rip_nvim = "rm -fr $HOME/.local/share/nvim/ $HOME/.local/state/nvim $HOME/.cache/nvim $HOME/dots/nvim/lazy-lock.json";
       };
-      activation = {
-        syncRepos =
-          lib.hm.dag.entryAfter ["writeBoundary"]
-          ((lib.strings.concatMapStrings (r:
-              /*
-              bash
-              */
-              ''
-                repo_dir=${config.home.homeDirectory}/${r.target}
-                if [ -d "$repo_dir" ]; then
-                  pushd "$repo_dir"
-                  git pull &
-                  popd
-                else
-                  git clone ${r.remote} "$repo_dir" &
-                fi
-              '')
-            cfg.repos)
-            + "wait &");
-      };
+      # activation = {
+      #   syncRepos =
+      #     lib.hm.dag.entryAfter ["writeBoundary"]
+      #     ((lib.strings.concatMapStrings (r:
+      #         /*
+      #         bash
+      #         */
+      #         ''
+      #           repo_dir=${config.home.homeDirectory}/${r.target}
+      #           if [ -d "$repo_dir" ]; then
+      #             pushd "$repo_dir"
+      #             ${pkgs.git}/bin/git pull &
+      #             popd
+      #           else
+      #             ${pkgs.git}/bin/git clone ${r.remote} "$repo_dir" &
+      #           fi
+      #         '')
+      #       cfg.repos)
+      #       + "wait &");
+      # };
     };
     manual = {
       html.enable = true;
@@ -173,7 +173,7 @@ in {
       };
       zsh = {
         enable = true;
-        dotDir = "${config.home.homeDirectory}/.config/zsh";
+        dotDir = ".config/zsh";
         # envExtra =
         #   /*
         #   sh
