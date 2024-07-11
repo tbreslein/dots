@@ -226,7 +226,7 @@ in {
                 fi
               else
                 tmux new-session -ds "work" -c "$HOME/work/"
-                tmux send-keys -t "work" "just toggle_moco" C-m
+                tmux send-keys -t "work" "make toggle_moco" C-m
                 tmux a -t "work"
               fi
             }
