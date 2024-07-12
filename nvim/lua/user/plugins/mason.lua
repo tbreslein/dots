@@ -16,10 +16,6 @@ function M.config()
       "golangci-lint",
       "gofumpt",
 
-      "black",
-      "ruff",
-      "pyright",
-
       "typescript-language-server",
       "eslint_d",
       "prettier",
