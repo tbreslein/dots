@@ -16,7 +16,29 @@ function M.config()
 
       go = { require("formatter.filetypes.go").gofumpt },
       haskell = { require("formatter.filetypes.haskell").stylish_haskell },
-      python = { require("formatter.filetypes.python").black },
+      python = {
+        function()
+          if vim.fn.executable "poetry" == 1 then
+            return {
+              exe = "poetry",
+              args = {
+                "-C",
+                util.escape_path(util.get_current_buffer_file_path()),
+                "run",
+                "black",
+                "-q",
+                "--stdin-filename",
+                util.escape_path(util.get_current_buffer_file_name()),
+                "-",
+              },
+              stdin = true,
+            }
+          else
+            return require("formatter.filetypes.python").black()
+          end
+        end,
+      },
+      -- python = { require("formatter.filetypes.python").black },
       -- python = { require("formatter.filetypes.python").ruff },
       nix = { require("formatter.filetypes.nix").alejandra },
       lua = { require("formatter.filetypes.lua").stylua },
