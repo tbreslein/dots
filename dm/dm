@@ -148,7 +148,6 @@ dm_pkgs() {
     __info "$name" "starting"
     case "$_HOST" in
     "darwin")
-        prep_pkgs "brew"
         brew bundle --cleanup --file "${SCRIPT_DIR}/Brewfile" install
 
         if git status --porcelain | grep "Brewfile.lock.json"; then
