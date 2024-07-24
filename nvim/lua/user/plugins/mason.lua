@@ -26,7 +26,6 @@ function M.config()
       "yamllint",
 
       "hyprls",
-      "marksman",
 
       "bash-language-server",
       "shfmt",
