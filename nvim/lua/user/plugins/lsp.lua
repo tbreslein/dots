@@ -7,7 +7,7 @@ local M = {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-cmdline",
     "onsails/lspkind.nvim",
-    "mrcjkb/rustaceanvim",
+    -- "mrcjkb/rustaceanvim",
     "jmbuhr/otter.nvim",
     "folke/trouble.nvim",
     "j-hui/fidget.nvim",
@@ -119,6 +119,7 @@ function M.config()
     vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
   lspconfig.bashls.setup { capabilities = lsp_capabilities }
+  lspconfig.rust_analyzer.setup { capabilities = lsp_capabilities }
   lspconfig.dockerls.setup { capabilities = lsp_capabilities }
   lspconfig.gopls.setup { capabilities = lsp_capabilities }
   lspconfig.hyprls.setup { capabilities = lsp_capabilities }
