@@ -26,13 +26,13 @@
           ./hosts/home.nix
 
           # modules exposing options
-          ./modules/darwin.nix
-          ./modules/linux.nix
-          ./modules/desktop.nix
-          ./modules/laptop.nix
-          ./modules/gaming.nix
-          ./modules/wayland.nix
-          ./modules/coding.nix
+          ./modules/darwin
+          ./modules/linux
+          ./modules/desktop
+          ./modules/laptop
+          ./modules/gaming
+          ./modules/wayland
+          ./modules/coding
 
           # host specific config
           hostModule

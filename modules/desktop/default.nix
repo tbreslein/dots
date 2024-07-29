@@ -23,43 +23,42 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    home.file.".config/alacritty/alacritty.toml".text =
+      /*
+      toml
+      */
+      ''
+        [colors.primary]
+        background = "#${userSettings.colors.primary.background}"
+        foreground = "#${userSettings.colors.primary.foreground}"
+
+        [colors.normal]
+        black = "#${userSettings.colors.normal.black}"
+        red = "#${userSettings.colors.normal.red}"
+        green = "#${userSettings.colors.normal.green}"
+        yellow = "#${userSettings.colors.normal.yellow}"
+        blue = "#${userSettings.colors.normal.blue}"
+        magenta = "#${userSettings.colors.normal.magenta}"
+        cyan = "#${userSettings.colors.normal.cyan}"
+        white = "#${userSettings.colors.normal.white}"
+
+        [cursor.style]
+        blinking = "Never"
+        shape = "Block"
+
+        [font]
+        size = ${toString cfg.terminal.fontSize}
+        [font.normal]
+        family = "Hack Nerd Font"
+
+        [window]
+        blur = true
+        decorations = "Buttonless"
+        dynamic_padding = true
+        opacity = ${toString cfg.terminal.windowOpacity}
+        option_as_alt = "OnlyLeft"
+      '';
     programs = {
-      alacritty = {
-        enable = true;
-        settings = {
-          font = {
-            normal.family = "Hack Nerd Font";
-            size = cfg.terminal.fontSize;
-          };
-          cursor.style = {
-            blinking = "Never";
-            shape = "Block";
-          };
-          window = {
-            blur = true;
-            decorations = "Buttonless";
-            dynamic_padding = true;
-            option_as_alt = "OnlyLeft";
-            opacity = cfg.terminal.windowOpacity;
-          };
-          colors = {
-            primary = {
-              background = "#${userSettings.colors.primary.background}";
-              foreground = "#${userSettings.colors.primary.foreground}";
-            };
-            normal = {
-              black = "#${userSettings.colors.normal.black}";
-              red = "#${userSettings.colors.normal.red}";
-              green = "#${userSettings.colors.normal.green}";
-              yellow = "#${userSettings.colors.normal.yellow}";
-              blue = "#${userSettings.colors.normal.blue}";
-              magenta = "#${userSettings.colors.normal.magenta}";
-              cyan = "#${userSettings.colors.normal.cyan}";
-              white = "#${userSettings.colors.normal.white}";
-            };
-          };
-        };
-      };
       starship = {
         enable = true;
         enableBashIntegration = true;
@@ -82,7 +81,6 @@ in {
         };
       };
       yazi = {
-        enable = true;
         enableBashIntegration = true;
         enableFishIntegration = true;
         enableZshIntegration = true;
