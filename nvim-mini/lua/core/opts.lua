@@ -77,8 +77,14 @@ vim.diagnostic.config {
     prefix = "",
     suffix = "",
   },
-  underline = {
-    severity = { min = vim.diagnostic.severity.WARN },
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
+  float = {
+    border = "rounded",
+    source = true,
+    header = "",
+    prefix = "",
   },
   signs = {
     text = {

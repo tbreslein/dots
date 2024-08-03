@@ -1,85 +1,96 @@
 local utils = require "core.utils"
-
--- TODO: move to utils
-local function map(mode, keys, action, desc)
-  desc = desc or ""
-  local opts = { noremap = true, silent = true, desc = desc }
-  vim.keymap.set(mode, keys, action, opts)
-end
+local map = utils.map
 
 local M = {}
 
-M.general = function()
-  map("i", "<C-h>", "<Left>")
-  map("i", "<C-j>", "<Down>")
-  map("i", "<C-k>", "<Up>")
-  map("i", "<C-l>", "<Right>")
-  map("i", "jj", "<esc>")
-  map("n", "<C-c>", "<cmd>noh<CR>")
-  map("n", "<C-h>", "<C-w>h")
-  map("n", "<C-j>", "<C-w>j")
-  map("n", "<C-k>", "<C-w>k")
-  map("n", "<C-l>", "<C-w>l")
-  map("n", "<C-s>", "<cmd>update<CR>")
-  map("n", "<Tab>", "<cmd>bnext<CR>")
-  map("n", "<s-Tab>", "<cmd>bprev<CR>")
+M.maps = function()
+  map("n", "Q", "<nop>")
+  map("n", "<esc>", ":noh<cr>")
+  map("t", "jk", "<c-\\><c-n>")
+  map("i", "jk", "<esc>")
 
-  map("n", "<A-k>", ":resize +2<CR>")
-  map("n", "<A-j>", ":resize -2<CR>")
-  map("n", "<A-h>", ":vertical resize +2<CR>")
-  map("n", "<A-l>", ":vertical resize -2<CR>")
+  map("v", "P", [["_dP]])
+  map({ "n", "x", "v" }, "x", [["_x]])
+  map({ "n", "x", "v" }, "<leader>y", [["+y]])
+  map({ "n", "x", "v" }, "<leader>p", [["+p]])
+  map("n", "Y", "yg$")
+  map("n", "J", "mzJ`z")
 
-  map("n", "<C-d>", "<C-d>zz")
-  map("n", "<C-u>", "<C-u>zz")
-  map("v", "??", 'y:h <C-R>"<cr>"') -- Show vim help
-  map("v", "?/", 'y:/ <C-R>"<cr>"') -- Search across the buffer
-end
+  map("v", "<leader>r", [["hy:%s/<c-r>h//g<left><left>]])
 
-M.mini = function()
+  map("n", "n", "nzz")
+  map("n", "N", "Nzz")
+  map("n", "*", "*zz")
+  map("n", "#", "#zz")
+  map("n", "g*", "g*zz")
+  map("n", "g#", "g#zz")
+  map("n", "<c-d>", "<c-d>zz")
+  map("n", "<c-u>", "<c-u>zz")
+
+  map("v", "<", "<gv")
+  map("v", ">", ">gv")
+  map("v", "J", ":m '>+1<cr>gv=gv")
+  map("v", "K", ":m '<-2<cr>gv=gv")
+  map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+  map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+
+  map("n", "<c-h>", "<c-w>h")
+  map("n", "<c-j>", "<c-w>j")
+  map("n", "<c-k>", "<c-w>k")
+  map("n", "<c-l>", "<c-w>l")
+  map("n", "<m-k>", ":resize +2<CR>")
+  map("n", "<m-j>", ":resize -2<CR>")
+  map("n", "<m-h>", ":vertical resize +2<CR>")
+  map("n", "<m-l>", ":vertical resize -2<CR>")
+
+  map("n", "]c", ":cnext<cr>zz")
+  map("n", "[c", ":cprev<cr>zz")
+  map("n", "<leader>C", function()
+    local qf_exists = false
+    for _, win in pairs(vim.fn.getwininfo()) do
+      if win["quickfix"] == 1 then
+        qf_exists = true
+        break
+      end
+    end
+    if qf_exists == true then
+      return vim.cmd "cclose"
+    end
+    if not vim.tbl_isempty(vim.fn.getqflist()) then
+      return vim.cmd "copen"
+    end
+  end)
   local minipick = require "mini.pick"
   local miniextra = require "mini.extra"
   local minivisits = require "mini.visits"
   local builtin = minipick.builtin
 
-  map({ "n" }, "<leader>ff", function()
+  -- PICKER
+  map("n", "<leader>ff", function()
     builtin.files()
   end, "find files")
 
-  map({ "n" }, "<leader>b", function()
-    builtin.buffers()
-  end, "Find buffers")
-
-  map({ "n" }, "<leader>fr", function()
+  map("n", "<leader>fr", function()
     builtin.resume()
   end, "Resume finding")
 
-  map({ "n" }, "<leader>fw", function()
+  map("n", "<leader>fs", function()
     builtin.grep_live()
   end, "Grep live")
 
-  vim.b[0].miniindentscope_disable = true
-
-  map({ "n" }, "<leader>tb", function()
-    vim.b[0].miniindentscope_disable = not vim.b[0].miniindentscope_disable -- Toggle blankline animations
-  end, "Toggle blankline animations")
-
-  map({ "n" }, "<leader>e", function()
+  map("n", "<leader>fo", function()
     local _ = require("mini.files").close() or require("mini.files").open()
   end, "Toggle minifiles")
 
-  map({ "n" }, "<leader>q", function()
-    require("mini.bufremove").delete()
-  end, "Remove current buffer")
-
-  map("n", "<A-s>", function()
+  map("n", "<m-s>", function()
     miniextra.pickers.visit_paths { filter = "todo" }
   end, "Add file to todolist")
 
-  map("n", "<A-a>", function()
+  map("n", "<m-a>", function()
     minivisits.add_label "todo"
   end, "Remove file from todolist")
 
-  map("n", "<A-A>", function()
+  map("n", "<m-A>", function()
     minivisits.remove_label()
   end, "Remove label from file")
 
@@ -94,19 +105,8 @@ M.mini = function()
   map("n", "<leader>dp", function()
     miniextra.pickers.diagnostic()
   end, "Diagnostic in picker")
-end
 
-M.misc = function()
-  map("n", "<leader>n", function()
-    utils.toggle_numbering()
-  end, "Toggle line numbering")
-
-  map("n", "<leader>tf", function()
-    utils.toggle_flow()
-  end, "Toggle flow")
-end
-
-M.lsp = function()
+  -- LSP
   -- map the following keys on lsp attach only
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -127,13 +127,18 @@ M.lsp = function()
         utils.toggle_inlay_hint() -- toggle inlay hint
       end, "Toggle inlay hint")
 
-      map("n", "<leader>k", vim.lsp.buf.hover, "Open lsp hover")
+      map("n", "K", vim.lsp.buf.hover, "Open lsp hover")
       map("n", "<leader>df", function()
         vim.diagnostic.open_float()
       end, "Open diagnostics float ")
-      map("n", "<leader>ld", vim.lsp.buf.definition, "Goto lsp definition")
+      map("n", "<leader>d", vim.lsp.buf.definition, "Goto lsp definition")
       map("n", "<leader>lh", vim.lsp.buf.declaration, "Goto lsp declaration")
-      map("n", "<leader>lt", vim.lsp.buf.type_definition, "Goto lsp definition")
+      map(
+        "n",
+        "<leader>lt",
+        vim.lsp.buf.type_definition,
+        "Goto lsp type definition"
+      )
       map(
         "n",
         "<leader>li",

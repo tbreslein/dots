@@ -1,28 +1,40 @@
 local M = {}
 
-M.bootstrap = function()
-  local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-  if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-    local out = vim.fn.system {
+local function clone_paq()
+  local path = vim.fn.stdpath "data" .. "/site/pack/paqs/start/paq-nvim"
+  local is_installed = vim.fn.empty(vim.fn.glob(path)) == 0
+  if not is_installed then
+    vim.fn.system {
       "git",
       "clone",
-      "--filter=blob:none",
-      "--branch=stable",
-      lazyrepo,
-      lazypath,
+      "--depth=1",
+      "https://github.com/savq/paq-nvim.git",
+      path,
     }
-    if vim.v.shell_error ~= 0 then
-      vim.api.nvim_echo({
-        { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-        { out, "WarningMsg" },
-        { "\nPress any key to exit..." },
-      }, true, {})
-      vim.fn.getchar()
-      os.exit(1)
-    end
+    return true
   end
-  vim.opt.rtp:prepend(lazypath)
+  return false
+end
+
+function M.bootstrap(packages)
+  local first_install = clone_paq()
+  vim.cmd.packadd "paq-nvim"
+  local paq = require "paq"
+  if first_install then
+    vim.notify "Installing plugins... If prompted, hit Enter to continue."
+  end
+  paq(packages)
+  paq.sync()
+end
+
+function M.run_paq(headless)
+  if headless then
+    vim.cmd "autocmd User PaqDoneInstall quit"
+  end
+  M.bootstrap {
+    "savq/paq-nvim",
+    -- List your packages
+  }
 end
 
 -- Autocommands
@@ -36,6 +48,12 @@ function M.autocmds()
       vim.b[data.buf].miniindentscope_disable = true
     end,
   })
+end
+
+function M.map(mode, keys, action, desc)
+  desc = desc or ""
+  local opts = { noremap = true, silent = true, desc = desc }
+  vim.keymap.set(mode, keys, action, opts)
 end
 
 return M
