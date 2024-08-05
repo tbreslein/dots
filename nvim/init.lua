@@ -168,11 +168,17 @@ end
 -- Set up 'mini.deps' (customize to your liking)
 require("mini.deps").setup { path = { package = path_package } }
 local add = MiniDeps.add
+require("mini.extra").setup {}
 
 -- COLORS / UI / TREESITTER
-add "vague2k/vague.nvim"
-require("vague").setup { transparent = true }
-vim.cmd.colorscheme "vague"
+add "sainnhe/gruvbox-material"
+vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
+vim.g.gruvbox_material_dim_inactive_windows = 1
+vim.g.gruvbox_material_enable_bold = 1
+vim.g.gruvbox_material_transparent_background = 1
+vim.g.gruvbox_material_ui_contrast = "high"
+vim.g.gruvbox_material_better_performance = 1
+vim.cmd.colorscheme "gruvbox-material"
 
 require("mini.git").setup {}
 require("mini.diff").setup {
@@ -340,7 +346,6 @@ local lspconfig = require "lspconfig"
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local cmp = require "cmp"
 local select_opts = { behavior = cmp.SelectBehavior.Select }
-
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -350,25 +355,23 @@ cmp.setup {
   window = { documentation = cmp.config.window.bordered() },
   mapping = cmp.mapping.preset.insert {
     ["<c-p>"] = cmp.config.disable,
-    ["<c-f>"] = cmp.config.disable,
-    ["<c-b>"] = cmp.config.disable,
     ["<c-j>"] = cmp.mapping.select_next_item(select_opts),
     ["<c-k>"] = cmp.mapping.select_prev_item(select_opts),
     ["<c-l>"] = cmp.mapping.confirm { select = true },
     ["<c-n>"] = cmp.mapping(cmp.mapping.scroll_docs(-4)),
     ["<c-m>"] = cmp.mapping(cmp.mapping.scroll_docs(4)),
-    ["<Tab>"] = cmp.mapping(function(fallback)
+    ["<c-f>"] = cmp.mapping(function(fallback)
       if vim.snippet.active { direction = 1 } then
         return "<cmd>lua vim.snippet.jump(1)<cr>"
       else
-        return "<Tab>"
+        return "<c-f>"
       end
     end, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
+    ["<c-b>"] = cmp.mapping(function(fallback)
       if vim.snippet.active { direction = -1 } then
         return "<cmd>lua vim.snippet.jump(-1)<cr>"
       else
-        return "<S-Tab>"
+        return "<c-b>"
       end
     end, { "i", "s" }),
   },
@@ -508,10 +511,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.diagnostic.open_float()
     end)
     map("n", "<leader>d", vim.lsp.buf.definition)
+    map("n", "<leader>D", ":Pick diagnostic<cr>")
     map("n", "<leader>lh", vim.lsp.buf.declaration)
     map("n", "<leader>lt", vim.lsp.buf.type_definition)
     map("n", "<leader>li", vim.lsp.buf.implementation)
-    map("n", "<leader>lr", vim.lsp.buf.references)
+    map("n", "<leader>lr", ":Pick lsp scope='references'<cr>")
     map({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action)
     map("n", "<leader>lf", function()
       vim.lsp.buf.format { async = true }

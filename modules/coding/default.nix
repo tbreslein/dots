@@ -57,7 +57,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = [pkgs-stable.jqp nvim tmux_sessionizer pkgs.marksman];
+      packages = [pkgs-stable.jqp nvim tmux_sessionizer pkgs.marksman pkgs.nodePackages.prettier];
       file.".luacheckrc" = {
         text = ''
           globals = { "vim", "LAZY_PLUGIN_SPEC", "spec", "kmap" }

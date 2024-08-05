@@ -57,7 +57,7 @@
         VISUAL = EDITOR;
         BROWSER = "brave";
       };
-      colors = vague;
+      colors = gruvbox-material;
       gruvbox-material = {
         primary = {
           background = "1d2021";
