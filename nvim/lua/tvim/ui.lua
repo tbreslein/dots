@@ -1,4 +1,3 @@
--- COLORS / UI / TREESITTER
 add "sainnhe/gruvbox-material"
 vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
 vim.g.gruvbox_material_dim_inactive_windows = 1
@@ -77,3 +76,12 @@ require("nvim-treesitter.configs").setup {
   },
 }
 require("mini.notify").setup()
+
+add {
+  source = "OXY2DEV/markview.nvim",
+  depends = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+}
+require("markview").setup {
+  modes = { "n", "no", "i", "c" },
+  hybrid_modes = { "i" },
+}
