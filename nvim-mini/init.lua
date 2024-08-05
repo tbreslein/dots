@@ -90,12 +90,6 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 
 -- PLUGINS
 -- local packages = {
---   "savq/paq-nvim",
---   "nvim-lua/plenary.nvim",
---
---   "echasnovski/mini.nvim",
---   "vague2k/vague.nvim",
---   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 --   "nvim-treesitter/nvim-treesitter-context",
 --   "nvim-treesitter/nvim-treesitter-textobjects",
 --   { "ThePrimeagen/harpoon", branch = "harpoon2" },
@@ -112,26 +106,6 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 --   -- "onsails/lspkind.nvim",
 --   -- "jmbuhr/otter.nvim",
 -- }
---
--- -- BOOTSTRAPPING
--- local path = vim.fn.stdpath "data" .. "/site/pack/paqs/start/paq-nvim"
--- local first_install = vim.fn.empty(vim.fn.glob(path)) == 0
--- if not first_install then
---   vim.fn.system {
---     "git",
---     "clone",
---     "--depth=1",
---     "https://github.com/savq/paq-nvim.git",
---     path,
---   }
--- end
--- vim.cmd.packadd "paq-nvim"
--- local paq = require "paq"
--- paq(packages)
--- if first_install then
---   vim.notify "Installing plugins... If prompted, hit Enter to continue."
---   paq.install()
--- end
 
 local path_package = vim.fn.stdpath "data" .. "/site/"
 local mini_path = path_package .. "pack/deps/start/mini.nvim"
@@ -151,10 +125,23 @@ end
 
 -- Set up 'mini.deps' (customize to your liking)
 require("mini.deps").setup { path = { package = path_package } }
+local add = MiniDeps.add
 
 -- COLORS / UI / TREESITTER
+add "vague2k/vague.nvim"
 require("vague").setup { transparent = false }
+
+add "lewis6991/gitsigns.nvim"
 require("gitsigns").setup {}
+
+add {
+  source = "nvim-treesitter/nvim-treesitter",
+  hooks = {
+    post_checkout = function()
+      vim.cmd ":TSUpdate"
+    end,
+  },
+}
 require("nvim-treesitter.configs").setup {
   ensure_installed = "all",
   -- ensure_installed = {
@@ -179,6 +166,8 @@ require("nvim-treesitter.configs").setup {
   indent = { enable = true },
   autotag = { enable = true },
 }
+add "nvim-treesitter/nvim-treesitter-context"
+add "nvim-treesitter/nvim-treesitter-textobjects"
 require("treesitter-context").setup { multiline_threshold = 2 }
 require("nvim-treesitter.configs").setup {
   textobjects = {
@@ -196,6 +185,7 @@ require("nvim-treesitter.configs").setup {
 }
 
 -- NAVIGATION
+add { source = "ThePrimeagen/harpoon", checkout = "harpoon2" }
 local harpoon = require "harpoon"
 harpoon.setup { settings = { save_on_toggle = true } }
 
@@ -362,19 +352,6 @@ vim.diagnostic.config {
 --
 -- vim.lsp.handlers["textDocument/hover"] =
 --   vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
---
--- vim.diagnostic.config {
---   signs = { active = true },
---   update_in_insert = false,
---   underline = true,
---   severity_sort = true,
---   float = {
---     border = "rounded",
---     source = true,
---     header = "",
---     prefix = "",
---   },
--- }
 --
 -- kmap("n", "gl", vim.diagnostic.open_float)
 -- kmap("n", "]d", function()
