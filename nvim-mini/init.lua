@@ -9,6 +9,7 @@ vim.loader.enable()
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 vim.opt.guicursor = ""
+vim.opt.cursorline = true
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.colorcolumn = "80"
@@ -88,14 +89,21 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   end,
 })
 
+local function map(mode, keys, action, opts)
+  vim.keymap.set(
+    mode,
+    keys,
+    action,
+    vim.tbl_extend(
+      "keep",
+      opts or {},
+      { noremap = true, silent = true }
+    )
+  )
+end
+
 -- PLUGINS
 -- local packages = {
---   "nvim-treesitter/nvim-treesitter-context",
---   "nvim-treesitter/nvim-treesitter-textobjects",
---   { "ThePrimeagen/harpoon", branch = "harpoon2" },
---   "ggandor/leap.nvim",
---   "lewis6991/gitsigns.nvim",
---
 --   "nvimtools/none-ls.nvim",
 --   -- "neovim/nvim-lspconfig",
 --   -- "hrsh7th/nvim-cmp",
@@ -130,9 +138,36 @@ local add = MiniDeps.add
 -- COLORS / UI / TREESITTER
 add "vague2k/vague.nvim"
 require("vague").setup { transparent = false }
+vim.cmd.colorscheme "vague"
 
-add "lewis6991/gitsigns.nvim"
-require("gitsigns").setup {}
+-- add "lewis6991/gitsigns.nvim"
+-- require("gitsigns").setup {}
+require("mini.git").setup {}
+require("mini.diff").setup {}
+require("mini.icons").setup {}
+require("mini.statusline").setup {
+  content = { active = function ()
+    local st = require("mini.statusline")
+    local mode, mode_hl = st.section_mode({ trunc_width = 120 })
+    local git           = st.section_git({ trunc_width = 40 })
+    local diff          = st.section_diff({ trunc_width = 75 })
+    local diagnostics   = st.section_diagnostics({ trunc_width = 75 })
+    local lsp           = st.section_lsp({ trunc_width = 75 })
+    local filename      = st.section_filename({ trunc_width = 140 })
+    local location      = st.section_location({ trunc_width = 75 })
+    local search        = st.section_searchcount({ trunc_width = 75 })
+
+    return st.combine_groups({
+      { hl = mode_hl,                  strings = { mode } },
+      { hl = 'MiniStatuslineDevinfo',  strings = { git, diff, diagnostics, lsp } },
+      '%<', -- Mark general truncate point
+      { hl = 'MiniStatuslineFilename', strings = { filename } },
+      '%=', -- End left alignment
+      { hl = mode_hl,                  strings = { search, location } },
+    })
+  end
+  }
+}
 
 add {
   source = "nvim-treesitter/nvim-treesitter",
@@ -144,20 +179,6 @@ add {
 }
 require("nvim-treesitter.configs").setup {
   ensure_installed = "all",
-  -- ensure_installed = {
-  --   "lua",
-  --   "git_config",
-  --   "git_rebase",
-  --   "gitattributes",
-  --   "gitcommit",
-  --   "gitignore",
-  --   "vim",
-  --   "vimdoc",
-  --   "query",
-  --   "ssh_config",
-  --   "tmux",
-  --   "hyprlang",
-  -- },
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
@@ -183,11 +204,42 @@ require("nvim-treesitter.configs").setup {
     },
   },
 }
+require("mini.notify").setup()
 
 -- NAVIGATION
-add { source = "ThePrimeagen/harpoon", checkout = "harpoon2" }
+add { source = "ThePrimeagen/harpoon", checkout = "harpoon2", depends = {"nvim-lua/plenary.nvim"} }
 local harpoon = require "harpoon"
 harpoon.setup { settings = { save_on_toggle = true } }
+map("n", "<m-r>", function()
+  harpoon:list():select(1)
+end)
+map("n", "<m-e>", function()
+  harpoon:list():select(2)
+end)
+map("n", "<m-w>", function()
+  harpoon:list():select(3)
+end)
+map("n", "<m-q>", function()
+  harpoon:list():select(4)
+end)
+map("n", "<m-t>", function()
+  harpoon:list():select(5)
+end)
+map("n", "<leader>a", function()
+  harpoon:list():add()
+end)
+map("n", "<leader>e", function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
+
+local pick = require "mini.pick"
+pick.setup()
+map("n", "<leader>ff", pick.builtin.files)
+map("n", "<leader>fs", pick.builtin.grep_live)
+
+local files = require "mini.files"
+files.setup()
+map("n", "<leader>fo", files.open)
 
 -- LSP
 vim.diagnostic.config {
@@ -392,42 +444,6 @@ vim.diagnostic.config {
 -- })
 
 -- KEYMAPS
-local function map(mode, keys, action, desc, opts)
-  vim.keymap.set(
-    mode,
-    keys,
-    action,
-    vim.tbl_extend(
-      "keep",
-      opts or {},
-      { noremap = true, silent = true, desc = desc or "" }
-    )
-  )
-end
-
-map("n", "<m-r>", function()
-  harpoon:list():select(1)
-end)
-map("n", "<m-e>", function()
-  harpoon:list():select(2)
-end)
-map("n", "<m-w>", function()
-  harpoon:list():select(3)
-end)
-map("n", "<m-q>", function()
-  harpoon:list():select(4)
-end)
-map("n", "<m-t>", function()
-  harpoon:list():select(5)
-end)
-map("n", "<leader>a", function()
-  harpoon:list():add()
-end)
-map("n", "<leader>e", function()
-  harpoon.ui:toggle_quick_menu(harpoon:list())
-end)
-
--- map("n", "<leader>ff",
 
 map("n", "s", "<Plug>(leap)")
 map("n", "Q", "<nop>")
