@@ -44,7 +44,7 @@
       };
 
     # ROLES="darwin linux desktop wayland code gaming laptop"
-    userSettings = {
+    userSettings = rec {
       userName = "tommy";
       sessionPath = [
         "$HOME/bin"
@@ -57,7 +57,8 @@
         VISUAL = EDITOR;
         BROWSER = "brave";
       };
-      colors = {
+      colors = vague;
+      gruvbox-material = {
         primary = {
           background = "1d2021";
           foreground = "d4be98";
@@ -93,6 +94,34 @@
           cyan = "89b482";
           white = "d4be98";
         };
+      };
+      vague = {
+        primary = {
+          background = "18191a";
+          foreground = "cdcdcd";
+          accent = "878787";
+        };
+        normal = {
+          black = "18191a";
+          red = "d2788c";
+          green = "8faf77";
+          yellow = "d2a374";
+          blue = "7894ab";
+          magenta = "b9a3ba";
+          cyan = "a1b3b9";
+          white = "cdcdcd";
+        };
+        bright = {
+          black = "878787";
+          red = "d2788c";
+          green = "8faf77";
+          yellow = "d2a374";
+          blue = "7894ab";
+          magenta = "b9a3ba";
+          cyan = "a1b3b9";
+          white = "cdcdcd";
+        };
+        dim = vague.normal;
       };
     };
 
