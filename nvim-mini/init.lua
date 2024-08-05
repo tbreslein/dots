@@ -1,7 +1,5 @@
 -- TODO:
--- [ ] configure mini plugins
 -- [ ] configure none-ls
--- [ ] configure LSP
 -- [ ] configure DAP
 
 -- VIM SETTINGS
@@ -61,394 +59,20 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
--- AUTOCMDS
-vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
-  pattern = "*",
-})
-vim.api.nvim_create_autocmd("FocusGained", { command = "checktime" })
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "fugitive", "git", "help", "lspinfo", "man", "query", "vim" },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
-    vim.keymap.set(
-      "n",
-      "q",
-      "<cmd>close<cr>",
-      { buffer = event.buf, silent = true }
-    )
-  end,
-})
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  pattern = { "*.rs" },
-  callback = function()
-    vim.lsp.buf.format { async = false }
-  end,
-})
-
+-- GENERIC KEYMAPS
 local function map(mode, keys, action, opts)
   vim.keymap.set(
     mode,
     keys,
     action,
-    vim.tbl_extend(
-      "keep",
-      opts or {},
-      { noremap = true, silent = true }
-    )
+    vim.tbl_extend("keep", opts or {}, { noremap = true, silent = true })
   )
 end
 
--- PLUGINS
--- local packages = {
---   "nvimtools/none-ls.nvim",
---   -- "neovim/nvim-lspconfig",
---   -- "hrsh7th/nvim-cmp",
---   -- "hrsh7th/cmp-nvim-lsp",
---   -- "hrsh7th/cmp-path",
---   -- "hrsh7th/cmp-buffer",
---   -- "hrsh7th/cmp-cmdline",
---   -- "onsails/lspkind.nvim",
---   -- "jmbuhr/otter.nvim",
--- }
-
-local path_package = vim.fn.stdpath "data" .. "/site/"
-local mini_path = path_package .. "pack/deps/start/mini.nvim"
-if not vim.loop.fs_stat(mini_path) then
-  vim.cmd 'echo "Installing `mini.nvim`" | redraw'
-  local clone_cmd = {
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/echasnovski/mini.nvim",
-    mini_path,
-  }
-  vim.fn.system(clone_cmd)
-  vim.cmd "packadd mini.nvim | helptags ALL"
-  vim.cmd 'echo "Installed `mini.nvim`" | redraw'
-end
-
--- Set up 'mini.deps' (customize to your liking)
-require("mini.deps").setup { path = { package = path_package } }
-local add = MiniDeps.add
-
--- COLORS / UI / TREESITTER
-add "vague2k/vague.nvim"
-require("vague").setup { transparent = false }
-vim.cmd.colorscheme "vague"
-
--- add "lewis6991/gitsigns.nvim"
--- require("gitsigns").setup {}
-require("mini.git").setup {}
-require("mini.diff").setup {}
-require("mini.icons").setup {}
-require("mini.statusline").setup {
-  content = { active = function ()
-    local st = require("mini.statusline")
-    local mode, mode_hl = st.section_mode({ trunc_width = 120 })
-    local git           = st.section_git({ trunc_width = 40 })
-    local diff          = st.section_diff({ trunc_width = 75 })
-    local diagnostics   = st.section_diagnostics({ trunc_width = 75 })
-    local lsp           = st.section_lsp({ trunc_width = 75 })
-    local filename      = st.section_filename({ trunc_width = 140 })
-    local location      = st.section_location({ trunc_width = 75 })
-    local search        = st.section_searchcount({ trunc_width = 75 })
-
-    return st.combine_groups({
-      { hl = mode_hl,                  strings = { mode } },
-      { hl = 'MiniStatuslineDevinfo',  strings = { git, diff, diagnostics, lsp } },
-      '%<', -- Mark general truncate point
-      { hl = 'MiniStatuslineFilename', strings = { filename } },
-      '%=', -- End left alignment
-      { hl = mode_hl,                  strings = { search, location } },
-    })
-  end
-  }
-}
-
-add {
-  source = "nvim-treesitter/nvim-treesitter",
-  hooks = {
-    post_checkout = function()
-      vim.cmd ":TSUpdate"
-    end,
-  },
-}
-require("nvim-treesitter.configs").setup {
-  ensure_installed = "all",
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-    disable = { "json" },
-  },
-  indent = { enable = true },
-  autotag = { enable = true },
-}
-add "nvim-treesitter/nvim-treesitter-context"
-add "nvim-treesitter/nvim-treesitter-textobjects"
-require("treesitter-context").setup { multiline_threshold = 2 }
-require("nvim-treesitter.configs").setup {
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-      },
-    },
-  },
-}
-require("mini.notify").setup()
-
--- NAVIGATION
-add { source = "ThePrimeagen/harpoon", checkout = "harpoon2", depends = {"nvim-lua/plenary.nvim"} }
-local harpoon = require "harpoon"
-harpoon.setup { settings = { save_on_toggle = true } }
-map("n", "<m-r>", function()
-  harpoon:list():select(1)
-end)
-map("n", "<m-e>", function()
-  harpoon:list():select(2)
-end)
-map("n", "<m-w>", function()
-  harpoon:list():select(3)
-end)
-map("n", "<m-q>", function()
-  harpoon:list():select(4)
-end)
-map("n", "<m-t>", function()
-  harpoon:list():select(5)
-end)
-map("n", "<leader>a", function()
-  harpoon:list():add()
-end)
-map("n", "<leader>e", function()
-  harpoon.ui:toggle_quick_menu(harpoon:list())
-end)
-
-local pick = require "mini.pick"
-pick.setup()
-map("n", "<leader>ff", pick.builtin.files)
-map("n", "<leader>fs", pick.builtin.grep_live)
-
-local files = require "mini.files"
-files.setup()
-map("n", "<leader>fo", files.open)
-
--- LSP
-vim.diagnostic.config {
-  virtual_text = {
-    prefix = "",
-    suffix = "",
-  },
-  update_in_insert = false,
-  underline = true,
-  severity_sort = true,
-  float = {
-    border = "rounded",
-    source = true,
-    header = "",
-    prefix = "",
-  },
-  signs = {
-    text = {
-      [vim.diagnostic.severity.HINT] = "󱐮",
-      [vim.diagnostic.severity.ERROR] = "✘",
-      [vim.diagnostic.severity.INFO] = "◉",
-      [vim.diagnostic.severity.WARN] = "",
-    },
-  },
-}
--- local lspconfig = require "lspconfig"
--- local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
--- local cmp = require "cmp"
--- local select_opts = { behavior = cmp.SelectBehavior.Select }
---
--- cmp.setup {
---   snippet = {
---     expand = function(args)
---       vim.snippet.expand(args.body)
---     end,
---   },
---   window = { documentation = cmp.config.window.bordered() },
---   mapping = cmp.mapping.preset.insert {
---     ["<c-p>"] = cmp.config.disable,
---     ["<c-f>"] = cmp.config.disable,
---     ["<c-b>"] = cmp.config.disable,
---     ["<c-j>"] = cmp.mapping.select_next_item(select_opts),
---     ["<c-k>"] = cmp.mapping.select_prev_item(select_opts),
---     ["<c-l>"] = cmp.mapping.confirm { select = true },
---     ["<c-n>"] = cmp.mapping(cmp.mapping.scroll_docs(-4)),
---     ["<c-m>"] = cmp.mapping(cmp.mapping.scroll_docs(4)),
---     -- ["<Del>"] = cmp.mapping(function(fallback)
---     --     if luasnip.expand_or_jumpable() then
---     --         luasnip.expand_or_jump()
---     --     else
---     --         fallback()
---     --     end
---     -- end, { "i", "s" }),
---     -- ["<Tab>"] = cmp.mapping(function(fallback)
---     --     if luasnip.jumpable(-1) then
---     --         luasnip.jump(-1)
---     --     else
---     --         fallback()
---     --     end
---     -- end, { "i", "s" }),
---   },
---   enabled = function()
---     return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
---   end,
---   formatting = {
---     format = function(entry, vim_item)
---       local kind = require("lspkind").cmp_format {
---         mode = "symbol_text",
---         maxwidth = 40,
---       }(entry, vim_item)
---       local strings = vim.split(kind.kind, "%s", { trimempty = true })
---       kind.kind = " " .. (strings[1] or "") .. " "
---       -- kind.menu = "    (" .. (strings[2] or "") .. ")"
---       kind.menu = ""
---       return kind
---     end,
---   },
---   sources = {
---     { name = "path" },
---     { name = "nvim_lsp", keyword_length = 1 },
---     { name = "buffer", keyword_length = 3 },
---     -- { name = "luasnip" },
---     { name = "nvim_lsp_signature_help" },
---     { name = "otter" },
---     { name = "neorg" },
---   },
--- }
--- local cmp_cmdline_mappings = {
---   ["<c-p>"] = cmp.config.disable,
---   ["<c-j>"] = {
---     c = function(fallback)
---       if cmp.visible() then
---         cmp.select_next_item()
---       else
---         fallback()
---       end
---     end,
---   },
---   ["<c-k>"] = {
---     c = function(fallback)
---       if cmp.visible() then
---         cmp.select_prev_item()
---       else
---         fallback()
---       end
---     end,
---   },
--- }
--- cmp.setup.cmdline({ "/", "?" }, {
---   mapping = cmp.mapping.preset.cmdline(cmp_cmdline_mappings),
---   sources = { { name = "buffer" } },
--- })
--- cmp.setup.cmdline(":", {
---   mapping = cmp.mapping.preset.cmdline(cmp_cmdline_mappings),
---   sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
--- })
--- vim.lsp.handlers["textDocument/hover"] =
---   vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
---
--- lspconfig.bashls.setup { capabilities = lsp_capabilities }
--- lspconfig.rust_analyzer.setup { capabilities = lsp_capabilities }
--- lspconfig.dockerls.setup { capabilities = lsp_capabilities }
--- lspconfig.gopls.setup { capabilities = lsp_capabilities }
--- lspconfig.hyprls.setup { capabilities = lsp_capabilities }
--- lspconfig.marksman.setup { capabilities = lsp_capabilities }
--- lspconfig.tsserver.setup { capabilities = lsp_capabilities }
--- lspconfig.ruff.setup { capabilities = lsp_capabilities }
--- lspconfig.pyright.setup {
---   capabilities = lsp_capabilities,
---   on_new_config = function(config, root_dir)
---     local env = vim.trim(
---       vim.fn.system(
---         'cd "'
---           .. (root_dir or ".")
---           .. '"; poetry env info --executable 2>/dev/null'
---       )
---     )
---     if string.len(env) > 0 then
---       config.settings.python.pythonPath = env
---     end
---   end,
--- }
--- lspconfig.lua_ls.setup {
---   capabilities = lsp_capabilities,
---   settings = {
---     Lua = {
---       runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
---       diagnostics = { globals = { "vim" } },
---       workspace = {
---         library = {
---           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
---           [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
---         },
---       },
---     },
---   },
--- }
--- lspconfig.clangd.setup { capabilities = lsp_capabilities }
--- lspconfig.cmake.setup { capabilities = lsp_capabilities }
--- lspconfig.nil_ls.setup { capabilities = lsp_capabilities }
--- lspconfig.zls.setup { capabilities = lsp_capabilities }
---
--- vim.lsp.handlers["textDocument/hover"] =
---   vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
---
--- kmap("n", "gl", vim.diagnostic.open_float)
--- kmap("n", "]d", function()
---   vim.diagnostic.goto_next { float = true }
--- end)
--- kmap("n", "[d", function()
---   vim.diagnostic.goto_prev { float = true }
--- end)
---
--- vim.api.nvim_create_autocmd("LspAttach", {
---   desc = "LSP actions",
---   callback = function(e)
---     kmap("n", "K", vim.lsp.buf.hover, { buffer = e.buf })
---     kmap("n", "gd", vim.lsp.buf.definition, { buffer = e.buf })
---     kmap("n", "gD", vim.lsp.buf.declaration, { buffer = e.buf })
---     kmap("n", "gi", vim.lsp.buf.implementation, { buffer = e.buf })
---     kmap("n", "go", vim.lsp.buf.type_definition, { buffer = e.buf })
---     kmap("n", "gr", ":Trouble lsp_references toggle<cr>", { buffer = e.buf })
---     kmap("n", "gs", vim.lsp.buf.signature_help, { buffer = e.buf })
---     kmap("n", "<leader>R", vim.lsp.buf.rename, { buffer = e.buf })
---     kmap("n", "<leader>A", vim.lsp.buf.code_action, { buffer = e.buf })
---     kmap(
---       "n",
---       "<leader>td",
---       ":Trouble diagnostics toggle<cr>",
---       { buffer = e.buf }
---     )
---     kmap(
---       "n",
---       "<leader>te",
---       ":Trouble diagnostics toggle filter.severity=vim.diagnostic.severity.ERROR<cr>",
---       { buffer = e.buf }
---     )
---     kmap("n", "<F8>", function()
---       vim.lsp.buf.format { async = false }
---     end, { buffer = e.buf })
---   end,
--- })
-
--- KEYMAPS
-
-map("n", "s", "<Plug>(leap)")
 map("n", "Q", "<nop>")
 map("n", "<esc>", ":noh<cr>")
 map("t", "jk", "<c-\\><c-n>")
+map("i", "jk", "<esc>")
 
 map("v", "P", [["_dP]])
 map({ "n", "x", "v" }, "x", [["_x]])
@@ -497,3 +121,411 @@ map("n", "<leader>C", function()
     return vim.cmd "copen"
   end
 end)
+
+-- AUTOCMDS
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
+  pattern = "*",
+})
+vim.api.nvim_create_autocmd("FocusGained", { command = "checktime" })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "fugitive", "git", "help", "lspinfo", "man", "query", "vim" },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.keymap.set(
+      "n",
+      "q",
+      "<cmd>close<cr>",
+      { buffer = event.buf, silent = true }
+    )
+  end,
+})
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  pattern = { "*.rs" },
+  callback = function()
+    vim.lsp.buf.format { async = false }
+  end,
+})
+
+local path_package = vim.fn.stdpath "data" .. "/site/"
+local mini_path = path_package .. "pack/deps/start/mini.nvim"
+if not vim.loop.fs_stat(mini_path) then
+  vim.cmd 'echo "Installing `mini.nvim`" | redraw'
+  local clone_cmd = {
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/echasnovski/mini.nvim",
+    mini_path,
+  }
+  vim.fn.system(clone_cmd)
+  vim.cmd "packadd mini.nvim | helptags ALL"
+  vim.cmd 'echo "Installed `mini.nvim`" | redraw'
+end
+
+-- Set up 'mini.deps' (customize to your liking)
+require("mini.deps").setup { path = { package = path_package } }
+local add = MiniDeps.add
+
+-- COLORS / UI / TREESITTER
+add "vague2k/vague.nvim"
+require("vague").setup { transparent = false }
+vim.cmd.colorscheme "vague"
+
+require("mini.git").setup {}
+require("mini.diff").setup {
+  view = {
+    style = "sign",
+    signs = { add = "|", change = "|", delete = "|" },
+  },
+}
+require("mini.icons").setup {}
+require("mini.statusline").setup {
+  content = {
+    active = function()
+      local st = require "mini.statusline"
+      local mode, mode_hl = st.section_mode { trunc_width = 120 }
+      local git = st.section_git { trunc_width = 40 }
+      local diff = st.section_diff { trunc_width = 75 }
+      local diagnostics = st.section_diagnostics { trunc_width = 75 }
+      local filename = st.section_filename { trunc_width = 140 }
+      local location = st.section_location { trunc_width = 75 }
+      local search = st.section_searchcount { trunc_width = 75 }
+
+      return st.combine_groups {
+        { hl = mode_hl, strings = { mode } },
+        { hl = "MiniStatuslineDevinfo", strings = { git, diff } },
+        "%<", -- Mark general truncate point
+        { hl = "MiniStatuslineFilename", strings = { filename } },
+        "%=", -- End left alignment
+        { hl = "MiniStatuslineDevinfo", strings = { diagnostics } },
+        { hl = mode_hl, strings = { search, location } },
+      }
+    end,
+  },
+}
+
+add {
+  source = "nvim-treesitter/nvim-treesitter",
+  hooks = {
+    post_checkout = function()
+      vim.cmd ":TSUpdate"
+    end,
+  },
+}
+require("nvim-treesitter.configs").setup {
+  ensure_installed = "all",
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+    disable = { "json" },
+  },
+  indent = { enable = true },
+  autotag = { enable = true },
+}
+add "nvim-treesitter/nvim-treesitter-context"
+add "nvim-treesitter/nvim-treesitter-textobjects"
+require("treesitter-context").setup { multiline_threshold = 2 }
+require("nvim-treesitter.configs").setup {
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+  },
+}
+require("mini.notify").setup()
+
+-- NAVIGATION
+add {
+  source = "ThePrimeagen/harpoon",
+  checkout = "harpoon2",
+  depends = { "nvim-lua/plenary.nvim" },
+}
+local harpoon = require "harpoon"
+harpoon.setup { settings = { save_on_toggle = true } }
+map("n", "<m-r>", function()
+  harpoon:list():select(1)
+end)
+map("n", "<m-e>", function()
+  harpoon:list():select(2)
+end)
+map("n", "<m-w>", function()
+  harpoon:list():select(3)
+end)
+map("n", "<m-q>", function()
+  harpoon:list():select(4)
+end)
+map("n", "<m-t>", function()
+  harpoon:list():select(5)
+end)
+map("n", "<leader>a", function()
+  harpoon:list():add()
+end)
+map("n", "<leader>e", function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
+
+local pick = require "mini.pick"
+pick.setup()
+map("n", "<leader>ff", pick.builtin.files)
+map("n", "<leader>fs", pick.builtin.grep_live)
+map("n", "<m-s>", function()
+  miniextra.pickers.visit_paths { filter = "todo" }
+end)
+
+map("n", "<m-a>", function()
+  minivisits.add_label "todo"
+end)
+
+map("n", "<m-A>", function()
+  minivisits.remove_label()
+end)
+
+map("n", "<leader>gc", function()
+  miniextra.pickers.git_commits()
+end)
+
+map("n", "<leader>gh", function()
+  miniextra.pickers.git_hunks()
+end)
+
+map("n", "<leader>dp", function()
+  miniextra.pickers.diagnostic()
+end)
+
+local files = require "mini.files"
+files.setup()
+map("n", "<leader>fo", files.open)
+
+-- LSP
+vim.diagnostic.config {
+  virtual_text = {
+    prefix = "",
+    suffix = "",
+  },
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
+  float = {
+    border = "rounded",
+    source = true,
+    header = "",
+    prefix = "",
+  },
+}
+
+add "neovim/nvim-lspconfig"
+add "hrsh7th/nvim-cmp"
+add "hrsh7th/cmp-nvim-lsp"
+add "hrsh7th/cmp-path"
+add "hrsh7th/cmp-buffer"
+add "hrsh7th/cmp-cmdline"
+add "onsails/lspkind.nvim"
+add "jmbuhr/otter.nvim"
+
+local lspconfig = require "lspconfig"
+local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+local cmp = require "cmp"
+local select_opts = { behavior = cmp.SelectBehavior.Select }
+
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      vim.snippet.expand(args.body)
+    end,
+  },
+  window = { documentation = cmp.config.window.bordered() },
+  mapping = cmp.mapping.preset.insert {
+    ["<c-p>"] = cmp.config.disable,
+    ["<c-f>"] = cmp.config.disable,
+    ["<c-b>"] = cmp.config.disable,
+    ["<c-j>"] = cmp.mapping.select_next_item(select_opts),
+    ["<c-k>"] = cmp.mapping.select_prev_item(select_opts),
+    ["<c-l>"] = cmp.mapping.confirm { select = true },
+    ["<c-n>"] = cmp.mapping(cmp.mapping.scroll_docs(-4)),
+    ["<c-m>"] = cmp.mapping(cmp.mapping.scroll_docs(4)),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if vim.snippet.active { direction = 1 } then
+        return "<cmd>lua vim.snippet.jump(1)<cr>"
+      else
+        return "<Tab>"
+      end
+    end, { "i", "s" }),
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if vim.snippet.active { direction = -1 } then
+        return "<cmd>lua vim.snippet.jump(-1)<cr>"
+      else
+        return "<S-Tab>"
+      end
+    end, { "i", "s" }),
+  },
+  enabled = function()
+    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+  end,
+  formatting = {
+    format = function(entry, vim_item)
+      local kind = require("lspkind").cmp_format {
+        mode = "symbol_text",
+        maxwidth = 40,
+      }(entry, vim_item)
+      local strings = vim.split(kind.kind, "%s", { trimempty = true })
+      kind.kind = " " .. (strings[1] or "") .. " "
+      kind.menu = ""
+      return kind
+    end,
+  },
+  sources = {
+    { name = "path" },
+    { name = "nvim_lsp", keyword_length = 1 },
+    { name = "buffer", keyword_length = 3 },
+    { name = "nvim_lsp_signature_help" },
+    { name = "otter" },
+  },
+}
+local cmp_cmdline_mappings = {
+  ["<c-p>"] = cmp.config.disable,
+  ["<c-j>"] = {
+    c = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end,
+  },
+  ["<c-k>"] = {
+    c = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end,
+  },
+}
+cmp.setup.cmdline({ "/", "?" }, {
+  mapping = cmp.mapping.preset.cmdline(cmp_cmdline_mappings),
+  sources = { { name = "buffer" } },
+})
+cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(cmp_cmdline_mappings),
+  sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+})
+
+local lsp_servers = {
+  "bashls",
+  "rust_analyzer",
+  "dockerls",
+  "gopls",
+  "hyprls",
+  "marksman",
+  "tsserver",
+  "ruff",
+  "clangd",
+  "cmake",
+  "nil_ls",
+  "zls",
+}
+for _, s in ipairs(lsp_servers) do
+  lspconfig[s].setup { capabilities = lsp_capabilities }
+end
+
+vim.lsp.handlers["textDocument/hover"] =
+  vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+
+lspconfig.pyright.setup {
+  capabilities = lsp_capabilities,
+  on_new_config = function(config, root_dir)
+    local env = vim.trim(
+      vim.fn.system(
+        'cd "'
+          .. (root_dir or ".")
+          .. '"; poetry env info --executable 2>/dev/null'
+      )
+    )
+    if string.len(env) > 0 then
+      config.settings.python.pythonPath = env
+    end
+  end,
+}
+lspconfig.lua_ls.setup {
+  capabilities = lsp_capabilities,
+  cmd = { "lua-lsp" },
+  settings = {
+    Lua = {
+      runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
+      diagnostics = { globals = { "vim" } },
+      workspace = {
+        library = {
+          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+        },
+      },
+    },
+  },
+}
+
+map("n", "gl", vim.diagnostic.open_float)
+map("n", "]d", function()
+  vim.diagnostic.goto_next { float = true }
+end)
+map("n", "[d", function()
+  vim.diagnostic.goto_prev { float = true }
+end)
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  desc = "LSP actions",
+  callback = function(e)
+    vim.bo[e.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+    map("n", "[d", function()
+      vim.diagnostic.goto_prev { float = false }
+    end)
+
+    map("n", "]d", function()
+      vim.diagnostic.goto_next { float = false }
+    end)
+    map("n", "<leader>sd", vim.diagnostic.setloclist)
+
+    map("n", "<leader>hi", function()
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    end)
+
+    map("n", "K", vim.lsp.buf.hover)
+    map("n", "<leader>df", function()
+      vim.diagnostic.open_float()
+    end)
+    map("n", "<leader>d", vim.lsp.buf.definition)
+    map("n", "<leader>lh", vim.lsp.buf.declaration)
+    map("n", "<leader>lt", vim.lsp.buf.type_definition)
+    map("n", "<leader>li", vim.lsp.buf.implementation)
+    map("n", "<leader>lr", vim.lsp.buf.references)
+    map({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action)
+    map("n", "<leader>lf", function()
+      vim.lsp.buf.format { async = true }
+    end)
+    map("n", "<leader>lc", vim.lsp.buf.rename)
+    map({ "i", "s" }, "<c-space>", vim.lsp.buf.signature_help)
+  end,
+})
+
+-- NONE LS
+add "nvimtools/none-ls.nvim"
+local null_ls = require "null-ls"
+null_ls.setup {
+  sources = {
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.completion.spell,
+  },
+}
+
+-- DAP

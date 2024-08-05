@@ -12,7 +12,6 @@ function M.config()
       "cmakelint",
       "clang-format",
 
-      "gopls",
       "golangci-lint",
       "gofumpt",
 
@@ -24,8 +23,6 @@ function M.config()
       "jq",
       "hadolint",
       "yamllint",
-
-      "hyprls",
 
       "bash-language-server",
       "shfmt",

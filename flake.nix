@@ -114,6 +114,8 @@
           pkgs.nil
           pkgs.statix
           pkgs.alejandra
+          pkgs.luajitPackages.lua-lsp
+          pkgs.stylua
           pkgs.home-manager
         ];
       };
