@@ -166,46 +166,29 @@ lspconfig.lua_ls.setup {
   },
 }
 
-map("n", "gl", vim.diagnostic.open_float)
-map("n", "]d", function()
-  vim.diagnostic.goto_next { float = true }
-end)
-map("n", "[d", function()
-  vim.diagnostic.goto_prev { float = true }
-end)
-
+map("n", "gl", vim.diagnostic.open_float, "open float")
+map("n", "]d", vim.diagnostic.goto_next, "next diag")
+map("n", "[d", vim.diagnostic.goto_prev, "prev diag")
+map("n", "<leader>fd", require("mini.extra").pickers.diagnostic, "pick diags")
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "LSP actions",
   callback = function(e)
     vim.bo[e.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-    map("n", "[d", function()
-      vim.diagnostic.goto_prev { float = false }
-    end)
-
-    map("n", "]d", function()
-      vim.diagnostic.goto_next { float = false }
-    end)
-    map("n", "<leader>sd", vim.diagnostic.setloclist)
+    map("n", "<leader>sd", vim.diagnostic.setloclist, "setloclist to diags")
 
     map("n", "<leader>hi", function()
       vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-    end)
+    end, "toggle inlay hints")
 
-    map("n", "K", vim.lsp.buf.hover)
-    map("n", "<leader>df", function()
-      vim.diagnostic.open_float()
-    end)
-    map("n", "<leader>d", vim.lsp.buf.definition)
-    map("n", "<leader>D", ":Pick diagnostic<cr>")
-    map("n", "<leader>lh", vim.lsp.buf.declaration)
-    map("n", "<leader>lt", vim.lsp.buf.type_definition)
-    map("n", "<leader>li", vim.lsp.buf.implementation)
-    map("n", "<leader>lr", ":Pick lsp scope='references'<cr>")
-    map({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action)
-    map("n", "<leader>lf", function()
-      vim.lsp.buf.format { async = true }
-    end)
-    map("n", "<leader>lc", vim.lsp.buf.rename)
-    map({ "i", "s" }, "<c-space>", vim.lsp.buf.signature_help)
+    map("n", "K", vim.lsp.buf.hover, "lsp hover")
+    map("n", "<leader>d", vim.lsp.buf.definition, "goto definition")
+    map("n", "<leader>lh", vim.lsp.buf.declaration, "goto declaration")
+    map("n", "<leader>lt", vim.lsp.buf.type_definition, "goto type def")
+    map("n", "<leader>li", vim.lsp.buf.implementation, "goto implementation")
+    map("n", "<leader>lr", ":Pick lsp scope='references'<cr>", "pick references")
+    map({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, "code actions")
+    map("n", "<leader>lf", vim.lsp.buf.format, "lsp format")
+    map("n", "<leader>lc", vim.lsp.buf.rename, "lsp rename")
+    map({ "i", "s" }, "<c-space>", vim.lsp.buf.signature_help, "toggle sig help")
   end,
 })

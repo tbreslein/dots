@@ -1,12 +1,16 @@
 -- TODO:
 -- [ ] configure DAP
 
-function map(mode, keys, action, opts)
+function map(mode, keys, action, desc, opts)
   vim.keymap.set(
     mode,
     keys,
     action,
-    vim.tbl_extend("keep", opts or {}, { noremap = true, silent = true })
+    vim.tbl_extend(
+      "keep",
+      opts or {},
+      { noremap = true, silent = true, desc = desc }
+    )
   )
 end
 

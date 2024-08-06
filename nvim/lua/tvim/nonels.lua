@@ -2,6 +2,7 @@ add {
   source = "nvimtools/none-ls.nvim",
   depends = { "nvimtools/none-ls-extras.nvim" },
 }
+
 local null_ls = require "null-ls"
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup {
@@ -10,8 +11,6 @@ null_ls.setup {
     require("none-ls.code_actions.eslint").with {
       prefer_local = "node_modules/.bin",
     },
-
-    null_ls.builtins.completion.spell,
 
     require("none-ls.diagnostics.eslint").with {
       prefer_local = "node_modules/.bin",
