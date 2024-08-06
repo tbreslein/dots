@@ -27,6 +27,16 @@ add {
   },
 }
 
+add {
+  source = "folke/lazydev.nvim",
+  depends = { "Bilal2453/luvit-meta" },
+}
+
+require("lazydev").setup {
+  library = { path = "luvit-meta/library", words = { "vim%.uv" } },
+}
+vim.g.lazydev_enabled = true
+
 local lspconfig = require "lspconfig"
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local cmp = require "cmp"
@@ -78,11 +88,13 @@ cmp.setup {
   sources = {
     { name = "path" },
     { name = "nvim_lsp", keyword_length = 1 },
-    { name = "buffer", keyword_length = 3 },
     { name = "nvim_lsp_signature_help" },
+    { name = "lazydev", group_index = 0 },
+    { name = "buffer", keyword_length = 3 },
     { name = "otter" },
   },
 }
+
 local cmp_cmdline_mappings = {
   ["<c-p>"] = cmp.config.disable,
   ["<c-j>"] = {
@@ -181,14 +193,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, "toggle inlay hints")
 
     map("n", "K", vim.lsp.buf.hover, "lsp hover")
-    map("n", "<leader>d", vim.lsp.buf.definition, "goto definition")
+    map("n", "<leader>ld", vim.lsp.buf.definition, "goto definition")
     map("n", "<leader>lh", vim.lsp.buf.declaration, "goto declaration")
     map("n", "<leader>lt", vim.lsp.buf.type_definition, "goto type def")
     map("n", "<leader>li", vim.lsp.buf.implementation, "goto implementation")
-    map("n", "<leader>lr", ":Pick lsp scope='references'<cr>", "pick references")
+    map(
+      "n",
+      "<leader>lr",
+      ":Pick lsp scope='references'<cr>",
+      "pick references"
+    )
     map({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, "code actions")
     map("n", "<leader>lf", vim.lsp.buf.format, "lsp format")
     map("n", "<leader>lc", vim.lsp.buf.rename, "lsp rename")
-    map({ "i", "s" }, "<c-space>", vim.lsp.buf.signature_help, "toggle sig help")
+    map(
+      { "i", "s" },
+      "<c-space>",
+      vim.lsp.buf.signature_help,
+      "toggle sig help"
+    )
   end,
 })

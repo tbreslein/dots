@@ -44,4 +44,5 @@ MiniDeps.later(function()
   require "tvim.navigation"
   require "tvim.lsp"
   require "tvim.nonels"
+  require "tvim.dap"
 end)
