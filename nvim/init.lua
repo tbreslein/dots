@@ -1,6 +1,7 @@
 -- TODO:
 -- [ ] configure DAP
 
+vim.loader.enable()
 function map(mode, keys, action, desc, opts)
   vim.keymap.set(
     mode,
@@ -13,9 +14,6 @@ function map(mode, keys, action, desc, opts)
     )
   )
 end
-
-require "tvim.vimsettings"
-require "tvim.keymaps"
 
 local path_package = vim.fn.stdpath "data" .. "/site/"
 local mini_path = path_package .. "pack/deps/start/mini.nvim"
@@ -32,13 +30,18 @@ if not vim.loop.fs_stat(mini_path) then
   vim.cmd "packadd mini.nvim | helptags ALL"
   vim.cmd 'echo "Installed `mini.nvim`" | redraw'
 end
-
--- Set up 'mini.deps' (customize to your liking)
 require("mini.deps").setup { path = { package = path_package } }
 add = MiniDeps.add
-require("mini.extra").setup {}
 
-require "tvim.ui"
-require "tvim.navigation"
-require "tvim.lsp"
-require "tvim.nonels"
+MiniDeps.now(function()
+  require("mini.extra").setup {}
+  require "tvim.vimsettings"
+  require "tvim.keymaps"
+  require "tvim.ui"
+end)
+
+MiniDeps.later(function()
+  require "tvim.navigation"
+  require "tvim.lsp"
+  require "tvim.nonels"
+end)
