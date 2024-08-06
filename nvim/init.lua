@@ -1,6 +1,3 @@
--- TODO:
--- [ ] configure DAP
-
 vim.loader.enable()
 function map(mode, keys, action, desc, opts)
   vim.keymap.set(

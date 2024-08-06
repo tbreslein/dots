@@ -9,7 +9,46 @@ add {
 }
 local dap, dapui = require "dap", require "dapui"
 
-dapui.setup {}
+dapui.setup {
+  layouts = {
+    {
+      elements = {
+        {
+          id = "scopes",
+          size = 0.5,
+        },
+        {
+          id = "breakpoints",
+          size = 0.5,
+        },
+        {
+          id = "stacks",
+          size = 0.5,
+        },
+        {
+          id = "watches",
+          size = 0.5,
+        },
+      },
+      position = "left",
+      size = 40,
+    },
+    {
+      elements = {
+        {
+          id = "repl",
+          size = 0.5,
+        },
+        {
+          id = "console",
+          size = 0.5,
+        },
+      },
+      position = "bottom",
+      size = 10,
+    },
+  },
+}
 dap.listeners.before.attach.dapui_config = function()
   dapui.open()
 end
@@ -41,71 +80,39 @@ map("n", "<leader>dt", function()
 end, "dap run test")
 
 dap.adapters.lldb = {
-  type = "executable",
-  command = "/usr/bin/lldb-vscode", -- adjust as needed, must be absolute path
-  name = "lldb",
-}
-dap.configurations.cpp = {
-  {
-    name = "Launch",
-    type = "lldb",
-    request = "launch",
-    program = function()
-      return vim.fn.input(
-        "Path to executable: ",
-        vim.fn.getcwd() .. "/",
-        "file"
-      )
-    end,
-    cwd = "${workspaceFolder}",
-    stopOnEntry = false,
-    args = {},
+  type = "server",
+  port = "13000",
+  executable = {
+    command = vim.fn.expand "$HOME/Downloads/extension/adapter/codelldb",
+    args = { "--port", "13000" },
   },
 }
-dap.configurations.c = dap.configurations.cpp
-
 dap.configurations.rust = {
   {
-    name = "Launch",
+    name = "main",
     type = "lldb",
     request = "launch",
     program = function()
-      return vim.fn.input(
-        "Path to executable: ",
-        vim.fn.getcwd() .. "/",
-        "file"
-      )
+      local function endswith(str, ending)
+        return ending == "" or str:sub(-#ending) == ending
+      end
+
+      if vim.bo.filetype ~= "rust" then
+        return "not a rust file"
+      end
+
+      local curdir = vim.fn.expand "%:p"
+
+      while endswith(curdir, "/src") ~= false do
+        curdir = vim.fn.fnamemodify(curdir, ":h")
+      end
+      curdir = vim.fn.fnamemodify(curdir, ":h:h")
+      local proj_name = vim.fn.fnamemodify(curdir, ":t")
+      os.execute("cd " .. curdir .. " && cargo build >/dev/null 2>&1")
+      return curdir .. "/target/debug/" .. proj_name
     end,
     cwd = "${workspaceFolder}",
     stopOnEntry = false,
-    args = {},
-    initCommands = function()
-      -- Find out where to look for the pretty printer Python module
-      local rustc_sysroot = vim.fn.trim(vim.fn.system "rustc --print sysroot")
-
-      local script_import = 'command script import "'
-        .. rustc_sysroot
-        .. '/lib/rustlib/etc/lldb_lookup.py"'
-      local commands_file = rustc_sysroot .. "/lib/rustlib/etc/lldb_commands"
-
-      local commands = {}
-      local file = io.open(commands_file, "r")
-      if file then
-        for line in file:lines() do
-          table.insert(commands, line)
-        end
-        file:close()
-      end
-      table.insert(commands, 1, script_import)
-
-      return commands
-    end,
-    env = function()
-      local variables = {}
-      for k, v in pairs(vim.fn.environ()) do
-        table.insert(variables, string.format("%s=%s", k, v))
-      end
-      return variables
-    end,
   },
 }
+dap.set_log_level "TRACE"
