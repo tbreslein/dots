@@ -193,7 +193,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, "toggle inlay hints")
 
     map("n", "K", vim.lsp.buf.hover, "lsp hover")
-    map("n", "<leader>ld", vim.lsp.buf.definition, "goto definition")
+    map("n", "gd", vim.lsp.buf.definition, "goto definition")
     map("n", "<leader>lh", vim.lsp.buf.declaration, "goto declaration")
     map("n", "<leader>lt", vim.lsp.buf.type_definition, "goto type def")
     map("n", "<leader>li", vim.lsp.buf.implementation, "goto implementation")
