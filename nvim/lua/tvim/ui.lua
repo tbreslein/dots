@@ -75,31 +75,6 @@ require("lualine").setup {
   },
 }
 
--- require("mini.statusline").setup {
---   content = {
---     active = function()
---       local st = require "mini.statusline"
---       local mode, mode_hl = st.section_mode { trunc_width = 120 }
---       local git = st.section_git { trunc_width = 40 }
---       local diff = st.section_diff { trunc_width = 75 }
---       local diagnostics = st.section_diagnostics { trunc_width = 75 }
---       local filename = st.section_filename { trunc_width = 140 }
---       local location = st.section_location { trunc_width = 75 }
---       local search = st.section_searchcount { trunc_width = 75 }
---
---       return st.combine_groups {
---         { hl = mode_hl, strings = { mode } },
---         { hl = "MiniStatuslineDevinfo", strings = { git, diff } },
---         "%<", -- Mark general truncate point
---         { hl = "MiniStatuslineFilename", strings = { filename } },
---         "%=", -- End left alignment
---         { hl = "MiniStatuslineDevinfo", strings = { diagnostics } },
---         { hl = mode_hl, strings = { search, location } },
---       }
---     end,
---   },
--- }
-
 add {
   source = "nvim-treesitter/nvim-treesitter",
   hooks = {
@@ -149,18 +124,7 @@ require("markview").setup {
 add "akinsho/toggleterm.nvim"
 local toggleterm = require "toggleterm"
 toggleterm.setup {}
-map(
-  "n",
-  "<leader>tj",
-  ":ToggleTerm size=20 direction=horizontal<cr>",
-  "toggleterm horizontal"
-)
-map(
-  "n",
-  "<leader>tl",
-  ":ToggleTerm size=100 direction=vertical<cr>",
-  "toggleterm vertical"
-)
+map("n", "<leader>tt", ":ToggleTerm size=20<cr>", "toggleterm")
 
 add "shortcuts/no-neck-pain.nvim"
 map("n", "<leader>zz", ":NoNeckPain<cr>", "toggle no-neck-pain")
