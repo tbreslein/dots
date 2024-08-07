@@ -181,7 +181,7 @@ lspconfig.lua_ls.setup {
 map("n", "gl", vim.diagnostic.open_float, "open float")
 map("n", "]d", vim.diagnostic.goto_next, "next diag")
 map("n", "[d", vim.diagnostic.goto_prev, "prev diag")
-map("n", "<leader>fd", require("mini.extra").pickers.diagnostic, "pick diags")
+map("n", "<leader>fd", ":FzfLua diagnostics_workspace", "pick diags")
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "LSP actions",
   callback = function(e)
@@ -197,12 +197,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "<leader>lh", vim.lsp.buf.declaration, "goto declaration")
     map("n", "<leader>lt", vim.lsp.buf.type_definition, "goto type def")
     map("n", "<leader>li", vim.lsp.buf.implementation, "goto implementation")
-    map(
-      "n",
-      "<leader>lr",
-      ":Pick lsp scope='references'<cr>",
-      "pick references"
-    )
+    map("n", "<leader>lr", ":FzfLua lsp_references<cr>", "pick references")
     map({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, "code actions")
     map("n", "<leader>lf", vim.lsp.buf.format, "lsp format")
     map("n", "<leader>lc", vim.lsp.buf.rename, "lsp rename")

@@ -1,17 +1,11 @@
--- add "sainnhe/gruvbox-material"
--- vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
--- vim.g.gruvbox_material_dim_inactive_windows = 1
--- vim.g.gruvbox_material_enable_bold = 1
--- vim.g.gruvbox_material_transparent_background = 1
--- vim.g.gruvbox_material_ui_contrast = "high"
--- vim.g.gruvbox_material_better_performance = 1
--- vim.cmd.colorscheme "gruvbox-material"
-
-add "slugbyte/lackluster.nvim"
-require("lackluster").setup {
-  tweak_syntax = { comment = "#444444" },
-}
-vim.cmd.colorscheme "lackluster-hack"
+add "sainnhe/gruvbox-material"
+vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
+vim.g.gruvbox_material_dim_inactive_windows = 1
+vim.g.gruvbox_material_enable_bold = 1
+vim.g.gruvbox_material_transparent_background = 1
+vim.g.gruvbox_material_ui_contrast = "high"
+vim.g.gruvbox_material_better_performance = 1
+vim.cmd.colorscheme "gruvbox-material"
 
 local hipatterns = require "mini.hipatterns"
 hipatterns.setup {
