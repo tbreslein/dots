@@ -34,30 +34,31 @@ map("n", "<leader>e", function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
 end, "harpoon toggle quick menu")
 
-local pick = require "mini.pick"
-pick.setup()
-map("n", "<leader>ff", pick.builtin.files, "pick files")
-map("n", "<leader>fs", pick.builtin.grep_live, "pick live grep")
+add {
+  source = "ibhagwan/fzf-lua",
+  depends = { "nvim-tree/nvim-web-devicons" },
+}
+local fzflua = require "fzf-lua"
+fzflua.setup {
+  winopts = {
+    preview = {
+      layout = "vertical",
+      vertical = "up:70%",
+    },
+  },
+}
 
-map("n", "<m-s>", function()
-  miniextra.pickers.visit_paths { filter = "todo" }
-end, "pick todo labels")
-
-map("n", "<m-a>", function()
-  minivisits.add_label "todo"
-end, "add todo label")
-
-map("n", "<m-A>", function()
-  minivisits.remove_label()
-end, "remove todo label")
-
-map("n", "<leader>gc", function()
-  miniextra.pickers.git_commits()
-end, "pick git commits")
-
-map("n", "<leader>gh", function()
-  miniextra.pickers.git_hunks()
-end, "pick git hunks")
+map("n", "<leader>ff", function()
+  vim.fn.system "git rev-parse --is-inside-work-tree"
+  if vim.v.shell_error == 0 then
+    fzflua.git_files()
+  else
+    fzflua.files()
+  end
+end, "fzf files")
+map("n", "<leader>fg", fzflua.git_files, "fzf git_files")
+map("n", "<leader>fs", fzflua.live_grep, "fzf live_grep")
+map("n", "<leader>gs", fzflua.git_branches, "fzf branches")
 
 local files = require "mini.files"
 files.setup()

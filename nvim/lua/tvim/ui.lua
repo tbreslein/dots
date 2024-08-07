@@ -7,14 +7,31 @@ vim.g.gruvbox_material_ui_contrast = "high"
 vim.g.gruvbox_material_better_performance = 1
 vim.cmd.colorscheme "gruvbox-material"
 
-require("mini.git").setup {}
+local hipatterns = require "mini.hipatterns"
+hipatterns.setup {
+  highlighters = { hex_color = hipatterns.gen_highlighter.hex_color() },
+}
+
+add {
+  source = "NeogitOrg/neogit",
+  depends = {
+    "nvim-lua/plenary.nvim",
+    "sindrets/diffview.nvim",
+    "ibhagwan/fzf-lua",
+  },
+}
+local neogit = require "neogit"
+neogit.setup {
+  integrations = { fzf_lua = true },
+}
+map("n", "<leader>gg", neogit.open, "neogit open")
 require("mini.diff").setup {
   view = {
     style = "sign",
     signs = { add = "|", change = "|", delete = "|" },
   },
 }
-require("mini.icons").setup {}
+
 require("mini.statusline").setup {
   content = {
     active = function()
@@ -38,11 +55,6 @@ require("mini.statusline").setup {
       }
     end,
   },
-}
-
-local hipatterns = require "mini.hipatterns"
-hipatterns.setup {
-  highlighters = { hex_color = hipatterns.gen_highlighter.hex_color() },
 }
 
 add {

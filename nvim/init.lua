@@ -31,7 +31,6 @@ require("mini.deps").setup { path = { package = path_package } }
 add = MiniDeps.add
 
 MiniDeps.now(function()
-  require("mini.extra").setup {}
   require "tvim.vimsettings"
   require "tvim.keymaps"
   require "tvim.ui"
