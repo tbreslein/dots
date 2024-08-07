@@ -41,4 +41,5 @@ MiniDeps.later(function()
   require "tvim.lsp"
   require "tvim.nonels"
   require "tvim.dap"
+  vim.cmd "NoNeckPain"
 end)
