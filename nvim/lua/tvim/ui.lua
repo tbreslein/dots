@@ -125,7 +125,8 @@ add "akinsho/toggleterm.nvim"
 local toggleterm = require "toggleterm"
 toggleterm.setup {}
 map("n", "<leader>tt", ":ToggleTerm size=20<cr>", "toggleterm")
+map("n", "<leader>te", ":TermExec cmd='!!'<cr>", "toggleterm")
 
 add "shortcuts/no-neck-pain.nvim"
-require("no-neck-pain").setup { width = 120 }
+require("no-neck-pain").setup { width = 140 }
 map("n", "<leader>zz", ":NoNeckPain<cr>", "toggle no-neck-pain")

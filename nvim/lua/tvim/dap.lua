@@ -65,6 +65,7 @@ end
 require("dap-python").setup "python"
 require("dap-go").setup {}
 
+map("n", "<leader>dt", dapui.toggle, "dapui toggle")
 map("n", "<leader>db", dap.toggle_breakpoint, "dap toggle breakpoint")
 map("n", "<leader>dl", dap.continue, "dap continue")
 map("n", "<leader>dj", dap.step_into, "dap step into")
