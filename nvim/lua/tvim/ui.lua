@@ -15,12 +15,14 @@ hipatterns.setup {
 add "tpope/vim-fugitive"
 map("n", "<leader>gg", ":Git<cr>4j", "Git")
 map("n", "<leader>ga", ":Git add .<cr>", "Git add .")
-map("n", "<leader>gc", ":Git commit<cr>", "Git add .")
+map("n", "<leader>gc", ":Git commit<cr>", "Git commit")
 map("n", "<leader>gC", function()
   vim.cmd "Git add ."
   vim.cmd "Git commit"
   vim.cmd "startinsert"
 end, "Git add . && Git commit")
+map("n", "<leader>gPP", ":Git push<cr>", "Git push")
+map("n", "<leader>gf", ":Git fetch<cr>", "Git fetch")
 
 require("mini.diff").setup {
   view = { style = "sign", signs = { add = "|", change = "|", delete = "|" } },
