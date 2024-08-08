@@ -12,24 +12,18 @@ hipatterns.setup {
   highlighters = { hex_color = hipatterns.gen_highlighter.hex_color() },
 }
 
-add {
-  source = "NeogitOrg/neogit",
-  depends = {
-    "nvim-lua/plenary.nvim",
-    "sindrets/diffview.nvim",
-    "ibhagwan/fzf-lua",
-  },
-}
-local neogit = require "neogit"
-neogit.setup {
-  integrations = { fzf_lua = true },
-}
-map("n", "<leader>gg", neogit.open, "neogit open")
+add "tpope/vim-fugitive"
+map("n", "<leader>gg", ":Git<cr>4j", "Git")
+map("n", "<leader>ga", ":Git add .<cr>", "Git add .")
+map("n", "<leader>gc", ":Git commit<cr>", "Git add .")
+map("n", "<leader>gC", function()
+  vim.cmd "Git add ."
+  vim.cmd "Git commit"
+  vim.cmd "startinsert"
+end, "Git add . && Git commit")
+
 require("mini.diff").setup {
-  view = {
-    style = "sign",
-    signs = { add = "|", change = "|", delete = "|" },
-  },
+  view = { style = "sign", signs = { add = "|", change = "|", delete = "|" } },
 }
 
 add {
