@@ -2,6 +2,7 @@ map("n", "Q", "<nop>", "")
 map("n", "<esc>", ":noh<cr>", "")
 map("t", "jk", "<c-\\><c-n>", "")
 map("i", "jk", "<esc>", "")
+map({ "n", "i" }, "<c-c><c-c>", "<esc>:wq<cr>", "")
 
 map("v", "P", [["_dP]], "")
 map({ "n", "x", "v" }, "x", [["_x]], "")
