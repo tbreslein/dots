@@ -52,7 +52,6 @@ in {
         mw = "make -C $HOME/work";
         hm = "home-manager --extra-experimental-features nix-command --extra-experimental-features flakes --flake $HOME/dots";
         rip_nvim = "rm -fr $HOME/.local/share/nvim/ $HOME/.local/state/nvim $HOME/.cache/nvim $HOME/dots/nvim/lazy-lock.json";
-        ft = "task --list | grep '^\*' | fzf | cut -d" " -f2 | awk '{ print substr($0, 1, length($0)-1) }'";
       };
       # activation = {
       #   syncRepos =
@@ -241,12 +240,10 @@ in {
 
                 git checkout $my_branch
             }
-
-            #eval "$(fzf --zsh)"
-            #export DIRENV_LOG_FORMAT=
-            #eval "$(direnv hook zsh)"
-            #eval "$(zoxide init zsh)"
-            #eval "$(starship init zsh)"
+            ft() {
+              selected_task=$(task --list | grep '^\\*' | fzf | cut -d" " -f2 | awk '{ print substr($0,1,length($0)-1) }')
+              task "$selected_task"
+            }
           '';
         profileExtra =
           /*
